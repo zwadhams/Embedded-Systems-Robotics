@@ -38,26 +38,31 @@ while robot.step(TIME_STEP) != -1:
     #Right following function
     #--------------------------#
     if (testRun == 1):
-        pass
-    
+        leftMotor.setVelocity(3)
+        rightMotor.setVelocity(2.3)
+        print(ps[0].getValue())
+        if (ps[0].getValue() > 200):
+            leftMotor.setVelocity(1)
+            rightMotor.setVelocity(2)
+            
     if not math.isnan(answer[0]):
         #print(answer)
         
         angle = (math.atan2(answer[0], answer[1]))
         #print(angle)
-        if angle < .77 and angle > -.82:
-            print("West")
-        elif angle < -0.82 and angle > -2.4:
-            print("North")
-        elif angle < -2.41 or angle > 2.44 :
-            print("East")
-        else:
-            print("South")
+##        if angle < .77 and angle > -.82:
+##            print("West")
+##        elif angle < -0.82 and angle > -2.4:
+##            print("North")
+##        elif angle < -2.41 or angle > 2.44 :
+##            print("East")
+##        else:
+##            print("South")
         
     else:
         print("Not")
 
-    print(leftE.getValue())
+    #print(leftE.getValue())
     # Read the sensors:
     # Enter here functions to read sensor data, like:
     #  val = ds.getValue()
@@ -69,4 +74,5 @@ while robot.step(TIME_STEP) != -1:
     pass
 
 # Enter here exit cleanup code.
+
 
