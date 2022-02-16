@@ -1,3 +1,3 @@
 # Embedded-Systems-Robotics
 
-##We are group #24
+We are group #24
