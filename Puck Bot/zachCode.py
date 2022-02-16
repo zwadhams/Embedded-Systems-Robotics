@@ -12,8 +12,8 @@ rightMotor = robot.getDevice('right wheel motor')
 # set the target position of the motors
 leftMotor.setPosition(float('inf'))
 rightMotor.setPosition(float('inf'))
-rightMotor.setVelocity(10)
-leftMotor.setVelocity(0.5)
+rightMotor.setVelocity(0)
+leftMotor.setVelocity(0)
 compass = robot.getDevice("compass")
 compass.enable(TIME_STEP)
 touchSensor = robot.getDevice("touch sensor") #enables touch sensor
@@ -21,11 +21,25 @@ touchSensor.enable(TIME_STEP)
 leftE = robot.getDevice("left wheel sensor")
 leftE.enable(TIME_STEP)
 
+ps = []
+psNames = ['ps0', 'ps1', 'ps2', 'ps3', 'ps4', 'ps5', 'ps6', 'ps7']
+
+for i in range(8):
+    ps.append(robot.getDevice(psNames[i]))
+    ps[i].enable(TIME_STEP)
+
 
 while robot.step(TIME_STEP) != -1:
     answer = compass.getValues()
-    
+    psValues = []
+    testRun = 1;
     import math
+
+    #Right following function
+    #--------------------------#
+    if (testRun == 1):
+        pass
+    
     if not math.isnan(answer[0]):
         #print(answer)
         
@@ -55,5 +69,4 @@ while robot.step(TIME_STEP) != -1:
     pass
 
 # Enter here exit cleanup code.
-
 
