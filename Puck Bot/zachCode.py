@@ -40,9 +40,15 @@ while robot.step(TIME_STEP) != -1:
     if (testRun == 1):
         leftMotor.setVelocity(3)
         rightMotor.setVelocity(2.3)
-        print(ps[0].getValue())
+        print(ps[7].getValue())
         if (ps[0].getValue() > 200):
             leftMotor.setVelocity(1)
+            rightMotor.setVelocity(2)
+        if (ps[1].getValue() < 250):
+            leftMotor.setVelocity(2)
+            rightMotor.setVelocity(0)
+        if (ps[7].getValue() > 250):
+            leftMotor.setVelocity(0)
             rightMotor.setVelocity(2)
             
     if not math.isnan(answer[0]):
@@ -74,5 +80,4 @@ while robot.step(TIME_STEP) != -1:
     pass
 
 # Enter here exit cleanup code.
-
 
