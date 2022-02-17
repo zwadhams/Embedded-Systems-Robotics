@@ -12,8 +12,8 @@ rightMotor = robot.getDevice('right wheel motor')
 # set the target position of the motors
 leftMotor.setPosition(float('inf'))
 rightMotor.setPosition(float('inf'))
-rightMotor.setVelocity(5)
-leftMotor.setVelocity(-5)
+rightMotor.setVelocity(.1)
+leftMotor.setVelocity(-.1)
 compass = robot.getDevice("compass")
 compass.enable(TIME_STEP)
 touchSensor = robot.getDevice("touch sensor") #enables touch sensor
@@ -71,8 +71,23 @@ while robot.step(TIME_STEP) != -1:
     if not math.isnan(answer[0]):
         #print(answer)
         #angle = (math.atan2(answer[0], answer[1]))
-        angle = (((math.atan2(answer[0], answer[1])) - 1.5708) / math.pi * 180.0)*(-1)
-        print(angle)
+        degree = (((math.atan2(answer[0], answer[1])) - 1.5708) / math.pi * 180.0)+270
+        #print(angle)
+        print(degree)
+        if degree < 45 :
+            #rotateRight()
+            print("West")
+        elif degree > 315 :
+            print("West")
+        elif degree < 315.0 and degree > 225.0:
+            print("North")
+        elif degree < 225.0 or degree > 135 :
+            print("East")
+        elif degree < 135 and degree > 45 :
+            print("South")
+        else:
+            print("unknown")
+        
         #if angle < .77 and angle > -.82:
             #rotateRight()
         #    print("West")
@@ -86,7 +101,7 @@ while robot.step(TIME_STEP) != -1:
     else:
         print("Not")
 
-    print(leftE.getValue())
+    #print(leftE.getValue())
     # Read the sensors:
     # Enter here functions to read sensor data, like:
     #  val = ds.getValue()
