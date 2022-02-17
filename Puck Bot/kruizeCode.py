@@ -28,30 +28,38 @@ for i in range(8):
     ps.append(robot.getDevice(psNames[i]))
     ps[i].enable(TIME_STEP)
 
-def rotateRight(degree):
+def rotateRight():
+    answer = compass.getValues()
+    degree = (((math.atan2(answer[0], answer[1])) - 1.5708) / math.pi * 180.0)+270
     print("Right")
+    print (degree)
     if degree < 45 :
         while (degree != 0):
+            print("West to North")
             rightMotor.setVelocity(-1)
             leftMotor.setVelocity(1)
         print("West")
     elif degree > 315 :
         while (degree != 270):
+            print("West to North")
             rightMotor.setVelocity(-1)
             leftMotor.setVelocity(1)
         print("West")
     elif degree < 315.0 and degree > 225.0:
         while (degree != 180):
+            print("North to East")
             rightMotor.setVelocity(-1)
             leftMotor.setVelocity(1)
         print("North")
     elif degree < 225.0 or degree > 135 :
         while (degree != 90):
+            print("East to South")
             rightMotor.setVelocity(-1)
             leftMotor.setVelocity(1)
         print("East")
     elif degree < 135 and degree > 45 :
         while (degree != 0):
+            print("South to West")
             rightMotor.setVelocity(-1)
             leftMotor.setVelocity(1)
         print("South")
@@ -77,12 +85,12 @@ while robot.step(TIME_STEP) != -1:
         degree = (((math.atan2(answer[0], answer[1])) - 1.5708) / math.pi * 180.0)+270
         print(degree)
         if degree < 45 :
-            rotateRight(degree)
+            rotateRight()
             print("W")
         elif degree > 315 :
             print("W")
         elif degree < 315.0 and degree > 225.0:
-            rotateRight(degree)
+            rotateRight()
             print("N")
         elif degree < 225.0 or degree > 135 :
             print("E")
