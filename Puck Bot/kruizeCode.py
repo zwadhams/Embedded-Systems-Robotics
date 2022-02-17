@@ -28,19 +28,10 @@ for i in range(8):
     ps.append(robot.getDevice(psNames[i]))
     ps[i].enable(TIME_STEP)
 
-double get_bearing_in_degrees() {
-  const double *north = wb_compass_get_values(tag);
-  double rad = atan2(north[0], north[2]);
-  double bearing = (rad - 1.5708) / M_PI * 180.0;
-  if (bearing < 0.0)
-    bearing = bearing + 360.0;
-  return bearing;
-}
-
 def rotateRight():
     print("Right")
     answer = compass.getValues()
-    angle = (math.atan2(answer[0], answer[1]))
+    degree = ((math.atan2(ret_values[0], ret_values[1])) - 1.5708) / math.pi * 180.0
     print("Answer")
     print(answer)
     print("Angle")
@@ -78,18 +69,19 @@ while robot.step(TIME_STEP) != -1:
         pass
     
     if not math.isnan(answer[0]):
-        print(answer)
-        angle = (math.atan2(answer[0], answer[1]))
-        #print(angle)
-        if angle < .77 and angle > -.82:
-            rotateRight()
-            print("West")
-        elif angle < -0.82 and angle > -2.4:
-            print("North")
-        elif angle < -2.41 or angle > 2.44 :
-            print("East")
-        else:
-            print("South")
+        #print(answer)
+        #angle = (math.atan2(answer[0], answer[1]))
+        angle = (((math.atan2(answer[0], answer[1])) - 1.5708) / math.pi * 180.0)*(-1)
+        print(angle)
+        #if angle < .77 and angle > -.82:
+            #rotateRight()
+        #    print("West")
+        #elif angle < -0.82 and angle > -2.4:
+        #    print("North")
+        #elif angle < -2.41 or angle > 2.44 :
+        #    print("East")
+        #else:
+        #    print("South")
         
     else:
         print("Not")
