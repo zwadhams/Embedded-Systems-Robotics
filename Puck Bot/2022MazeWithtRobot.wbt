@@ -7,8 +7,6 @@ Viewpoint {
 }
 TexturedBackground {
 }
-TexturedBackgroundLight {
-}
 RectangleArena {
   floorSize 1.44 1.44
 }
@@ -406,7 +404,7 @@ Solid {
   }
 }
 Robot {
-  translation -0.04 -0.67 0
+  translation -0.03 -0.67 8.61885e-14
   rotation 2.3464099999870814e-06 -2.3464099999870814e-06 0.9999999999944944 1.5708
   children [
     TouchSensor {
