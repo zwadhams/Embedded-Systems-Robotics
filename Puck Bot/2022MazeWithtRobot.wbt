@@ -404,7 +404,7 @@ Solid {
   }
 }
 Robot {
-  translation -0.03 -0.67 8.61885e-14
+  translation -0.06 -0.67 -1.72379e-13
   rotation 2.3464099999870814e-06 -2.3464099999870814e-06 0.9999999999944944 1.5708
   children [
     TouchSensor {
