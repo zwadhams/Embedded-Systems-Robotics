@@ -13,7 +13,7 @@ rightMotor = robot.getDevice('right wheel motor')
 leftMotor.setPosition(float('inf'))
 rightMotor.setPosition(float('inf'))
 rightMotor.setVelocity(.1)
-leftMotor.setVelocity(-.1)
+leftMotor.setVelocity(.1)
 compass = robot.getDevice("compass")
 compass.enable(TIME_STEP)
 touchSensor = robot.getDevice("touch sensor") #enables touch sensor
@@ -28,34 +28,38 @@ for i in range(8):
     ps.append(robot.getDevice(psNames[i]))
     ps[i].enable(TIME_STEP)
 
-def rotateRight():
+def rotateRight(degree):
     print("Right")
-    answer = compass.getValues()
-    degree = ((math.atan2(ret_values[0], ret_values[1])) - 1.5708) / math.pi * 180.0
-    print("Answer")
-    print(answer)
-    print("Angle")
-    print(angle)
-    if angle < .77 and angle > -.82:
+    if degree < 45 :
+        while (degree != 0):
+            rightMotor.setVelocity(-1)
+            leftMotor.setVelocity(1)
         print("West")
-        while (angle != 0.00000101961154714703327):
-            rightMotor.setVelocity(-5)
-            leftMotor.setVelocity(5)
-    elif angle < -0.82 and angle > -2.4:
+    elif degree > 315 :
+        while (degree != 270):
+            rightMotor.setVelocity(-1)
+            leftMotor.setVelocity(1)
+        print("West")
+    elif degree < 315.0 and degree > 225.0:
+        while (degree != 180):
+            rightMotor.setVelocity(-1)
+            leftMotor.setVelocity(1)
         print("North")
-        while (angle != 0.00000101961154714703327):
-            rightMotor.setVelocity(-5)
-            leftMotor.setVelocity(5)
-    elif angle < -2.41 or angle > 2.44 :
+    elif degree < 225.0 or degree > 135 :
+        while (degree != 90):
+            rightMotor.setVelocity(-1)
+            leftMotor.setVelocity(1)
         print("East")
-        while (angle != 0.00000101961154714703327):
-            rightMotor.setVelocity(-5)
-            leftMotor.setVelocity(5)
-    else:
+    elif degree < 135 and degree > 45 :
+        while (degree != 0):
+            rightMotor.setVelocity(-1)
+            leftMotor.setVelocity(1)
         print("South")
-        while (angle != 0.00000101961154714703327):
-            rightMotor.setVelocity(-5)
-            leftMotor.setVelocity(5)
+    else:
+        print("unknown")
+    while (degree != 0.00000101961154714703327):
+        rightMotor.setVelocity(-1)
+        leftMotor.setVelocity(1)
 
 while robot.step(TIME_STEP) != -1:
     answer = compass.getValues()
@@ -70,33 +74,22 @@ while robot.step(TIME_STEP) != -1:
     
     if not math.isnan(answer[0]):
         #print(answer)
-        #angle = (math.atan2(answer[0], answer[1]))
         degree = (((math.atan2(answer[0], answer[1])) - 1.5708) / math.pi * 180.0)+270
-        #print(angle)
         print(degree)
         if degree < 45 :
-            #rotateRight()
-            print("West")
+            rotateRight(degree)
+            print("W")
         elif degree > 315 :
-            print("West")
+            print("W")
         elif degree < 315.0 and degree > 225.0:
-            print("North")
+            rotateRight(degree)
+            print("N")
         elif degree < 225.0 or degree > 135 :
-            print("East")
+            print("E")
         elif degree < 135 and degree > 45 :
-            print("South")
+            print("S")
         else:
             print("unknown")
-        
-        #if angle < .77 and angle > -.82:
-            #rotateRight()
-        #    print("West")
-        #elif angle < -0.82 and angle > -2.4:
-        #    print("North")
-        #elif angle < -2.41 or angle > 2.44 :
-        #    print("East")
-        #else:
-        #    print("South")
         
     else:
         print("Not")
