@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.08241755083640681 -0.9957550050397279 0.04097947355029814 5.258618782984785
-  position -1.9370289928647515 -0.20782964311308433 2.817434690403475
+  orientation -0.13215816677631514 -0.08561092389429653 0.9875246774963594 4.751458142484052
+  position -0.060798556788028674 -0.24898272599835433 0.09652217296289953
 }
 TexturedBackground {
 }
@@ -404,11 +404,18 @@ Solid {
   }
 }
 Robot {
-  translation -0.06 -0.67 -1.72379e-13
-  rotation 2.3464099999870814e-06 -2.3464099999870814e-06 0.9999999999944944 1.5708
+  translation -0.0600984 -0.667802 0.0145684
+  rotation 0.015982705442179074 -0.017944220713191388 0.9997112373429363 1.5588900299931288
   children [
     TouchSensor {
-      translation 0.03 0 0.01
+      translation 0.02 -0.02 0.01
+      boundingObject Box {
+        size 0.02 0.01 0.01
+      }
+    }
+    TouchSensor {
+      translation 0.02 0.02 0.01
+      name "touch sensor(1)"
       boundingObject Box {
         size 0.02 0.01 0.01
       }
@@ -417,6 +424,7 @@ Robot {
     }
     HingeJoint {
       jointParameters HingeJointParameters {
+        position 595.7937795843922
         axis 0 1 0
         anchor 0 0 0.02
       }
@@ -432,8 +440,8 @@ Robot {
         }
       ]
       endPoint DEF EPUCK_LEFT_WHEEL Solid {
-        translation 0 0.026 0.02
-        rotation 0 1 0 0
+        translation 0 0.025999999999999995 0.02
+        rotation 0 1 0 5.174360709511026
         children [
           DEF EPUCK_WHEEL Transform {
             rotation 1 0 0 -1.570796
@@ -569,6 +577,7 @@ Robot {
     }
     HingeJoint {
       jointParameters HingeJointParameters {
+        position 683.3203377746527
         axis 0 1 0
         anchor 0 0 0.02
       }
@@ -584,8 +593,8 @@ Robot {
         }
       ]
       endPoint DEF EPUCK_RIGHT_WHEEL Solid {
-        translation 0 -0.026 0.02
-        rotation 0 1 0 0
+        translation 0 -0.025999999999999978 0.02
+        rotation 0 0.9999999999999999 0 4.7363245992573315
         children [
           Transform {
             rotation 1 0 0 3.14159
