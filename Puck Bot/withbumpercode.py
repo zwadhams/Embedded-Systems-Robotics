@@ -20,6 +20,11 @@ touchSensorR = robot.getDevice("touch sensor") #enables touch sensor
 touchSensorR.enable(TIME_STEP)
 touchSensorL = robot.getDevice("touch sensor(1)") #enables touch sensor
 touchSensorL.enable(TIME_STEP)
+ps1 = robot.getDevice("ps1")
+ps6 = robot.getDevice("ps6")
+ps1.enable(TIME_STEP)
+ps6.enable(TIME_STEP)
+
 leftE = robot.getDevice("left wheel sensor")
 leftE.enable(TIME_STEP)
 
@@ -38,10 +43,21 @@ while robot.step(TIME_STEP) != -1:
     import math
     goalL = touchSensorL.getValue()
     goalR = touchSensorR.getValue()
-    print(goalL)
-    print(goalR)
+    distanceR = ps6.getValue()
+    distanceL = ps1.getValue()
 
-    if ((goalL == 1.0) or (goalR == 1.0)):
+    print("Left")
+    print(distanceL)
+    print("Right")
+    print(distanceR)
+
+    if ((goalR == 1.0) and (distanceR > 1000)):
+        leftMotor.setVelocity(0)
+        rightMotor.setVelocity(0)
+        print ("You Win!!")
+        break
+    
+    if ((goalL == 1.0) and (distanceL > 1000)):
         leftMotor.setVelocity(0)
         rightMotor.setVelocity(0)
         print ("You Win!!")
@@ -53,7 +69,7 @@ while robot.step(TIME_STEP) != -1:
     if (testRun == 1):
         leftMotor.setVelocity(3)
         rightMotor.setVelocity(2.3)
-        print(ps[7].getValue())
+        #print(ps[7].getValue())
         if (ps[0].getValue() > 200):
             leftMotor.setVelocity(1)
             rightMotor.setVelocity(2)
