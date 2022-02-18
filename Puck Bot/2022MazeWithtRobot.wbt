@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.1428428634521358 -0.11790119098754817 0.982697931983431 4.957360418139275
-  position -0.10084872999455725 -0.326440623212338 0.06361423394200737
+  orientation -0.47517330209806985 -0.44473470008183075 0.7592241958185612 4.4887834059913505
+  position -0.06924340887340127 1.3053444363189306 2.5246812017977835
 }
 TexturedBackground {
 }
@@ -14,13 +14,6 @@ Solid {
   translation 0.66 0.6 0.02
   children [
     Shape {
-      appearance Appearance {
-        texture ImageTexture {
-          url [
-            "water_flow.jpg"
-          ]
-        }
-      }
       geometry Box {
         size 0.12 0.24 0.08
       }
@@ -34,13 +27,6 @@ Solid {
   translation 0.66 0.24 0.02
   children [
     Shape {
-      appearance Appearance {
-        texture ImageTexture {
-          url [
-            "C:/Users/Cobal/Downloads/water_flow.jpg"
-          ]
-        }
-      }
       geometry Box {
         size 0.12 0.24 0.08
       }
@@ -55,13 +41,6 @@ Solid {
   translation 0.66 -0.3 0.024
   children [
     Shape {
-      appearance Appearance {
-        texture ImageTexture {
-          url [
-            "water_flow.jpg"
-          ]
-        }
-      }
       geometry Box {
         size 0.12 0.6 0.08
       }
@@ -76,13 +55,6 @@ Solid {
   translation 0.24 -0.66 0.024
   children [
     Shape {
-      appearance Appearance {
-        texture ImageTexture {
-          url [
-            "water_flow.jpg"
-          ]
-        }
-      }
       geometry Box {
         size 0.48 0.12 0.08
       }
@@ -97,13 +69,6 @@ Solid {
   translation 0.06 -0.54 0.024
   children [
     Shape {
-      appearance Appearance {
-        texture ImageTexture {
-          url [
-            "water_flow.jpg"
-          ]
-        }
-      }
       geometry Box {
         size 0.12 0.12 0.08
       }
@@ -118,13 +83,6 @@ Solid {
   translation 0.24 -0.24 0.024
   children [
     Shape {
-      appearance Appearance {
-        texture ImageTexture {
-          url [
-            "water_flow.jpg"
-          ]
-        }
-      }
       geometry Box {
         size 0.48 0.48 0.08
       }
@@ -139,13 +97,6 @@ Solid {
   translation 0.24 0.24 0.024
   children [
     Shape {
-      appearance Appearance {
-        texture ImageTexture {
-          url [
-            "water_flow.jpg"
-          ]
-        }
-      }
       geometry Box {
         size 0.48 0.24 0.08
       }
@@ -160,13 +111,6 @@ Solid {
   translation 0.06 0.48 0.024
   children [
     Shape {
-      appearance Appearance {
-        texture ImageTexture {
-          url [
-            "water_flow.jpg"
-          ]
-        }
-      }
       geometry Box {
         size 0.12 0.24 0.08
       }
@@ -181,13 +125,6 @@ Solid {
   translation 0.3 0.54 0.024
   children [
     Shape {
-      appearance Appearance {
-        texture ImageTexture {
-          url [
-            "water_flow.jpg"
-          ]
-        }
-      }
       geometry Box {
         size 0.36 0.12 0.08
       }
@@ -202,13 +139,6 @@ Solid {
   translation -0.06 0.66 0.024
   children [
     Shape {
-      appearance Appearance {
-        texture ImageTexture {
-          url [
-            "water_flow.jpg"
-          ]
-        }
-      }
       geometry Box {
         size 0.12 0.12 0.08
       }
@@ -223,13 +153,6 @@ Solid {
   translation -0.18 0.48 0.024
   children [
     Shape {
-      appearance Appearance {
-        texture ImageTexture {
-          url [
-            "water_flow.jpg"
-          ]
-        }
-      }
       geometry Box {
         size 0.12 0.24 0.08
       }
@@ -244,13 +167,6 @@ Solid {
   translation -0.24 0 0.024
   children [
     Shape {
-      appearance Appearance {
-        texture ImageTexture {
-          url [
-            "water_flow.jpg"
-          ]
-        }
-      }
       geometry Box {
         size 0.24 0.48 0.08
       }
@@ -265,13 +181,6 @@ Solid {
   translation -0.18 -0.54 0.024
   children [
     Shape {
-      appearance Appearance {
-        texture ImageTexture {
-          url [
-            "water_flow.jpg"
-          ]
-        }
-      }
       geometry Box {
         size 0.12 0.36 0.08
       }
@@ -287,11 +196,6 @@ Solid {
   children [
     Shape {
       appearance Appearance {
-        texture ImageTexture {
-          url [
-            "water_flow.jpg"
-          ]
-        }
       }
       geometry Box {
         size 0.36 0.24 0.08
@@ -307,13 +211,6 @@ Solid {
   translation -0.54 0 0.024
   children [
     Shape {
-      appearance Appearance {
-        texture ImageTexture {
-          url [
-            "water_flow.jpg"
-          ]
-        }
-      }
       geometry Box {
         size 0.12 0.48 0.08
       }
@@ -328,13 +225,6 @@ Solid {
   translation -0.42 0.3 0.024
   children [
     Shape {
-      appearance Appearance {
-        texture ImageTexture {
-          url [
-            "water_flow.jpg"
-          ]
-        }
-      }
       geometry Box {
         size 0.12 0.12 0.08
       }
@@ -349,13 +239,6 @@ Solid {
   translation -0.54 0.42 0.024
   children [
     Shape {
-      appearance Appearance {
-        texture ImageTexture {
-          url [
-            "water_flow.jpg"
-          ]
-        }
-      }
       geometry Box {
         size 0.12 0.12 0.08
       }
@@ -370,13 +253,6 @@ Solid {
   translation -0.48 0.54 0.024
   children [
     Shape {
-      appearance Appearance {
-        texture ImageTexture {
-          url [
-            "water_flow.jpg"
-          ]
-        }
-      }
       geometry Box {
         size 0.24 0.12 0.08
       }
@@ -575,8 +451,6 @@ Robot {
           density -1
           mass 0.005
         }
-        linearVelocity 0.0007407027402711832 0.024341183483447895 0.03494538517317758
-        angularVelocity -2.187921263610385 0.03766905915926955 -0.41934623594116227
       }
     }
     HingeJoint {
@@ -610,8 +484,6 @@ Robot {
         name "right wheel"
         boundingObject USE EPUCK_WHEEL_BOUNDING_OBJECT
         physics USE EPUCK_WHEEL_PHYSICS
-        linearVelocity 0.0004784513939215076 0.002737660202716506 0.03437765097258061
-        angularVelocity -0.1880738124477539 0.013218390182475372 -0.4158423239817501
       }
     }
     DEF BATTERY_CONNECTOR Transform {

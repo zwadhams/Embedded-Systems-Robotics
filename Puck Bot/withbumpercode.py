@@ -46,11 +46,8 @@ while robot.step(TIME_STEP) != -1:
     distanceR = ps6.getValue()
     distanceL = ps1.getValue()
 
-    print("Left")
-    print(distanceL)
-    print("Right")
-    print(distanceR)
-
+#Detects if at Trophie
+#-----------------------------------------------
     if ((goalR == 1.0) and (distanceR > 1000)):
         leftMotor.setVelocity(0)
         rightMotor.setVelocity(0)
