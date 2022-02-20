@@ -16,8 +16,15 @@ rightMotor.setVelocity(0)
 leftMotor.setVelocity(0)
 compass = robot.getDevice("compass")
 compass.enable(TIME_STEP)
-touchSensor = robot.getDevice("touch sensor") #enables touch sensor
-touchSensor.enable(TIME_STEP)
+touchSensorR = robot.getDevice("touch sensor") #enables touch sensor
+touchSensorR.enable(TIME_STEP)
+touchSensorL = robot.getDevice("touch sensor(1)") #enables touch sensor
+touchSensorL.enable(TIME_STEP)
+ps1 = robot.getDevice("ps1")
+ps6 = robot.getDevice("ps6")
+ps1.enable(TIME_STEP)
+ps6.enable(TIME_STEP)
+
 leftE = robot.getDevice("left wheel sensor")
 leftE.enable(TIME_STEP)
 
@@ -32,15 +39,32 @@ for i in range(8):
 while robot.step(TIME_STEP) != -1:
     answer = compass.getValues()
     psValues = []
-    testRun = 1;
+    testRun = 2;
     import math
+    goalL = touchSensorL.getValue()
+    goalR = touchSensorR.getValue()
+    distanceR = ps6.getValue()
+    distanceL = ps1.getValue()
 
+#Detects if at Trophie
+#-----------------------------------------------
+    if ((goalR == 1.0) and (distanceR > 1000)):
+        leftMotor.setVelocity(0)
+        rightMotor.setVelocity(0)
+        print ("You Win!!")
+        break
+    
+    if ((goalL == 1.0) and (distanceL > 1000)):
+        leftMotor.setVelocity(0)
+        rightMotor.setVelocity(0)
+        print ("You Win!!")
+        break
     #Right following function
     #--------------------------#
     if (testRun == 1):
-        leftMotor.setVelocity(3)
-        rightMotor.setVelocity(2.3)
-        print(ps[7].getValue())
+        leftMotor.setVelocity(6.28)
+        rightMotor.setVelocity(5.5)
+        print(ps[0].getValue())
         if (ps[0].getValue() > 200):
             leftMotor.setVelocity(1)
             rightMotor.setVelocity(2)
@@ -50,6 +74,22 @@ while robot.step(TIME_STEP) != -1:
         if (ps[7].getValue() > 250):
             leftMotor.setVelocity(0)
             rightMotor.setVelocity(2)
+
+    #Left following function
+    #--------------------------#
+    if (testRun == 2):
+        leftMotor.setVelocity(5.5)
+        rightMotor.setVelocity(6.28)
+        print(ps[7].getValue())
+        if (ps[7].getValue() > 200):
+            leftMotor.setVelocity(2)
+            rightMotor.setVelocity(1)
+        if (ps[6].getValue() < 250):
+            leftMotor.setVelocity(0)
+            rightMotor.setVelocity(2)
+        if (ps[0].getValue() > 250):
+            leftMotor.setVelocity(2)
+            rightMotor.setVelocity(0)
             
     if not math.isnan(answer[0]):
         #print(answer)
