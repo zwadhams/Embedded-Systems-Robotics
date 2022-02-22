@@ -59,14 +59,12 @@ while robot.step(TIME_STEP) != -1:
         rightMotor.setVelocity(0)
         print ("You Win!!")
         break
-        
-
     #Right following function
     #--------------------------#
     if (testRun == 1):
-        leftMotor.setVelocity(3)
-        rightMotor.setVelocity(2.3)
-        #print(ps[7].getValue())
+        leftMotor.setVelocity(6.28)
+        rightMotor.setVelocity(5.5)
+        #print(ps[0].getValue())
         if (ps[0].getValue() > 200):
             leftMotor.setVelocity(1)
             rightMotor.setVelocity(2)
@@ -76,6 +74,22 @@ while robot.step(TIME_STEP) != -1:
         if (ps[7].getValue() > 250):
             leftMotor.setVelocity(0)
             rightMotor.setVelocity(2)
+
+    #Left following function
+    #--------------------------#
+    if (testRun == 2):
+        leftMotor.setVelocity(5.5)
+        rightMotor.setVelocity(6.28)
+        #print(ps[7].getValue())
+        if (ps[7].getValue() > 200):
+            leftMotor.setVelocity(2)
+            rightMotor.setVelocity(1)
+        if (ps[6].getValue() < 250):
+            leftMotor.setVelocity(0)
+            rightMotor.setVelocity(2)
+        if (ps[0].getValue() > 250):
+            leftMotor.setVelocity(2)
+            rightMotor.setVelocity(0)
             
     if not math.isnan(answer[0]):
         #print(answer)
@@ -94,8 +108,6 @@ while robot.step(TIME_STEP) != -1:
     else:
         print("Not")
 
-    
-
     #print(leftE.getValue())
     # Read the sensors:
     # Enter here functions to read sensor data, like:
@@ -108,4 +120,3 @@ while robot.step(TIME_STEP) != -1:
     pass
 
 # Enter here exit cleanup code.
-
