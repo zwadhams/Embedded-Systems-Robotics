@@ -14,7 +14,7 @@ class Tango_Controller:
     CHANNEL_START = 0
     SERVO_STEP_MAX = MID_POSITION + RESOLUTION
     SERVO_STEP_MIN = MID_POSITION - RESOLUTION
-    DEFAULT_VALUES = {"Waist": MID_POSITION, "Neck_Pan": MID_POSITION, "Neck_Tilt": MID_POSITION, "Right_Wheel": 0, "Left_Wheel": 0}
+    DEFAULT_VALUES = {"Waist": MID_POSITION, "Neck_Pan": MID_POSITION, "Neck_Tilt": MID_POSITION, "Right_Wheel": 1, "Left_Wheel": 1}
     # | 0x9F                 | 5                  | 0                 | 0x##     | 0x##   | 0x##     | 0x##   | 0x##     | 0x##   |....
     # | simultaneous command | Number of Channels | Channel Number    | Ch0LSB   | CH0MSB | Ch1LSB   | CH1MSB | Ch2LSB   | CH2MSB |....
     serialString = [0x9F, NUMBER_OF_CHANNELS, CHANNEL_START] # This contains all servo and motor values. DO NOT CLEAR. Only change the value
@@ -66,12 +66,13 @@ class Tango_Controller:
         self.motors = {"Right_Wheel": self.Servo_Motor("Right_Wheel", "Motor", 1), "Left_Wheel": self.Servo_Motor("Left_Wheel", "Motor", 2)}
         self.servos = {"Waist": self.Servo_Motor("Waist", "Servo", 0), "Neck_Pan": self.Servo_Motor("Neck_Pan", "Servo", 3), "Neck_Tilt": self.Servo_Motor("Neck_Tilt", "Servo", 4)}
         self.NUMBER_OF_CHANNELS = len(self.motors.keys()) + len(self.servos.keys())
+        self.serialString = [0] * (3+((self.NUMBER_OF_CHANNELS*2)))
+        self.serialString[0] = 0x9F
         self.serialString[1] = self.NUMBER_OF_CHANNELS
-        for x in range(self.NUMBER_OF_CHANNELS*2):
-            self.serialString.append(0)
+        self.serialString[2] = self.CHANNEL_START
+        self.init_servos()
         self.exit_safe_start()
         self.init_motors()
-        self.init_servos()
         self.send_command()
         return
     
@@ -81,8 +82,15 @@ class Tango_Controller:
 
     # Initializing
     def exit_safe_start(self):
-        self.serial.write(chr(0x83).encode())
+        print("Exiting Safe Start") if self.DEBUG else None
+        motorList = self.motors.keys()
+        for motor in motorList:
+            motorObj = self.motors[motor]
+            motorObj.set_speed(10)   # Set to be close as possible to the Neutral Position
+            self.update_serial_string(motorObj)
+        self.send_command()
         return
+
     def init_motors(self):
         print("Initializing Motors") if self.DEBUG else None
         motorList = self.motors.keys()
