@@ -1,4 +1,5 @@
 import time
+import serial
 class Tango_Controller:
     DEBUG = True
     RESOLUTION = 2000
@@ -60,22 +61,28 @@ class Tango_Controller:
             target = (Tango_Controller.MID_POSITION-self.speed)
             return [target & 0x7F, (target>>7) & 0x7F]
         pass
-    def __init__(self, serialController):
+    def __init__(self, serialController:serial.Serial):
         self.serial = serialController
         self.motors = {"Right_Wheel": self.Servo_Motor("Right_Wheel", "Motor", 1), "Left_Wheel": self.Servo_Motor("Left_Wheel", "Motor", 2)}
         self.servos = {"Waist": self.Servo_Motor("Waist", "Servo", 0), "Neck_Pan": self.Servo_Motor("Neck_Pan", "Servo", 3), "Neck_Tilt": self.Servo_Motor("Neck_Tilt", "Servo", 4)}
         self.NUMBER_OF_CHANNELS = len(self.motors.keys()) + len(self.servos.keys())
         self.serialString[1] = self.NUMBER_OF_CHANNELS
+        for x in range(self.NUMBER_OF_CHANNELS*2):
+            self.serialString.append(0)
+        self.exit_safe_start()
         self.init_motors()
         self.init_servos()
         self.send_command()
         return
     
     # Checks
-    def is_valid_target(self, target):
+    def is_valid_target(self, target:int):
         return (target >= self.SERVO_STEP_MIN) & (target <= self.SERVO_STEP_MAX)
 
     # Initializing
+    def exit_safe_start(self):
+        self.serial.write(chr(0x83).encode())
+        return
     def init_motors(self):
         print("Initializing Motors") if self.DEBUG else None
         motorList = self.motors.keys()
@@ -185,29 +192,39 @@ class Tango_Controller:
             self.update_serial_string(RMotor)
             self.update_serial_string(LMotor)
             self.send_command()
-            time.sleep(0.2)
+            time.sleep(0.5)
         return
     
-    def forward(self, speed:int):
+    def forward(self, step:int):
+        speed = step*self.MOTOR_STEP
+        print(speed)
         if (speed > 0):
             print("Wheels Moving Forward") if self.DEBUG else None
+            self.control_wheels(speed, -speed)
+        return
+    
+    def backward(self, step:int):
+        speed = step*self.MOTOR_STEP
+        print(speed)
+        if (speed > 0):
+            print("Wheels Moving Backward") if self.DEBUG else None
+            self.control_wheels(-speed, speed)
+        return
+    
+    def spin_right(self, step:int):
+        speed = step*self.MOTOR_STEP
+        print(speed)
+        if (speed > 0):
+            print("Spinning Right") if self.DEBUG else None
             self.control_wheels(speed, speed)
         return
     
-    def backward(self, speed:int):
-        if (speed > 0):
-            print("Wheels Moving Backward") if self.DEBUG else None
-            self.control_wheels(-speed, -speed)
-        return
-    
-    def steer_right(self, speed:int):
-        if (speed > 0):
-            print("Spinning Right") if self.DEBUG else None
-        return
-    
-    def steer_left(self, speed:int):
+    def spin_left(self, step:int):
+        speed = step*self.MOTOR_STEP
+        print(speed)
         if (speed > 0):
             print("Spinning Left") if self.DEBUG else None
+            self.control_wheels(-speed, -speed)
         return
     
     def pan_waist(self, target:int):
