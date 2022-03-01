@@ -9,22 +9,3 @@ class Keyboard_Input:
         self.control_list = control_list
         return
     pass
-
-while True:
-    while ky.is_pressed("w") or ky.is_pressed("W"):
-        #rightMotor
-        #leftMotor
-        print("Forward")
-    
-    while ky.is_pressed("w") or ky.is_pressed("W"):
-        #rightMotor
-        #leftMotor
-        print("Forward")
-        
-    while ky.is_pressed("r") or ky.is_pressed("R"):
-        #rightMotor negative value
-        #leftMotor positive value
-        print("Right")
-        
-    #rightMotor 6000 or off
-    #leftMotor 6000 or off
