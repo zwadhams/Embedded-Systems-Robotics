@@ -1,6 +1,6 @@
 ##import time, serial, sys
 from tkinter import *
-from TangoController import *
+##from TangoController import *
 
 self = Tk()
 
@@ -8,70 +8,70 @@ class Keyboard_Input:
     self.title('Robot')
     self.geometry("400x400")
 
-##    def forward(e):
-##        myLabel = Label(self, text="Forward")
-##        myLabel.pack()
-##
-##    def backward(e):
-##        myLabel = Label(self, text="Backward")
-##        myLabel.pack()
-##
-##    def turnRight(e):
-##        myLabel = Label(self, text="Turning Right")
-##        myLabel.pack()
-##
-##    def turnLeft(e):
-##        myLabel = Label(self, text="Turning Left")
-##        myLabel.pack()
-##
-##    def twistRight(e):
-##        myLabel = Label(self, text="Twisting Right")
-##        myLabel.pack()
-##
-##    def twistLeft(e):
-##        myLabel = Label(self, text="Twisting Left")
-##        myLabel.pack()
-##
-##    def lookUp(e):
-##        myLabel = Label(self, text="Looking Up")
-##        myLabel.pack()
-##
-##    def lookDown(e):
-##        myLabel = Label(self, text="Looking Down")
-##        myLabel.pack()
-##
-##    def lookRight(e):
-##        myLabel = Label(self, text="Looking Right")
-##        myLabel.pack()
-##
-##    def lookLeft(e):
-##        myLabel = Label(self, text="Looking Left")
-##        myLabel.pack()
-##
-##    def speedHigh(e):
-##        myLabel = Label(self, text="Speed 3")
-##        myLabel.pack()
-##
-##    def speedMed(e):
-##        myLabel = Label(self, text="Speed 2")
-##        myLabel.pack()
-##
-##    def speedLow(e):
-##        myLabel = Label(self, text="Speed 1")
-##        myLabel.pack()
-##
-##    def stop(e):
-##        myLabel = Label(self, text="Stop")
-##        myLabel.pack()
+    def forward(e):
+        myLabel = Label(self, text="Forward")
+        myLabel.pack()
+
+    def backward(e):
+        myLabel = Label(self, text="Backward")
+        myLabel.pack()
+
+    def turnRight(e):
+        myLabel = Label(self, text="Turning Right")
+        myLabel.pack()
+
+    def turnLeft(e):
+        myLabel = Label(self, text="Turning Left")
+        myLabel.pack()
+
+    def twistRight(e):
+        myLabel = Label(self, text="Twisting Right")
+        myLabel.pack()
+
+    def twistLeft(e):
+        myLabel = Label(self, text="Twisting Left")
+        myLabel.pack()
+
+    def lookUp(e):
+        myLabel = Label(self, text="Looking Up")
+        myLabel.pack()
+
+    def lookDown(e):
+        myLabel = Label(self, text="Looking Down")
+        myLabel.pack()
+
+    def lookRight(e):
+        myLabel = Label(self, text="Looking Right")
+        myLabel.pack()
+
+    def lookLeft(e):
+        myLabel = Label(self, text="Looking Left")
+        myLabel.pack()
+
+    def speedHigh(e):
+        myLabel = Label(self, text="Speed 3")
+        myLabel.pack()
+
+    def speedMed(e):
+        myLabel = Label(self, text="Speed 2")
+        myLabel.pack()
+
+    def speedLow(e):
+        myLabel = Label(self, text="Speed 1")
+        myLabel.pack()
+
+    def stop(e):
+        myLabel = Label(self, text="Stop")
+        myLabel.pack()
 
     self.bind('<w>', forward)
     self.bind('<W>', forward)
     self.bind('<s>', backward)
     self.bind('<S>', backward)
-    self.bind('<d>', spin_right)
-    self.bind('<D>', spin_right)
-    self.bind('<a>', spin_left)
-    self.bind('<A>', spin_left)
+    self.bind('<d>', turnRight)
+    self.bind('<D>', turnRight)
+    self.bind('<a>', turnLeft)
+    self.bind('<A>', turnLeft)
     self.bind('<e>', twistRight)
     self.bind('<E>', twistRight)
     self.bind('<q>', twistLeft)
