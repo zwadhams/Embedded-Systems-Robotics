@@ -65,7 +65,7 @@ class Keyboard_Input:
         myLabel.pack()
 
     self.bind('<w>', forward)
-    self.bind('<W>', forward)
+    self.bind('<W>', forward) #also handles capital letters if caps lock is on
     self.bind('<s>', backward)
     self.bind('<S>', backward)
     self.bind('<d>', turnRight)
@@ -80,7 +80,7 @@ class Keyboard_Input:
     self.bind('<Down>', lookDown)
     self.bind('<Right>', lookRight)
     self.bind('<Left>', lookLeft)
-    self.bind(3, speedHigh)
+    self.bind(3, speedHigh) #these are keyboard numbers that will set the speed
     self.bind(2, speedMed)
     self.bind(1, speedLow)
     self.bind('<z>', stop)
