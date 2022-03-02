@@ -1,4 +1,4 @@
-#import time, serial, sys
+##import time, serial, sys
 from tkinter import *
 from TangoController import *
 
@@ -65,11 +65,17 @@ class Keyboard_Input:
 ##        myLabel.pack()
 
     self.bind('<w>', forward)
+    self.bind('<W>', forward)
     self.bind('<s>', backward)
+    self.bind('<S>', backward)
     self.bind('<d>', spin_right)
+    self.bind('<D>', spin_right)
     self.bind('<a>', spin_left)
+    self.bind('<A>', spin_left)
     self.bind('<e>', twistRight)
+    self.bind('<E>', twistRight)
     self.bind('<q>', twistLeft)
+    self.bind('<Q>', twistLeft)
     self.bind('<Up>', lookUp)
     self.bind('<Down>', lookDown)
     self.bind('<Right>', lookRight)
@@ -78,6 +84,7 @@ class Keyboard_Input:
     self.bind(2, speedMed)
     self.bind(1, speedLow)
     self.bind('<z>', stop)
+    self.bind('<Z>', stop)
 
 
     self.mainloop()
