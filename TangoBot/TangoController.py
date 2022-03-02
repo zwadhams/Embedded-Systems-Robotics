@@ -235,17 +235,20 @@ class Tango_Controller:
             self.control_wheels(-speed, -speed)
         return
     
-    def pan_waist(self, target:int):
+    def pan_waist(self, step:int):
+        target = self.MID_POSITION + (step*self.WAIST_SERVO_STEP)
         if (self.is_valid_target(target)):
             print("Panning Waist") if self.DEBUG else None
             self.control_servo("Waist", target)
 
-    def pan_neck(self, target:int):
+    def pan_neck(self, step:int):
+        target = self.MID_POSITION + (step*self.HEAD_SERVO_STEP)
         if (self.is_valid_target(target)):
             print("Panning Neck") if self.DEBUG else None
             self.control_servo("Neck_Pan", target)
-    
-    def tilt_neck(self, target:int):
+            
+    def tilt_neck(self, step:int):
+        target = self.MID_POSITION + (step*self.HEAD_SERVO_STEP)
         if (self.is_valid_target(target)):
             print("Tilting Neck") if self.DEBUG else None
             self.control_servo("Neck_Tilt", target)
