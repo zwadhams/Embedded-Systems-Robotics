@@ -1,10 +1,10 @@
 import time
 import serial
 class Tango_Controller:
-    DEBUG = True
+    DEBUG = False
     RESOLUTION = 2000
     MID_POSITION = 6000
-    MOTOR_STEPS = 3
+    MOTOR_STEPS = 5
     WAIST_STEPS = 3
     HEAD_STEPS = 5
     MOTOR_STEP = int(RESOLUTION/MOTOR_STEPS)
@@ -19,12 +19,14 @@ class Tango_Controller:
     # | simultaneous command | Number of Channels | Channel Number    | Ch0LSB   | CH0MSB | Ch1LSB   | CH1MSB | Ch2LSB   | CH2MSB |....
     serialString = [0x9F, NUMBER_OF_CHANNELS, CHANNEL_START] # This contains all servo and motor values. DO NOT CLEAR. Only change the value
     class Servo_Motor:
-        def __init__(self, id:str, type:str, channel:int, speed:int = 0, target:int = 0):
+        def __init__(self, id:str, type:str, channel:int, stepRes:int, speed:int = 0, target:int = 0, step:int = 0):
             self.id = id
             self.channel = channel
             self.type = type
             self.speed = speed
             self.target = target
+            self.step = step
+            self.stepRes = stepRes
             return
         
         def set_channel(self, channel:int):
@@ -39,10 +41,11 @@ class Tango_Controller:
         
         def set_speed(self, speed:int):
             self.speed = speed
+            self.step = speed/self.stepRes
             return
         
         def adjust_speed(self, speed:int):
-            self.speed += speed
+            self.set_speed(self.speed + speed)
             return
         
         def get_speed(self):
@@ -50,10 +53,14 @@ class Tango_Controller:
         
         def set_target(self, target:int):
             self.target = target
+            self.step = (self.target - Tango_Controller.MID_POSITION)/self.stepRes
             
         def get_target(self):
             return self.target
         
+        def get_step(self):
+            return self.step
+
         def encode_target(self):
             return [self.target&0x7F, (self.target>>7)&0x7F]
 
@@ -63,8 +70,8 @@ class Tango_Controller:
         pass
     def __init__(self, serialController:serial.Serial):
         self.serial = serialController
-        self.motors = {"Right_Wheel": self.Servo_Motor("Right_Wheel", "Motor", 1), "Left_Wheel": self.Servo_Motor("Left_Wheel", "Motor", 2)}
-        self.servos = {"Waist": self.Servo_Motor("Waist", "Servo", 0), "Neck_Pan": self.Servo_Motor("Neck_Pan", "Servo", 3), "Neck_Tilt": self.Servo_Motor("Neck_Tilt", "Servo", 4)}
+        self.motors = {"Right_Wheel": self.Servo_Motor("Right_Wheel", "Motor", 1, self.MOTOR_STEP), "Left_Wheel": self.Servo_Motor("Left_Wheel", "Motor", 2, self.MOTOR_STEP)}
+        self.servos = {"Waist": self.Servo_Motor("Waist", "Servo", 0, self.WAIST_SERVO_STEP), "Neck_Pan": self.Servo_Motor("Neck_Pan", "Servo", 3, self.HEAD_SERVO_STEP), "Neck_Tilt": self.Servo_Motor("Neck_Tilt", "Servo", 4, self.HEAD_SERVO_STEP)}
         self.NUMBER_OF_CHANNELS = len(self.motors.keys()) + len(self.servos.keys())
         self.serialString = [0] * (3+((self.NUMBER_OF_CHANNELS*2)))
         self.serialString[0] = 0x9F
@@ -74,11 +81,15 @@ class Tango_Controller:
         self.exit_safe_start()
         self.init_motors()
         self.send_command()
+        self.wheel_state = "S" # S for stop, FB for forward/backwards, LR for turning
         return
     
     # Checks
     def is_valid_target(self, target:int):
         return (target >= self.SERVO_STEP_MIN) & (target <= self.SERVO_STEP_MAX)
+
+    def opposite_signs(self, x:int, y:int):
+        return ((x^y) < 0)
 
     # Initializing
     def exit_safe_start(self):
@@ -124,7 +135,7 @@ class Tango_Controller:
         return
 
     def send_command(self):
-        print("Command Sent {}".format(bytearray(self.serialString))) if self.DEBUG else None
+        print("Command Sent {}".format([hex(i) for i in self.serialString])) if self.DEBUG else None
         self.serial.write(bytearray(self.serialString))
         return
     
@@ -162,8 +173,8 @@ class Tango_Controller:
         return
 
     def control_servo(self, servoId:str, position:int):
-        print("Controlling Servo ", servoId) if self.DEBUG else None
-        servo = self.motors[servoId]
+        print("Controlling Servo ", servoId, " ", position) if self.DEBUG else None
+        servo = self.servos[servoId]
         target = position
         if self.is_valid_target(target):
             servo.set_target(target)
@@ -181,10 +192,12 @@ class Tango_Controller:
     def stop(self):
         print("Wheels Stopping") if self.DEBUG else None
         while (0 != self.motors["Right_Wheel"].get_speed()) | (0 != self.motors["Left_Wheel"].get_speed()):
-            print("RSpeed: ", self.motors["Right_Wheel"].get_speed())
-            print("LSpeed: ", self.motors["Left_Wheel"].get_speed())
             RMotor = self.motors["Right_Wheel"]
             LMotor = self.motors["Left_Wheel"]
+            if (abs(RMotor.get_speed()) < self.MOTOR_STEP):
+                RMotor.set_speed(0)
+            if (abs(LMotor.get_speed()) < self.MOTOR_STEP):
+                LMotor.set_speed(0)
             if (RMotor.get_speed() == 0):
                 None
             elif RMotor.get_speed() < 0:
@@ -201,55 +214,103 @@ class Tango_Controller:
             self.update_serial_string(LMotor)
             self.send_command()
             time.sleep(0.5)
+        self.wheel_state = "S"
         return
     
     def forward(self, step:int):
-        speed = step*self.MOTOR_STEP
-        print(speed)
+        speed = int(step*self.MOTOR_STEP)
         if (speed > 0):
             print("Wheels Moving Forward") if self.DEBUG else None
             self.control_wheels(speed, -speed)
+            self.wheel_state = "FB"
         return
+
+    def adjust_forward(self, step:int):
+        rMotor = self.motors["Right_Wheel"]
+        self.forward(rMotor.get_step() + step)
     
     def backward(self, step:int):
-        speed = step*self.MOTOR_STEP
-        print(speed)
+        speed = int(step*self.MOTOR_STEP)
         if (speed > 0):
             print("Wheels Moving Backward") if self.DEBUG else None
             self.control_wheels(-speed, speed)
+            self.wheel_state = "FB"
         return
+
+    def adjust_backward(self, step:int):
+        lMotor = self.motors["Left_Wheel"]
+        self.backward(lMotor.get_step() + step)
+
+    def adjust_backward_forward(self, step:int):
+        rMotor = self.motors["Right_Wheel"]
+        if (self.wheel_state == "LR"):
+            self.stop()
+        nxt_step = int(rMotor.get_step() + step)
+        if (nxt_step < 0):
+            self.backward(abs(nxt_step))
+        elif (nxt_step > 0):
+            self.forward(nxt_step)
+        else:
+            self.stop()
+
     
     def spin_right(self, step:int):
-        speed = step*self.MOTOR_STEP
-        print(speed)
+        speed = int(step*self.MOTOR_STEP)
         if (speed > 0):
             print("Spinning Right") if self.DEBUG else None
             self.control_wheels(speed, speed)
+            self.wheel_state = "LR"
         return
     
+    def adjust_left_right(self, step:int):
+        rMotor = self.motors["Right_Wheel"]
+        if (self.wheel_state == "FB"):
+            self.stop()
+        nxt_step = int(rMotor.get_step() + step)
+        if (nxt_step < 0):
+            self.spin_left(abs(nxt_step))
+        elif (nxt_step > 0):
+            self.spin_right(nxt_step)
+        else:
+            self.stop()
+
+    
     def spin_left(self, step:int):
-        speed = step*self.MOTOR_STEP
-        print(speed)
+        speed = int(step*self.MOTOR_STEP)
         if (speed > 0):
             print("Spinning Left") if self.DEBUG else None
             self.control_wheels(-speed, -speed)
+            self.wheel_state = "LR"
         return
     
     def pan_waist(self, step:int):
-        target = self.MID_POSITION + (step*self.WAIST_SERVO_STEP)
+        target = int(self.MID_POSITION + ((step)*self.WAIST_SERVO_STEP))
         if (self.is_valid_target(target)):
             print("Panning Waist") if self.DEBUG else None
             self.control_servo("Waist", target)
 
+    def adjust_pan_waist(self, step:int):
+        waistS = self.servos["Waist"]
+        self.pan_waist(waistS.get_step() + step)
+
     def pan_neck(self, step:int):
-        target = self.MID_POSITION + (step*self.HEAD_SERVO_STEP)
+        target = int(self.MID_POSITION + (step*self.HEAD_SERVO_STEP))
         if (self.is_valid_target(target)):
             print("Panning Neck") if self.DEBUG else None
             self.control_servo("Neck_Pan", target)
             
+    def adjust_pan_neck(self, step:int):
+        neckS = self.servos["Neck_Pan"]
+        self.pan_neck(neckS.get_step() + step)
+
     def tilt_neck(self, step:int):
-        target = self.MID_POSITION + (step*self.HEAD_SERVO_STEP)
+        target = int(self.MID_POSITION + (step*self.HEAD_SERVO_STEP))
         if (self.is_valid_target(target)):
             print("Tilting Neck") if self.DEBUG else None
             self.control_servo("Neck_Tilt", target)
+
+    def adjust_tilt_neck(self, step:int):
+        neckS = self.servos["Neck_Tilt"]
+        self.tilt_neck(neckS.get_step() + step)
+    
     pass
