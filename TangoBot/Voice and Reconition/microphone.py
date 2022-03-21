@@ -1,3 +1,4 @@
+#STARTER CODE GIVEN
 import speech_recognition as sr
 
 listening = True
