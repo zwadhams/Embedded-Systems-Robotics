@@ -1,7 +1,7 @@
 
 import time
 
-###########Threading Example
+###Threading Example
 
 import _thread, threading
 
