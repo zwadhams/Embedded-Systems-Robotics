@@ -1,14 +1,31 @@
-import _thread, threading
 from tokenize import String
-import speech_recognition as sr
-import time
-import pyttsx3
+from rsonlite import loads, simpleparse
 
 class Dialog_Engine:
 
+    def createTree(self, node):
+        if isinstance(node, str):
+            return node
+        elif isinstance(node, dict):
+            for key in node:
+                assert (key.endswith(':') or key.endswith('\n'), key)
+            return dict((key[:-1], fixup(value)) for key, value in node.items())
+        else:
+            assert isinstance(node, (list, str))
+            result = {}
+            for item in node:
+                if isinstance(item, str):
+                    assert not (item.endswith(':') or key.endswith('\n'))
+                    assert result.setdefault(item, None) is None
+                else:
+                    for key, value in fixup(item).items():
+                        assert result.setdefault(key, value) is value
+        return result
+
     def checULine(self, line):
         count = 0
-        if
+        
+        
 
 
 
@@ -30,6 +47,25 @@ class Dialog_Engine:
             # Read line by line
             lines = f.readlines()
 
+            mystring = '''
+            node1:
+                node1
+                node2:
+                    node1
+            node2:
+                node1
+                node2
+                node3:
+                    node1:
+                        node1
+                    node2:
+                        node1
+                        node2
+            '''
+
+            tree = self.createTree(f)
+            print(tree)
+
             for line in lines:
                 line = line.strip()
             # Check U, u2, u3, ... un,(not case sensitive) Ignore lines with invalid syntax and comments
@@ -46,9 +82,6 @@ class Dialog_Engine:
                 else:
                     pass
 
-
-
-
         # Then parse character by character to find defined characters
         # "" ~ [] _ $  Check the 2022DialogAssignment Document
         # Ignore ? , . ! (Special characters)
@@ -60,6 +93,4 @@ class Dialog_Engine:
 def main():
    Dialog_Engine('demoConvo.txt')
 
-
 main()
-
