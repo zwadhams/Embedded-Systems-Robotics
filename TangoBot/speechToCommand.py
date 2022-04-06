@@ -35,7 +35,7 @@ def turnRight():
 
 def turnLeft():
         tangoController.adjust_left_right(-3)
-        
+
 def twistRight():
         tangoController.adjust_pan_waist(-1)
 
@@ -149,3 +149,4 @@ while(True):
 #print("here")
 #word = r.reconize_google(au)
 #print("here" word)
+
