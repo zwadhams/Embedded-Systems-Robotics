@@ -72,27 +72,12 @@ class Dialog_Engine:
                 
             else:
                 pass
-                
-                
-    
-        
-        
-        
-
-
-
-
+               
         
         # Then parse character by character to find defined characters
         # "" ~ [] _ $  Check the 2022DialogAssignment Document
         # Ignore ? , . ! (Special characters)
 
-
-
-
         return
-
-
     
-
     pass
