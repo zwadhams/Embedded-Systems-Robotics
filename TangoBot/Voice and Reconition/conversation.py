@@ -44,6 +44,7 @@ class Dialog_Engine:
     
     def responseParse(l):
         if l[1] == ':':
+            pass
             #we need some functionality to check the stuff
         #runs command if the 
         
@@ -70,7 +71,7 @@ class Dialog_Engine:
                 #does something, not sure what that symbol means
                 
             else:
-                
+                pass
                 
                 
     
