@@ -1,7 +1,7 @@
 from tokenize import String
 from rsonlite import loads, simpleparse
-from Rule import Rule
-from Concept import Concept
+#import rules
+#from Concept import Concept
 
 class Dialog:
 
@@ -39,8 +39,6 @@ class Dialog:
         pass
 
    
- 
-
 class Dialog_Engine:
 
     
@@ -66,8 +64,17 @@ class Dialog_Engine:
         # Open File
         with open(file, "r") as f:
             # Read line by line
-            lines = f.readlines()
 
+            myList = []
+            for line in f:
+                strip_lines = line.strip()
+                listli = strip_lines.split()
+                #print(listli)
+                m = myList.append(listli)
+            print(myList)
+            print(myList[0][1])
+            
+            lines = f.readlines()
 
             for line in lines:
                 line = line.strip()
@@ -95,7 +102,6 @@ class Dialog_Engine:
 
 def main():
    Dialog_Engine('demoConvo.txt')
-   Dialog()
+   #Dialog()
 
 main()
-
