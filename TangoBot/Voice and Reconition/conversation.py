@@ -41,6 +41,9 @@ class Dialog:
 
    
 class Dialog_Engine:
+
+    storeList = []
+    
     def __init__(self, file:str):
         # Open File
         self.root = {}
@@ -66,6 +69,9 @@ class Dialog_Engine:
                     validLine = True
                 if validLine:
                     print(recondLine)
+                    self.storeList.append(self.createList(recondLine))
+
+        print(self.storeList)
                     
         return
     def recondition_line(self, line):
@@ -107,6 +113,16 @@ class Dialog_Engine:
             else:
                 newLine += charac
         return newLine
+
+    def createList(self, line):
+        myList = []
+
+        strip_lines = line.strip()
+        listli = strip_lines.split()
+        #print(listli)
+        m = myList.append(listli)
+
+        return listli
 
     pass
 
