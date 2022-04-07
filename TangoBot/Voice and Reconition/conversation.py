@@ -40,63 +40,72 @@ class Dialog:
 
    
 class Dialog_Engine:
-
-    
-
-    def checULine(self, line):
-        count = 0
-        
-        
-
-    def responseParse(self, line):
-        print('hit responseParse')
-        if line[1] == ':':
-            pass
-            #we need some functionality to check the stuff
-        #runs command if the
-
-    def definitionParse(self, line):
-        print('hit defParse')
-        # this definies a greeting variable and is given three values in square brackets
-        pass
-
-    def __init__(self, file:String):
+    def __init__(self, file:str):
         # Open File
+        self.root = {}
+        self.customVariable = {}
         with open(file, "r") as f:
             # Read line by line
-
-            myList = []
-            for line in f:
-                strip_lines = line.strip()
-                listli = strip_lines.split()
-                #print(listli)
-                m = myList.append(listli)
-            print(myList)
-            print(myList[0][1])
-            
             lines = f.readlines()
-
             for line in lines:
+                colonCount = 0
+                tildeCount = 0
                 line = line.strip()
-            # Check U, u2, u3, ... un,(not case sensitive) Ignore lines with invalid syntax and comments
-            # Comments are marked with # at the beginning of the line
-                if line[0] == "#": # Comments
-                    print('hit comment')
-                    pass
-                elif line[0] == "u":
-                    self.responseParse(line) #will eventually parse through the
-                elif line[0] == "~":
-                    self.definitionParse(line)
-                #does something, not sure what that symbol means
-
-                else:
-                    pass
-
-        # Then parse character by character to find defined characters
-        # "" ~ [] _ $  Check the 2022DialogAssignment Document
-        # Ignore ? , . ! (Special characters)
-
+                line = re.sub(' {2,}', ' ', line)
+                # Remove Whitespaces in the first few characters in the line
+                for charac in line:
+                    if (charac == ":"):
+                        colonCount += 1
+                    if (charac == "~"):
+                        tildeCount += 1
+                # Recondition the line to be easy to be read
+                validLine = False
+                if((tildeCount == 1 and colonCount >= 1) or (tildeCount == 0 and colonCount == 2)):
+                    recondLine = self.recondition_line(line)
+                    validLine = True
+                if validLine:
+                    print(recondLine)
+                    
         return
+    def recondition_line(self, line):
+        # Expected to be u:(...):[... ... ...] or u:(...):...
+        allowWhitespace = False
+        openSqrBrackets = False
+        openParenthesis = False
+        openDoubleQuote = False
+        newLine = ""
+        colonCnt = 0
+        for index in range(len(line)):
+            charac = line[index]
+            if index == 0 and line[0] == 'U':
+                charac = 'u'
+            if charac == '[':
+                openSqrBrackets = True
+            if charac == ']' and openSqrBrackets:
+                openSqrBrackets = False
+            if charac == '(':
+                openParenthesis = True
+            if charac == ')' and openParenthesis:
+                openParenthesis = False
+            if charac == '\"':
+                openDoubleQuote = True
+            if charac == '\"' and openDoubleQuote:
+                openDoubleQuote = False
+            if colonCnt == 2:
+                # Check if a non-whitespace
+                if charac == ' ':
+                    pass
+                else:
+                    allowWhitespace = True
+            if charac == ":":
+                colonCnt += 1
+            
+            
+            if (not (openSqrBrackets or openParenthesis or openDoubleQuote or allowWhitespace) and charac == ' ') :
+                pass
+            else:
+                newLine += charac
+        return newLine
 
     pass
 
