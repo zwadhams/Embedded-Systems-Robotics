@@ -2,6 +2,7 @@ from tokenize import String
 from rsonlite import loads, simpleparse
 #import rules
 #from Concept import Concept
+import regex as re
 
 class Dialog:
 
