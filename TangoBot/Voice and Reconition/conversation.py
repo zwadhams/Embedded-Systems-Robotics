@@ -1,33 +1,54 @@
 from tokenize import String
 from rsonlite import loads, simpleparse
+from Rule import Rule
+from Concept import Concept
+
+class Dialog:
+
+    def openFile(self):
+        count = 0
+        fin = open("demoConvo.txt", "r")
+
+        for line in fin:
+            count += 1
+            self.parseInput(line, count)
+        pass
+
+    def parseInput(self, line, count):
+        rule = line.split(':')
+        if len(rule) != 3:
+            if rule[0] == 'proposal':
+                print("Found proposal")
+            elif rule[0][:1] == '#':
+                v = 'comment, ignore'
+            elif rule[0][:1] == "~":
+                x = Concept(rule)
+                Dialog.concepts.append(x)
+            else:
+                print("You have an error on line ", count)
+        else:
+            if (rule[0] == 'u'):
+                self.current = Rule(rule, 0, self)
+                self.rules.append(self.current)
+
+    concepts = []
+    def __init__(self):
+        self.rules = []
+        self.lastTalk = None
+        self.openFile()
+        pass
+
+   
+ 
 
 class Dialog_Engine:
 
-    def createTree(self, node):
-        if isinstance(node, str):
-            return node
-        elif isinstance(node, dict):
-            for key in node:
-                assert (key.endswith(':') or key.endswith('\n'), key)
-            return dict((key[:-1], fixup(value)) for key, value in node.items())
-        else:
-            assert isinstance(node, (list, str))
-            result = {}
-            for item in node:
-                if isinstance(item, str):
-                    assert not (item.endswith(':') or key.endswith('\n'))
-                    assert result.setdefault(item, None) is None
-                else:
-                    for key, value in fixup(item).items():
-                        assert result.setdefault(key, value) is value
-        return result
+    
 
     def checULine(self, line):
         count = 0
         
         
-
-
 
     def responseParse(self, line):
         print('hit responseParse')
@@ -47,24 +68,6 @@ class Dialog_Engine:
             # Read line by line
             lines = f.readlines()
 
-            mystring = '''
-            node1:
-                node1
-                node2:
-                    node1
-            node2:
-                node1
-                node2
-                node3:
-                    node1:
-                        node1
-                    node2:
-                        node1
-                        node2
-            '''
-
-            tree = self.createTree(f)
-            print(tree)
 
             for line in lines:
                 line = line.strip()
@@ -92,5 +95,7 @@ class Dialog_Engine:
 
 def main():
    Dialog_Engine('demoConvo.txt')
+   Dialog()
 
 main()
+
