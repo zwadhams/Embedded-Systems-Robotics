@@ -10,6 +10,7 @@ class Dialog_Engine:
         # Open File
         self.root = {}
         self.customVariable = {}
+        self.userVariable = {}
         self.withUnderscore = []
         with open(file, "r") as f:
             # Read line by line
@@ -160,19 +161,77 @@ class Dialog_Engine:
         curConv = [self.root]
         while not end:
             userInput = input("Input: ").strip().lower()
+            userInput = re.sub(' {2,}', ' ', userInput)
             validPrompt = curConv[0].keys()                      
+            closestMatch = list(validPrompt)
+            for matchInd in range(1, len(userInput) + 1):
+                closestMatch = [k for k in closestMatch if k.startswith(userInput[0:matchInd])]
+                # print(userInput[0:matchInd])
+                # print(closestMatch)
+                if (len(closestMatch) == 1):
+                    # print(closestMatch[0])
+                    closestMatch = closestMatch[0]
+                    if not ('_' in closestMatch):
+                        closestMatch = []
+                    break
+                    
+            # if closestMatch:
+            #     matchFound = True
+            #     for matchInd in range(len(userInput)):
+            #         matchFound = not(closestMatch[matchInd] == userInput[matchInd])
+            #         if matchFound:
+            #             break
+
+
+
+
+
+
             
+                        
+                
+                
             if (userInput in ["bye", "goodbye", "good bye"]):
-                print("Bye bye!")
                 end = True
-            
+            elif closestMatch:
+                splitMatch = closestMatch.split()
+                splitUser = userInput.split()
+                storeVar = ""
+                # Fast Check if Valid User Input
+                if (len(splitMatch) == len(splitUser)):
+                    for index in range(len(splitMatch)):
+                        if (splitMatch[index] == '_'):
+                            storeVar = splitUser[index]
+                    responseMessage = curConv[0][closestMatch][0]
+                    splitResponseMessage = responseMessage.split()
+                    for keyName in splitResponseMessage:
+                        if (keyName[0] == '$'):
+                            self.userVariable[keyName] = storeVar
+                            responseMessage = responseMessage.replace(keyName, self.userVariable[keyName])
+                            curConv = [curConv[0][closestMatch][1]]
+                            if (len(curConv[0]) == 0):
+                                curConv = [self.root]
+                            print("Chat Bot: ", end='')
+                            print(responseMessage)
             elif userInput in validPrompt:
                 responseMessage = curConv[0][userInput][0]
                 if responseMessage[0] == '~':
-                    #tilde case
+                    # tilde
                     responseMessage = self.customVariable[responseMessage]
                 if (type(responseMessage) == list):
                     responseMessage = random.choice(responseMessage)
+                if ('$' in responseMessage):
+                    splitResponseMessage = responseMessage.split()
+                    for keyName in splitResponseMessage:
+                        if (keyName[0] == '$'):
+                            if (keyName in self.userVariable.keys()):
+                                responseMessage = responseMessage.replace(keyName, self.userVariable[keyName])
+                            else:
+                                responseMessage = "I don't know"
+                                print("Chat Bot: ", end='')
+                                print(responseMessage)
+                    
+
                 curConv = [curConv[0][userInput][1]]
                 if (len(curConv[0]) == 0):
                     curConv = [self.root]
