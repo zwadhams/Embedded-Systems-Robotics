@@ -3,42 +3,6 @@ from rsonlite import loads, simpleparse
 #import rules
 #from Concept import Concept
 import regex as re
-
-class Dialog:
-
-    def openFile(self):
-        count = 0
-        fin = open("demoConvo.txt", "r")
-
-        for line in fin:
-            count += 1
-            self.parseInput(line, count)
-        pass
-
-    def parseInput(self, line, count):
-        rule = line.split(':')
-        if len(rule) != 3:
-            if rule[0] == 'proposal':
-                print("Found proposal")
-            elif rule[0][:1] == '#':
-                v = 'comment, ignore'
-            elif rule[0][:1] == "~":
-                x = Concept(rule)
-                Dialog.concepts.append(x)
-            else:
-                print("You have an error on line ", count)
-        else:
-            if (rule[0] == 'u'):
-                self.current = Rule(rule, 0, self)
-                self.rules.append(self.current)
-
-    concepts = []
-    def __init__(self):
-        self.rules = []
-        self.lastTalk = None
-        self.openFile()
-        pass
-
    
 class Dialog_Engine:
 
@@ -182,6 +146,5 @@ class Dialog_Engine:
 
 def main():
    Dialog_Engine('demoConvo.txt')
-   #Dialog()
 
 main()
