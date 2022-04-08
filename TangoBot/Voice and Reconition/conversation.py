@@ -198,7 +198,7 @@ class Dialog_Engine:
                 splitUser = userInput.split()
                 storeVar = ""
                 # Fast Check if Valid User Input
-                if (len(splitMatch) == len(splitUser)):
+                if (len(splitMatch) <= len(splitUser)):
                     for index in range(len(splitMatch)):
                         if (splitMatch[index] == '_'):
                             storeVar = splitUser[index]
