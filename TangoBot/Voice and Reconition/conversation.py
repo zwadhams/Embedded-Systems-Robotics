@@ -54,6 +54,7 @@ class Dialog_Engine:
             for line in lines:
                 colonCount = 0
                 tildeCount = 0
+                comment = 0
                 line = line.strip()
                 line = re.sub(' {2,}', ' ', line)
                 # Remove Whitespaces in the first few characters in the line
@@ -62,16 +63,27 @@ class Dialog_Engine:
                         colonCount += 1
                     if (charac == "~"):
                         tildeCount += 1
+                    
+                if (line[0] == "#"):
+                        comment += 1      
                 # Recondition the line to be easy to be read
                 validLine = False
                 if((tildeCount == 1 and colonCount >= 1) or (tildeCount == 0 and colonCount == 2)):
                     recondLine = self.recondition_line(line)
                     validLine = True
-                if validLine:
+                if comment == 1:
+                    print("Comment detected")
+                elif validLine:
                     print(recondLine)
                     self.storeList.append(self.createList(recondLine))
+                else:
+                    print("Error detected")
+                    
 
         print(self.storeList)
+
+        self.checkLines(self.storeList, 0, 1)
+        
                     
         return
     def recondition_line(self, line):
@@ -125,6 +137,32 @@ class Dialog_Engine:
         return listli
 
     pass
+
+    def checkLines(self, l, i, count):
+        
+        #for i in range(len(l)):
+        if (l[i][0][0] == '~'):
+            print("tilde hit")
+            
+        elif (l[i][0][0]) == 'u':
+            
+            if(l[i][0][1]) == chr(count + 48):
+               print("hit u" + chr(count + 48))
+               
+               if (l[i + 1][0][1]) == chr(count + 48):
+                   print("hit u" + chr(count + 48))
+                   i += 1
+               count += 1
+               
+            else:
+                print("hit u")
+                count = 1
+        if (len(l)-1 > i):
+            i += 1
+            self.checkLines(l, i, count)
+
+    print(len(storeList))
+        
 
 def main():
    Dialog_Engine('demoConvo.txt')
