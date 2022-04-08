@@ -163,6 +163,7 @@ class Dialog_Engine:
             validPrompt = curConv[0].keys()                      
             
             if (userInput in ["bye", "goodbye", "good bye"]):
+                print("Bye bye!")
                 end = True
             
             elif userInput in validPrompt:
