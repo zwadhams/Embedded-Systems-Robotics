@@ -1,5 +1,6 @@
 from tokenize import String
 import regex as re
+import random
    
 class Dialog_Engine:
 
@@ -9,6 +10,7 @@ class Dialog_Engine:
         # Open File
         self.root = {}
         self.customVariable = {}
+        self.withUnderscore = []
         with open(file, "r") as f:
             # Read line by line
             lines = f.readlines()
@@ -36,18 +38,17 @@ class Dialog_Engine:
                 if comment == 1:
                     print("Comment detected")
                 elif validLine:
-                    print(recondLine)
-                    self.storeList.append(self.createList(recondLine))
+                    # print(recondLine)
+                    self.storeList.append(recondLine)
                 else:
                     print("Error detected")
-                    
 
-        print(self.storeList)
-
-        self.checkLines(self.storeList, 0, 1)
-        
-                    
+            # Store List
+            self.storeLines(self.storeList)
+            # Respond
+            self.respond()
         return
+    
     def recondition_line(self, line):
         # Expected to be u:(...):[... ... ...] or u:(...):...
         allowWhitespace = False
@@ -88,58 +89,113 @@ class Dialog_Engine:
                 newLine += charac
         return newLine
 
-    def createList(self, line):
-        myList = []
-
-        strip_lines = line.strip()
-        listli = strip_lines.split()
-        #print(listli)
-        m = myList.append(listli)
-
-        return listli
-
     pass
 
-    def checkLines(self, l, i, count):
-        
-        #for i in range(len(l)):
-        if (l[i][0][0] == '~'):
-            print("tilde hit")
+
+    def storeLines(self, list):
+        curSeq = {}
+        lastNum = 0
+        curSeqKey = []
+        for line in list:
+            splitLine = line.split(':')
+            firstPart = splitLine[0]
+            firstChar = firstPart[0]
             
-        elif (l[i][0][0]) == 'u':
-            if ('~' in l[i][0]):
-                string = " tilde found"
-            else:
-                string = ""
-            if(l[i][0][1]) == chr(count + 48):
-                string = ""
-                print("hit u" + chr(count + 48), string)
-               
-                if (l[i + 1][0][1]) == chr(count + 48):
-                    if ('~' in l[i][0]):
-                        string = " tilde found"
+            if (firstChar == '~'):
+                # Variable
+                self.customVariable[firstPart] = self.strList2List(splitLine[1])
+            elif (firstChar == 'u'):
+                # Prompt
+                secondPart = splitLine[1].strip("()")
+                if ('_' in secondPart):
+                    self.withUnderscore.append(secondPart)
+                thirdPart = splitLine[2]
+                if (len(firstPart) > 1):
+                    # un
+                    curNum = ord(firstPart[1]) - 48
+                    if (lastNum >= curNum):
+                        curSeq = [self.root[curSeqKey[0]]]
+                        for i in range(1, curNum):
+                            curSeq = [curSeq[0][1][curSeqKey[i]]]
+                    if (thirdPart[0] == '['):
+                        curSeq[0][1][secondPart] = [self.strList2List(thirdPart), {}]
                     else:
-                        string = ""
-                    print("hit u" + chr(count + 48), string)
-                    i += 1
-                    string = ""
-                count += 1
-                
-               
-            else:
-                if ('~' in l[i][0]):
-                    string = " tilde found"
+                        curSeq[0][1][secondPart] = [thirdPart, {}]
+                    curSeq = [curSeq[0][1][secondPart]]
+                    curSeqKey.append(secondPart)
+                    lastNum = curNum
                 else:
-                    string = ""
-                print("hit u" + string)
-                count = 1
+                    # u
+                    # first key
+                    curSeqKey = []
+                    if (thirdPart[0] == '['):
+                        self.root[secondPart] = [self.strList2List(thirdPart), {}]
+                    else:
+                        self.root[secondPart] = [thirdPart, {}]
+                    curSeq = [self.root[secondPart]]
+                    curSeqKey.append(secondPart)            
+        return
 
+    def strList2List(self, strList):
+        newList = []
+        newStrList = strList.strip("[]")
+        tempStr = ""
+        openQuote = False
+        for index in range(len(newStrList)):
+            secondChars = newStrList[index]
+            if (secondChars != ' ' or openQuote):
+                tempStr += secondChars
+            if (secondChars == '\"'):
+                openQuote = not openQuote
+            if ((secondChars == ' ' and not openQuote) or index == len(newStrList)-1):
+                if (not newList):
+                    newList = [tempStr]
+                else:
+                    newList.append(tempStr)
+                tempStr = ""
+        return newList
+
+    def respond(self):
+        end = False
+        curConv = [self.root]
+        while not end:
+            userInput = input("Input: ").strip().lower()
+            validPrompt = curConv[0].keys()                      
             
-        if (len(l)-1 > i):
-            i += 1
-            self.checkLines(l, i, count)
-
-    print(len(storeList))
+            if (userInput in ["bye", "goodbye", "good bye"]):
+                end = True
+            
+            elif userInput in validPrompt:
+                responseMessage = curConv[0][userInput][0]
+                if (type(responseMessage) == list):
+                    responseMessage = random.choice(responseMessage)
+                curConv = [curConv[0][userInput][1]]
+                if (len(curConv[0]) == 0):
+                    curConv = [self.root]
+                print("Chat Bot: ", end='')
+                print(responseMessage)
+            
+            
+            else:
+                tildeKey = ""
+                for key in curConv[0].keys():
+                    if ('~' in key):
+                        # Variable found
+                        tildeKey = key
+                        
+                if (tildeKey != "") and (userInput in self.customVariable[tildeKey]):
+                    responseMessage = curConv[0][tildeKey][0]
+                    if (type(responseMessage) == list):
+                        responseMessage = random.choice(responseMessage)
+                    curConv = [curConv[0][tildeKey][1]]
+                    if (len(curConv[0]) == 0):
+                        curConv = [self.root]
+                    print("Chat Bot: ", end='')
+                    print(responseMessage)
+                else:
+                    responseMessage = "I don't understand"
+                    print("Chat Bot: ", end='')
+                    print(responseMessage)
         
 
 def main():
