@@ -18,6 +18,7 @@ class Dialog_Engine:
                 comment = 0
                 line = line.strip()
                 line = re.sub(' {2,}', ' ', line)
+                line = line.lower()
                 # Remove Whitespaces in the first few characters in the line
                 for charac in line:
                     if (charac == ":"):
