@@ -145,18 +145,34 @@ class Dialog_Engine:
             print("tilde hit")
             
         elif (l[i][0][0]) == 'u':
-            
+            if ('~' in l[i][0]):
+                string = " tilde found"
+            else:
+                string = ""
             if(l[i][0][1]) == chr(count + 48):
-               print("hit u" + chr(count + 48))
+                string = ""
+                print("hit u" + chr(count + 48), string)
                
-               if (l[i + 1][0][1]) == chr(count + 48):
-                   print("hit u" + chr(count + 48))
-                   i += 1
-               count += 1
+                if (l[i + 1][0][1]) == chr(count + 48):
+                    if ('~' in l[i][0]):
+                        string = " tilde found"
+                    else:
+                        string = ""
+                    print("hit u" + chr(count + 48), string)
+                    i += 1
+                    string = ""
+                count += 1
+                
                
             else:
-                print("hit u")
+                if ('~' in l[i][0]):
+                    string = " tilde found"
+                else:
+                    string = ""
+                print("hit u" + string)
                 count = 1
+
+            
         if (len(l)-1 > i):
             i += 1
             self.checkLines(l, i, count)
