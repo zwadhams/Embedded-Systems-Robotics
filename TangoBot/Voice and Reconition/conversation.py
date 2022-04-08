@@ -168,6 +168,9 @@ class Dialog_Engine:
             
             elif userInput in validPrompt:
                 responseMessage = curConv[0][userInput][0]
+                if responseMessage[0] == '~':
+                    #tilde case
+                    responseMessage = self.customVariable[responseMessage]
                 if (type(responseMessage) == list):
                     responseMessage = random.choice(responseMessage)
                 curConv = [curConv[0][userInput][1]]
