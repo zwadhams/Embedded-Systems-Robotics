@@ -1,10 +1,16 @@
 from tokenize import String
 import regex as re
 import random
+from TextToSpeech import *
+
+
+        
    
 class Dialog_Engine:
 
     storeList = []
+
+    
     
     def __init__(self, file:str):
         # Open File
@@ -213,6 +219,7 @@ class Dialog_Engine:
                                 curConv = [self.root]
                             print("Chat Bot: ", end='')
                             print(responseMessage)
+                            talkBack(responseMessage)
             elif userInput in validPrompt:
                 responseMessage = curConv[0][userInput][0]
                 if responseMessage[0] == '~':
@@ -230,6 +237,7 @@ class Dialog_Engine:
                                 responseMessage = "I don't know"
                                 print("Chat Bot: ", end='')
                                 print(responseMessage)
+                                talkBack(responseMessage)
                     
 
                 curConv = [curConv[0][userInput][1]]
@@ -237,6 +245,7 @@ class Dialog_Engine:
                     curConv = [self.root]
                 print("Chat Bot: ", end='')
                 print(responseMessage)
+                talkBack(responseMessage)
             
             
             else:
@@ -255,13 +264,18 @@ class Dialog_Engine:
                         curConv = [self.root]
                     print("Chat Bot: ", end='')
                     print(responseMessage)
+                    talkBack(responseMessage)
                 else:
                     responseMessage = "I don't understand"
                     print("Chat Bot: ", end='')
                     print(responseMessage)
+                    talkBack(responseMessage)
+
+    
+        
         
 
 def main():
-   Dialog_Engine('liveDemo.txt')
+   Dialog_Engine('liveDemoFile.txt')
 
 main()
