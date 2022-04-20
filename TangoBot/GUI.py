@@ -37,7 +37,27 @@ class MyApp(App):
     def callback(self, instance):
         print(instance)
         self.question.text = "Hello " + self.answer.text + "!"
+        
+    def motorsRun(speed, time, direction):
+        pass
 
+    def motorsTurn(direction, time):
+        pass
+
+    def headTilt():
+        pass
+
+    def headPan():
+        pass
+
+    def waistTurn():
+        pass
+
+    def speechInput():
+        pass
+
+    def speechOutput(userInput):
+        pass
 
 def main():
     MyApp().run()
