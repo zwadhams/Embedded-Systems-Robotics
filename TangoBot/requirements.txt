@@ -6,3 +6,4 @@ threading
 pyserial
 regex
 gTTS pyttsx3 playsound
+kivy
