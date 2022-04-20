@@ -109,7 +109,24 @@ class MyApp(App):
         twistLeft()
 
     def speechInput():
-        pass
+        talkBack("Say something please")
+        flag = True
+        while(flag):
+            r = sr.Recognizer()
+            speech = sr.Microphone(device_index=0)
+            with speech as source:
+                audio = r.adjust_for_ambient_noise(source)
+                audio = r.listen(source)
+            try:
+                recog = r.recognize_google(audio, language = 'en-US')
+                if recog:
+                    talkBack("Okay I heard you but I really dont care")
+                    flag = False
+                else:
+                    talkBack("Yeah you didnt say anything, whatever")
+                    flag = False
+            except sr.UnknownValueError:
+               talkBack("bbebrbbbrbbrbe, dead")
 
     def speechOutput(userInput):
         talkBack(userInput)
