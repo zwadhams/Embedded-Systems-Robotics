@@ -9,3 +9,4 @@ gTTS pyttsx3 playsound
 kivy
 playsound==1.2.2
 gtts
+gstreamer-1.0
