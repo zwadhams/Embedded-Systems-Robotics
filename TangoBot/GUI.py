@@ -7,6 +7,7 @@ from kivy.uix.image import Image
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
+from TextToSpeech import *
 
 
 class MyApp(App):
@@ -59,6 +60,7 @@ class MyApp(App):
         pass
 
     def speechOutput(userInput):
+            talkBack("Hello")
         pass
 
 def main():
