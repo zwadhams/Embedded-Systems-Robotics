@@ -37,7 +37,9 @@ class MyApp(App):
     def callback(self, instance):
         print(instance)
         self.question.text = "Hello " + self.answer.text + "!"
-        
+ 
+
+########These are the 7 actions our robot has to do########
     def motorsRun(speed, time, direction):
         pass
 
