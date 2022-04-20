@@ -7,6 +7,7 @@ from kivy.uix.image import Image
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
+from kivy.core.window import Window
 from TextToSpeech import *
 
 import speech_recognition as sr
@@ -60,6 +61,7 @@ def lookLeft():
 class MyApp(App):
 
     def build(self):
+        Window.fullscreen = True
         self.window = GridLayout()
         self.icon = 'hello.jpg'
         self.window.cols = 1
