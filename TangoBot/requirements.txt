@@ -7,3 +7,4 @@ pyserial
 regex
 gTTS pyttsx3 playsound
 kivy
+playsound==1.2.2
