@@ -110,8 +110,10 @@ class MyApp(App):
         pass
 
     def speechOutput(userInput):
-            talkBack("Hello")
-        pass
+        talkBack(userInput)
+        
+
+    speechOutput("nope")
 
 def main():
     MyApp().run()
