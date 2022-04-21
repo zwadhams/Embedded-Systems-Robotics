@@ -264,33 +264,10 @@ class MyApp(App):
     
 
     def build(self):
+        #Window.fullscreen = True
+        Window.clearcolor = (1,0,0,1)
         return MyGridLayout()
-##        self.window = GridLayout()
-##        self.icon = 'hello.jpg'
-##        self.window.cols = 1
-##        self.window.pos_hint = {"center_x" : 0.5, "center_y" : 0.5}
-##        self.window.add_widget(Image(source='hello.jpg',
-##                                     size_hint = (3,3)))
-##        self.question = Label(text="What is your robot's name?",
-##                              font_size = 36,
-##                              color = '#00abFF')
-##        self.window.add_widget(self.question)
-##        self.answer = TextInput(multiline = False,
-##                                padding_y = (20 ,20),
-##                                padding_x = (10,10),
-##                                size_hint = (1, 0.9))
-##        self.window.add_widget(self.answer)
-
-##        self.button1 = Button(color =(1, 0, .65, 1),
-##                     background_normal = 'Buttons/normal/RUN.png',
-##                     background_down ='Buttons/down/RUN.png',
-##                     size_hint = (.3, .3),
-##                     pos_hint = {"x":0.35, "y":0.3}
-##                   )
-##        self.button1.bind(on_press = self.callback)
-##        self.window.add_widget(self.button1)
         
-        return self.window
 
     def callback(self, instance):
         print(instance)
