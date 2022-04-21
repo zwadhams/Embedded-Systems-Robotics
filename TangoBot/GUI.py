@@ -162,6 +162,37 @@ class MyGridLayout(GridLayout):
 
     def pressRUN(self,instance):
         talkBack("RUN")
+        for i in self.commandArray:
+            if i == 1: #Backwards motors
+                self.motorsRun()
+                print("Backwards motors")
+            elif i == 2: #Forewards motors
+                self.motorsRun()
+                print("forewards motors")
+            elif i == 3: #Right motors
+                self.motorsTurn()
+                print("right motors")
+            elif i == 4: #Left motors
+                self.motorsTurn()
+                print("left motors")
+            elif i == 5: #waist turn right
+                self.waistTurn()
+                print("waist turn right")
+            elif i == 6: #waist turn left
+                self.waistTurn()
+                print("waist turn left")
+            elif i == 7: #head tilt up
+                self.headTilt()
+                print("head tilt up")
+            elif i == 8: #head tilt down
+                self.headTilt()
+                print("head tilt down")
+            elif i == 9: #head pan right
+                self.headPan()
+                print("head pan right")
+            elif i == 10: #head pan left
+                self.headPan()
+                print("head pan left")
         
     def pressReset(self,instance):
         self.commandArray = [0, 0, 0, 0, 0, 0, 0, 0]
@@ -241,22 +272,23 @@ class MyGridLayout(GridLayout):
 
     #####Actual moving stuff#######
 
-    def motorsRun(speed, time, direction):
+    def motorsRun(self):#(speed, time, direction)
         pass
 
-    def motorsTurn(direction, time):
+    def motorsTurn(self):#(direction, time)
         pass
 
-    def headTilt():
+    def headTilt(self):
         pass
 
-    def headPan():
+    def headPan(self):
         pass
 
-    def waistTurn():
+    def waistTurn(self):
         pass
 
-    def speechInput():
+    def speechInput(self):
+        passnput():
         pass
         
 
