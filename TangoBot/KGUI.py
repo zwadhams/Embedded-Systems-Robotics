@@ -9,7 +9,6 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.core.window import Window
 from TextToSpeech import *
-import speech_recognition as sr
 
 
 
@@ -25,11 +24,15 @@ class MyGridLayout(GridLayout):
         self.index = 0
         #Set colums
         self.rows = 1
-        self.cols = 2
+        self.cols = 9
 
         self.left_grid = GridLayout()
         self.left_grid.rows = 7
         self.left_grid.cols = 2
+
+        self.right_grid = GridLayout()
+        self.right_grid.rows = 1
+        self.right_grid.cols = 8
         
 
         #add widgets
@@ -177,12 +180,27 @@ class MyGridLayout(GridLayout):
         self.left_grid.add_widget(self.mic)
         ####################################################
         self.add_widget(self.left_grid)
-        self.reset = Button(color =(1, 0, .65, 1),
+
+        #erase stuf
+        sets = "Test"
+        self.test1 = Button(color =(1, 0, .65, 1),
+                            text= sets,
+                    size_hint_y = None,
+                    height=100,
+                    size_hint_x = None,
+                    width=100,
+                   )
+        self.test1.bind(on_click=self.pressReset)
+        self.right_grid.add_widget(self.test1)
+        ####################################################
+        self.test = Button(color =(1, 0, .65, 1),
                     background_normal = 'Buttons/normal/reset.png',
                     background_down ='Buttons/down/reset.png',
                    )
-        self.reset.bind(on_click=self.pressReset)
-        self.add_widget(self.reset)
+        self.test.bind(on_click=self.pressReset)
+        self.right_grid.add_widget(self.test)
+
+        self.add_widget(self.right_grid)
 
     def pressRUN(self,instance):
         talkBack("RUN")
