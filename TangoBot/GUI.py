@@ -9,6 +9,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.core.window import Window
 from TextToSpeech import *
+import speech_recognition as sr
 
 
 
