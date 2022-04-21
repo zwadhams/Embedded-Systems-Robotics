@@ -21,6 +21,8 @@ class MyGridLayout(GridLayout):
         #Call grid layout constructor
         super(MyGridLayout, self).__init__(**kwargs)
         self.commandArray = [0, 0, 0, 0, 0, 0, 0, 0]
+        self.words = ["","","","","","","",""]
+        self.que = [None, None, None, None, None, None, None, None]
         self.index = 0
         #Set colums
         self.rows = 1
@@ -44,7 +46,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.lookLeft.bind(on_click=self.pressLookLeft)
+        self.lookLeft.bind(on_press=self.pressLookLeft)
         self.left_grid.add_widget(self.lookLeft)
         ####################################################
         self.lookRight = Button(color =(1, 0, .65, 1),
@@ -55,7 +57,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.lookRight.bind(on_click=self.pressLookRight)
+        self.lookRight.bind(on_press=self.pressLookRight)
         self.left_grid.add_widget(self.lookRight)
         ####################################################
         self.lookDown = Button(color =(1, 0, .65, 1),
@@ -66,7 +68,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.lookDown.bind(on_click=self.pressLookDown)
+        self.lookDown.bind(on_press=self.pressLookDown)
         self.left_grid.add_widget(self.lookDown)
         ####################################################
         self.lookUp = Button(color =(1, 0, .65, 1),
@@ -77,7 +79,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.lookUp.bind(on_click=self.pressLookUp)
+        self.lookUp.bind(on_press=self.pressLookUp)
         self.left_grid.add_widget(self.lookUp)
         ####################################################
         self.twistLeft = Button(color =(1, 0, .65, 1),
@@ -88,7 +90,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.twistLeft.bind(on_click=self.pressTwistLeft)
+        self.twistLeft.bind(on_press=self.pressTwistLeft)
         self.left_grid.add_widget(self.twistLeft)
         ####################################################
         self.twistRight = Button(color =(1, 0, .65, 1),
@@ -99,7 +101,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.twistRight.bind(on_click=self.pressTwistRight)
+        self.twistRight.bind(on_press=self.pressTwistRight)
         self.left_grid.add_widget(self.twistRight)
         ####################################################
         self.turnLeft = Button(color =(1, 0, .65, 1),
@@ -110,7 +112,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.turnLeft.bind(on_click=self.pressTurnLeft)
+        self.turnLeft.bind(on_press=self.pressTurnLeft)
         self.left_grid.add_widget(self.turnLeft)
         ####################################################
         self.turnRight = Button(color =(1, 0, .65, 1),
@@ -121,7 +123,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.turnRight.bind(on_click=self.pressTurnRight)
+        self.turnRight.bind(on_press=self.pressTurnRight)
         self.left_grid.add_widget(self.turnRight)
         ####################################################
         self.Forewards = Button(color =(1, 0, .65, 1),
@@ -132,7 +134,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.Forewards.bind(on_click=self.pressForewards)
+        self.Forewards.bind(on_press=self.pressForewards)
         self.left_grid.add_widget(self.Forewards)
         ####################################################
         self.Backwards = Button(color =(1, 0, .65, 1),
@@ -143,7 +145,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.Backwards.bind(on_click=self.pressBackwards)
+        self.Backwards.bind(on_press=self.pressBackwards)
         self.left_grid.add_widget(self.Backwards)
         ####################################################
         self.RUN = Button(color =(1, 0, .65, 1),
@@ -154,7 +156,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.RUN.bind(on_click=self.pressRUN)
+        self.RUN.bind(on_press=self.pressRUN)
         self.left_grid.add_widget(self.RUN)
         ####################################################
         self.reset = Button(color =(1, 0, .65, 1),
@@ -165,7 +167,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.reset.bind(on_click=self.pressReset)
+        self.reset.bind(on_press=self.pressReset)
         self.left_grid.add_widget(self.reset)
         ####################################################
         self.mic = Button(color =(1, 0, .65, 1),
@@ -176,98 +178,90 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.mic.bind(on_click=self.pressReset)
+        self.mic.bind(on_press=self.pressReset)
         self.left_grid.add_widget(self.mic)
         ####################################################
         self.add_widget(self.left_grid)
 
         #erase stuf and QUE
-        word1 = "#"
-        self.que1 = Button(color =(1, 0, .65, 1),
-                            text= word1,
+        self.que[0] = Button(color =(1, 0, .65, 1),
+                            text= self.words[0],
                     size_hint_y = None,
                     height=100,
                     size_hint_x = None,
                     width=100,
                    )
-        self.que1.bind(on_click=self.pressReset)
-        self.right_grid.add_widget(self.que1)
+        self.que[0].bind(on_press=(self.pressReset))
+        self.right_grid.add_widget(self.que[0])
         ####################################################
-        word2 = "#"
         self.que2 = Button(color =(1, 0, .65, 1),
-                            text= word2,
+                            text= self.words[1],
                     size_hint_y = None,
                     height=100,
                     size_hint_x = None,
                     width=100,
                    )
-        self.que2.bind(on_click=self.pressReset)
+        self.que2.bind(on_press=self.pressReset)
         self.right_grid.add_widget(self.que2)
         ####################################################
-        word3 = "#"
         self.que3 = Button(color =(1, 0, .65, 1),
-                            text= word3,
+                            text= self.words[2],
                     size_hint_y = None,
                     height=100,
                     size_hint_x = None,
                     width=100,
                    )
-        self.que3.bind(on_click=self.pressReset)
+        self.que3.bind(on_press=self.pressReset)
         self.right_grid.add_widget(self.que3)
         ####################################################
-        word4 = "#"
         self.que4 = Button(color =(1, 0, .65, 1),
-                            text= word4,
+                            text= self.words[3],
                     size_hint_y = None,
                     height=100,
                     size_hint_x = None,
                     width=100,
                    )
-        self.que4.bind(on_click=self.pressReset)
+        self.que4.bind(on_press=self.pressReset)
         self.right_grid.add_widget(self.que4)
         ####################################################
-        word5 = "#"
         self.que5 = Button(color =(1, 0, .65, 1),
-                            text= word5,
+                            text= self.words[4],
                     size_hint_y = None,
                     height=100,
                     size_hint_x = None,
                     width=100,
                    )
-        self.que5.bind(on_click=self.pressReset)
+        self.que5.bind(on_press=self.pressReset)
         self.right_grid.add_widget(self.que5)
         ####################################################
-        word6 = "#"
         self.que6 = Button(color =(1, 0, .65, 1),
-                            text= word6,
+                            text= self.words[5],
                     size_hint_y = None,
                     height=100,
                     size_hint_x = None,
                     width=100,
                    )
-        self.que6.bind(on_click=self.pressReset)
+        self.que6.bind(on_press=self.pressReset)
         self.right_grid.add_widget(self.que6)
         ####################################################
-        word7 = "#"
         self.que7 = Button(color =(1, 0, .65, 1),
-                            text= word7,
+                            text= self.words[6],
                     size_hint_y = None,
                     height=100,
                     size_hint_x = None,
                     width=100,
                    )
-        self.que7.bind(on_click=self.pressReset)
+        self.que7.bind(on_press=self.pressReset)
         self.right_grid.add_widget(self.que7)
         ####################################################
-        word8 = "#"
         self.que8 = Button(color =(1, 0, .65, 1),
-                            text= word8,
+                            text= self.words[7],
                     size_hint_y = None,
                     height=100,
                     size_hint_x = None,
                     width=100,
                    )
-        self.que8.bind(on_click=self.pressReset)
+        self.que8.bind(on_press=self.pressReset)
         self.right_grid.add_widget(self.que8)
         ####################################################
         self.add_widget(self.right_grid)
@@ -337,6 +331,7 @@ class MyGridLayout(GridLayout):
     def pressTurnLeft(self,instance):
         command = 4
         self.commandArray[self.index] = command
+        self.que[0].text = "Left"
         self.index = (self.index+1)%8
         talkBack("Turn Left")
         print(self.commandArray)
