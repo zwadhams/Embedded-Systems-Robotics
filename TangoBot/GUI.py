@@ -35,7 +35,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.lookLeft.bind(on_click=self.pressLookLeft)
+        self.lookLeft.bind(on_press=self.pressLookLeft)
         self.add_widget(self.lookLeft)
         ####################################################
         self.lookRight = Button(color =(1, 0, .65, 1),
@@ -46,7 +46,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.lookRight.bind(on_click=self.pressLookRight)
+        self.lookRight.bind(on_press=self.pressLookRight)
         self.add_widget(self.lookRight)
         ####################################################
         self.lookDown = Button(color =(1, 0, .65, 1),
@@ -57,7 +57,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.lookDown.bind(on_click=self.pressLookDown)
+        self.lookDown.bind(on_press=self.pressLookDown)
         self.add_widget(self.lookDown)
         ####################################################
         self.lookUp = Button(color =(1, 0, .65, 1),
@@ -68,7 +68,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.lookUp.bind(on_click=self.pressLookUp)
+        self.lookUp.bind(on_press=self.pressLookUp)
         self.add_widget(self.lookUp)
         ####################################################
         self.twistLeft = Button(color =(1, 0, .65, 1),
@@ -79,7 +79,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.twistLeft.bind(on_click=self.pressTwistLeft)
+        self.twistLeft.bind(on_press=self.pressTwistLeft)
         self.add_widget(self.twistLeft)
         ####################################################
         self.twistRight = Button(color =(1, 0, .65, 1),
@@ -90,7 +90,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.twistRight.bind(on_click=self.pressTwistRight)
+        self.twistRight.bind(on_press=self.pressTwistRight)
         self.add_widget(self.twistRight)
         ####################################################
         self.turnLeft = Button(color =(1, 0, .65, 1),
@@ -101,7 +101,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.turnLeft.bind(on_click=self.pressTurnLeft)
+        self.turnLeft.bind(on_press=self.pressTurnLeft)
         self.add_widget(self.turnLeft)
         ####################################################
         self.turnRight = Button(color =(1, 0, .65, 1),
@@ -123,7 +123,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.Forewards.bind(on_click=self.pressForewards)
+        self.Forewards.bind(on_press=self.pressForewards)
         self.add_widget(self.Forewards)
         ####################################################
         self.Backwards = Button(color =(1, 0, .65, 1),
@@ -134,7 +134,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.Backwards.bind(on_click=self.pressBackwards)
+        self.Backwards.bind(on_press=self.pressBackwards)
         self.add_widget(self.Backwards)
         ####################################################
         self.RUN = Button(color =(1, 0, .65, 1),
@@ -145,7 +145,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.RUN.bind(on_click=self.pressRUN)
+        self.RUN.bind(on_press=self.pressRUN)
         self.add_widget(self.RUN)
         ####################################################
         self.reset = Button(color =(1, 0, .65, 1),
@@ -156,7 +156,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.reset.bind(on_click=self.pressReset)
+        self.reset.bind(on_press=self.pressReset)
         self.add_widget(self.reset)
         ####################################################
 
