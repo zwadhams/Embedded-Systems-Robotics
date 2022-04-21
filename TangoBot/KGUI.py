@@ -31,8 +31,8 @@ class MyGridLayout(GridLayout):
         self.left_grid.cols = 2
 
         self.right_grid = GridLayout()
-        self.right_grid.rows = 1
-        self.right_grid.cols = 8
+        self.right_grid.rows = 2
+        self.right_grid.cols = 4
         
 
         #add widgets
@@ -181,26 +181,97 @@ class MyGridLayout(GridLayout):
         ####################################################
         self.add_widget(self.left_grid)
 
-        #erase stuf
-        sets = "Test"
-        self.test1 = Button(color =(1, 0, .65, 1),
-                            text= sets,
+        #erase stuf and QUE
+        word1 = "#"
+        self.que1 = Button(color =(1, 0, .65, 1),
+                            text= word1,
                     size_hint_y = None,
                     height=100,
                     size_hint_x = None,
                     width=100,
                    )
-        self.test1.bind(on_click=self.pressReset)
-        self.right_grid.add_widget(self.test1)
+        self.que1.bind(on_click=self.pressReset)
+        self.right_grid.add_widget(self.que1)
         ####################################################
-        self.test = Button(color =(1, 0, .65, 1),
-                    background_normal = 'Buttons/normal/reset.png',
-                    background_down ='Buttons/down/reset.png',
+        word2 = "#"
+        self.que2 = Button(color =(1, 0, .65, 1),
+                            text= word2,
+                    size_hint_y = None,
+                    height=100,
+                    size_hint_x = None,
+                    width=100,
                    )
-        self.test.bind(on_click=self.pressReset)
-        self.right_grid.add_widget(self.test)
-
+        self.que2.bind(on_click=self.pressReset)
+        self.right_grid.add_widget(self.que2)
+        ####################################################
+        word3 = "#"
+        self.que3 = Button(color =(1, 0, .65, 1),
+                            text= word3,
+                    size_hint_y = None,
+                    height=100,
+                    size_hint_x = None,
+                    width=100,
+                   )
+        self.que3.bind(on_click=self.pressReset)
+        self.right_grid.add_widget(self.que3)
+        ####################################################
+        word4 = "#"
+        self.que4 = Button(color =(1, 0, .65, 1),
+                            text= word4,
+                    size_hint_y = None,
+                    height=100,
+                    size_hint_x = None,
+                    width=100,
+                   )
+        self.que4.bind(on_click=self.pressReset)
+        self.right_grid.add_widget(self.que4)
+        ####################################################
+        word5 = "#"
+        self.que5 = Button(color =(1, 0, .65, 1),
+                            text= word5,
+                    size_hint_y = None,
+                    height=100,
+                    size_hint_x = None,
+                    width=100,
+                   )
+        self.que5.bind(on_click=self.pressReset)
+        self.right_grid.add_widget(self.que5)
+        ####################################################
+        word6 = "#"
+        self.que6 = Button(color =(1, 0, .65, 1),
+                            text= word6,
+                    size_hint_y = None,
+                    height=100,
+                    size_hint_x = None,
+                    width=100,
+                   )
+        self.que6.bind(on_click=self.pressReset)
+        self.right_grid.add_widget(self.que6)
+        ####################################################
+        word7 = "#"
+        self.que7 = Button(color =(1, 0, .65, 1),
+                            text= word7,
+                    size_hint_y = None,
+                    height=100,
+                    size_hint_x = None,
+                    width=100,
+                   )
+        self.que7.bind(on_click=self.pressReset)
+        self.right_grid.add_widget(self.que7)
+        ####################################################
+        word8 = "#"
+        self.que8 = Button(color =(1, 0, .65, 1),
+                            text= word8,
+                    size_hint_y = None,
+                    height=100,
+                    size_hint_x = None,
+                    width=100,
+                   )
+        self.que8.bind(on_click=self.pressReset)
+        self.right_grid.add_widget(self.que8)
+        ####################################################
         self.add_widget(self.right_grid)
+
 
     def pressRUN(self,instance):
         talkBack("RUN")
