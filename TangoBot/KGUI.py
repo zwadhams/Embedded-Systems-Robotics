@@ -401,6 +401,13 @@ class MyGridLayout(GridLayout):
         self.index = (self.index+1)%8
         talkBack("Look Left")
         print(self.commandArray)
+        
+    def pressListen(self, instance):
+        command = 11
+        self.commandArray[self.index] = command
+        self.que[self.index].text = "Listening"
+        self.index = (self.index+1)%8
+        talkBack("Listening")
 
     #####Actual moving stuff#######
 
