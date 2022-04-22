@@ -456,7 +456,7 @@ class MyApp(App):
 
     def build(self):
         #Window.fullscreen = True
-        Window.clearcolor = (1,0,0,1)
+        Window.clearcolor = (0,1,1,1)
         return MyGridLayout()
         
 
