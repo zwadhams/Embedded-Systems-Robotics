@@ -310,8 +310,14 @@ class MyGridLayout(GridLayout):
         
     def pressReset(self,instance):
         self.commandArray = [0, 0, 0, 0, 0, 0, 0, 0]
-        self.words = ["","","","","","","",""]
-        self.que = [None, None, None, None, None, None, None, None]
+        self.que[0].text = " "
+        self.que[1].text = " "
+        self.que[2].text = " "
+        self.que[3].text = " "
+        self.que[4].text = " "
+        self.que[5].text = " "
+        self.que[6].text = " "
+        self.que[7].text = " "
         print(self.commandArray)
         self.index = 0
         talkBack("reset")
