@@ -178,7 +178,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.mic.bind(on_press=self.pressReset)
+        self.mic.bind(on_press=self.pressListen)
         self.left_grid.add_widget(self.mic)
         ####################################################
         self.add_widget(self.left_grid)
