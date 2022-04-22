@@ -10,6 +10,8 @@ from kivy.uix.button import Button
 from kivy.core.window import Window
 from TextToSpeech import *
 
+import speech_recognition as sr
+
 
 
 class MyGridLayout(GridLayout):
@@ -33,8 +35,9 @@ class MyGridLayout(GridLayout):
         self.left_grid.cols = 2
 
         self.right_grid = GridLayout()
-        self.right_grid.rows = 2
+        self.right_grid.rows = 3
         self.right_grid.cols = 4
+
         
 
         #add widgets
@@ -42,9 +45,9 @@ class MyGridLayout(GridLayout):
                     background_normal = 'Buttons/normal/lookLeft.png',
                     background_down ='Buttons/down/lookLeft.png',
                     size_hint_y = None,
-                    height=100,
+                    height=50,
                     size_hint_x = None,
-                    width=100,
+                    width=50,
                    )
         self.lookLeft.bind(on_press=self.pressLookLeft)
         self.left_grid.add_widget(self.lookLeft)
@@ -53,9 +56,9 @@ class MyGridLayout(GridLayout):
                     background_normal = 'Buttons/normal/lookRight.png',
                     background_down ='Buttons/down/lookRight.png',
                     size_hint_y = None,
-                    height=100,
+                    height=50,
                     size_hint_x = None,
-                    width=100,
+                    width=50,
                    )
         self.lookRight.bind(on_press=self.pressLookRight)
         self.left_grid.add_widget(self.lookRight)
@@ -64,9 +67,9 @@ class MyGridLayout(GridLayout):
                     background_normal = 'Buttons/normal/lookDown.png',
                     background_down ='Buttons/down/lookDown.png',
                     size_hint_y = None,
-                    height=100,
+                    height=50,
                     size_hint_x = None,
-                    width=100,
+                    width=50,
                    )
         self.lookDown.bind(on_press=self.pressLookDown)
         self.left_grid.add_widget(self.lookDown)
@@ -75,9 +78,9 @@ class MyGridLayout(GridLayout):
                     background_normal = 'Buttons/normal/lookUp.png',
                     background_down ='Buttons/down/lookUp.png',
                     size_hint_y = None,
-                    height=100,
+                    height=50,
                     size_hint_x = None,
-                    width=100,
+                    width=50,
                    )
         self.lookUp.bind(on_press=self.pressLookUp)
         self.left_grid.add_widget(self.lookUp)
@@ -86,9 +89,9 @@ class MyGridLayout(GridLayout):
                     background_normal = 'Buttons/normal/twistLeft.png',
                     background_down ='Buttons/down/twistLeft.png',
                     size_hint_y = None,
-                    height=100,
+                    height=50,
                     size_hint_x = None,
-                    width=100,
+                    width=50,
                    )
         self.twistLeft.bind(on_press=self.pressTwistLeft)
         self.left_grid.add_widget(self.twistLeft)
@@ -97,9 +100,9 @@ class MyGridLayout(GridLayout):
                     background_normal = 'Buttons/normal/twistRight.png',
                     background_down ='Buttons/down/twistRight.png',
                     size_hint_y = None,
-                    height=100,
+                    height=50,
                     size_hint_x = None,
-                    width=100,
+                    width=50,
                    )
         self.twistRight.bind(on_press=self.pressTwistRight)
         self.left_grid.add_widget(self.twistRight)
@@ -108,9 +111,9 @@ class MyGridLayout(GridLayout):
                     background_normal = 'Buttons/normal/turnLeft.png',
                     background_down ='Buttons/down/turnLeft.png',
                     size_hint_y = None,
-                    height=100,
+                    height=50,
                     size_hint_x = None,
-                    width=100,
+                    width=50,
                    )
         self.turnLeft.bind(on_press=self.pressTurnLeft)
         self.left_grid.add_widget(self.turnLeft)
@@ -119,9 +122,9 @@ class MyGridLayout(GridLayout):
                     background_normal = 'Buttons/normal/turnRight.png',
                     background_down ='Buttons/down/turnRight.png',
                     size_hint_y = None,
-                    height=100,
+                    height=50,
                     size_hint_x = None,
-                    width=100,
+                    width=50,
                    )
         self.turnRight.bind(on_press=self.pressTurnRight)
         self.left_grid.add_widget(self.turnRight)
@@ -130,9 +133,9 @@ class MyGridLayout(GridLayout):
                     background_normal = 'Buttons/normal/Forewards.png',
                     background_down ='Buttons/down/Forewards.png',
                     size_hint_y = None,
-                    height=100,
+                    height=50,
                     size_hint_x = None,
-                    width=100,
+                    width=50,
                    )
         self.Forewards.bind(on_press=self.pressForewards)
         self.left_grid.add_widget(self.Forewards)
@@ -141,9 +144,9 @@ class MyGridLayout(GridLayout):
                     background_normal = 'Buttons/normal/Backwards.png',
                     background_down ='Buttons/down/Backwards.png',
                     size_hint_y = None,
-                    height=100,
+                    height=50,
                     size_hint_x = None,
-                    width=100,
+                    width=50,
                    )
         self.Backwards.bind(on_press=self.pressBackwards)
         self.left_grid.add_widget(self.Backwards)
@@ -152,9 +155,9 @@ class MyGridLayout(GridLayout):
                     background_normal = 'Buttons/normal/RUN.png',
                     background_down ='Buttons/down/RUN.png',
                     size_hint_y = None,
-                    height=100,
+                    height=50,
                     size_hint_x = None,
-                    width=100,
+                    width=50,
                    )
         self.RUN.bind(on_press=self.pressRUN)
         self.left_grid.add_widget(self.RUN)
@@ -163,9 +166,9 @@ class MyGridLayout(GridLayout):
                     background_normal = 'Buttons/normal/reset.png',
                     background_down ='Buttons/down/reset.png',
                     size_hint_y = None,
-                    height=100,
+                    height=50,
                     size_hint_x = None,
-                    width=100,
+                    width=50,
                    )
         self.reset.bind(on_press=self.pressReset)
         self.left_grid.add_widget(self.reset)
@@ -174,9 +177,9 @@ class MyGridLayout(GridLayout):
                     background_normal = 'Buttons/normal/mic.png',
                     background_down ='Buttons/down/mic.png',
                     size_hint_y = None,
-                    height=100,
+                    height=50,
                     size_hint_x = None,
-                    width=100,
+                    width=50,
                    )
         self.mic.bind(on_press=self.pressListen)
         self.left_grid.add_widget(self.mic)
@@ -190,9 +193,9 @@ class MyGridLayout(GridLayout):
         self.que[0] = Button(color =(1, 0, .65, 1),
                             text= self.words[0],
                     size_hint_y = None,
-                    height=100,
+                    height=50,
                     size_hint_x = None,
-                    width=100,
+                    width=50,
                    )
         self.que[0].bind(on_press=(self.pressQue1))
         self.right_grid.add_widget(self.que[0])
@@ -200,9 +203,9 @@ class MyGridLayout(GridLayout):
         self.que[1] = Button(color =(1, 0, .65, 1),
                             text= self.words[1],
                     size_hint_y = None,
-                    height=100,
+                    height=50,
                     size_hint_x = None,
-                    width=100,
+                    width=50,
                    )
         self.que[1].bind(on_press=self.pressQue2)
         self.right_grid.add_widget(self.que[1])
@@ -210,9 +213,9 @@ class MyGridLayout(GridLayout):
         self.que[2] = Button(color =(1, 0, .65, 1),
                             text= self.words[2],
                     size_hint_y = None,
-                    height=100,
+                    height=50,
                     size_hint_x = None,
-                    width=100,
+                    width=50,
                    )
         self.que[2].bind(on_press=self.pressQue3)
         self.right_grid.add_widget(self.que[2])
@@ -220,9 +223,9 @@ class MyGridLayout(GridLayout):
         self.que[3] = Button(color =(1, 0, .65, 1),
                             text= self.words[3],
                     size_hint_y = None,
-                    height=100,
+                    height=50,
                     size_hint_x = None,
-                    width=100,
+                    width=50,
                    )
         self.que[3].bind(on_press=self.pressQue4)
         self.right_grid.add_widget(self.que[3])
@@ -230,9 +233,9 @@ class MyGridLayout(GridLayout):
         self.que[4] = Button(color =(1, 0, .65, 1),
                             text= self.words[4],
                     size_hint_y = None,
-                    height=100,
+                    height=50,
                     size_hint_x = None,
-                    width=100,
+                    width=50,
                    )
         self.que[4].bind(on_press=self.pressQue5)
         self.right_grid.add_widget(self.que[4])
@@ -240,9 +243,9 @@ class MyGridLayout(GridLayout):
         self.que[5] = Button(color =(1, 0, .65, 1),
                             text= self.words[5],
                     size_hint_y = None,
-                    height=100,
+                    height=50,
                     size_hint_x = None,
-                    width=100,
+                    width=50,
                    )
         self.que[5].bind(on_press=self.pressQue6)
         self.right_grid.add_widget(self.que[5])
@@ -250,9 +253,9 @@ class MyGridLayout(GridLayout):
         self.que[6] = Button(color =(1, 0, .65, 1),
                             text= self.words[6],
                     size_hint_y = None,
-                    height=100,
+                    height=50,
                     size_hint_x = None,
-                    width=100,
+                    width=50,
                    )
         self.que[6].bind(on_press=self.pressQue7)
         self.right_grid.add_widget(self.que[6])
@@ -260,9 +263,9 @@ class MyGridLayout(GridLayout):
         self.que[7] = Button(color =(1, 0, .65, 1),
                             text= self.words[7],
                     size_hint_y = None,
-                    height=100,
+                    height=50,
                     size_hint_x = None,
-                    width=100,
+                    width=50,
                    )
         self.que[7].bind(on_press=self.pressQue8)
         self.right_grid.add_widget(self.que[7])
@@ -270,10 +273,13 @@ class MyGridLayout(GridLayout):
         self.add_widget(self.right_grid)
 
 
-########################################################################################################################
+##/######################################################################################################################
 
     def pressRUN(self,instance):
         talkBack("RUN")
+        #gif animation
+        self.animation = Image(source='loading.gif', height = 50, width = 50)
+        self.right_grid.add_widget(self.animation)
         for i in self.commandArray:
             if i == 1: #Backwards motors
                 self.motorsRun()
@@ -306,8 +312,10 @@ class MyGridLayout(GridLayout):
                 self.headPan()
                 print("head pan left")
             elif i == 11: #listening 
-                self.pressListen()
+                self.speechInput()
                 print("listening")
+        self.remove_widget(self.animation)
+        print("hit")
 
 ########################################################################################################################
         
@@ -513,7 +521,7 @@ class MyGridLayout(GridLayout):
     def waistTurn(self):
         pass
 
-    def speechInput():
+    def speechInput(self):
         talkBack("Say something please")
         flag = True
         r = sr.Recognizer()
@@ -526,13 +534,19 @@ class MyGridLayout(GridLayout):
                 try:
                     print("hit the try")
                     recog = r.recognize_google(audio, language = 'en-US')
-                    if recog:
-                        talkBack("Okay I heard you but I really dont care")
-                        flag = False
-                    else:
-                        print("hit the else")
-                        talkBack("Yeah you didnt say anything, whatever")
-                        flag = False
+                    temprecog = recog.split()[1:]
+                    recog = ""
+                    for word in temprecog:
+                        recog += " " + word
+                    talkBack(recog)
+                    flag = False
+##                    if recog:
+##                        talkBack("Okay I heard you but I really dont care")
+##                        flag = False
+##                    else:
+##                        print("hit the else")
+##                        talkBack("Yeah you didnt say anything, whatever")
+##                        flag = False
                 except sr.UnknownValueError:
                    talkBack("bbebrbbbrbbrbe, dead")
                    flag = False
