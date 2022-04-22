@@ -194,7 +194,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.que[0].bind(on_press=(self.pressReset))
+        self.que[0].bind(on_press=(self.pressQue1))
         self.right_grid.add_widget(self.que[0])
         ####################################################
         self.que[1] = Button(color =(1, 0, .65, 1),
@@ -204,7 +204,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.que[1].bind(on_press=self.pressReset)
+        self.que[1].bind(on_press=self.pressQue2)
         self.right_grid.add_widget(self.que[1])
         ####################################################
         self.que[2] = Button(color =(1, 0, .65, 1),
@@ -214,7 +214,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.que[2].bind(on_press=self.pressReset)
+        self.que[2].bind(on_press=self.pressQue3)
         self.right_grid.add_widget(self.que[2])
         ####################################################
         self.que[3] = Button(color =(1, 0, .65, 1),
@@ -224,7 +224,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.que[3].bind(on_press=self.pressReset)
+        self.que[3].bind(on_press=self.pressQue4)
         self.right_grid.add_widget(self.que[3])
         ####################################################
         self.que[4] = Button(color =(1, 0, .65, 1),
@@ -234,7 +234,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.que[4].bind(on_press=self.pressReset)
+        self.que[4].bind(on_press=self.pressQue5)
         self.right_grid.add_widget(self.que[4])
         ####################################################
         self.que[5] = Button(color =(1, 0, .65, 1),
@@ -244,7 +244,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.que[5].bind(on_press=self.pressReset)
+        self.que[5].bind(on_press=self.pressQue6)
         self.right_grid.add_widget(self.que[5])
         ####################################################
         self.que[6] = Button(color =(1, 0, .65, 1),
@@ -254,7 +254,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.que[6].bind(on_press=self.pressReset)
+        self.que[6].bind(on_press=self.pressQue7)
         self.right_grid.add_widget(self.que[6])
         ####################################################
         self.que[7] = Button(color =(1, 0, .65, 1),
@@ -264,7 +264,7 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.que[7].bind(on_press=self.pressReset)
+        self.que[7].bind(on_press=self.pressQue8)
         self.right_grid.add_widget(self.que[7])
         ####################################################
         self.add_widget(self.right_grid)
@@ -411,6 +411,90 @@ class MyGridLayout(GridLayout):
         self.que[self.index].text = "Listening"
         self.index = (self.index+1)%8
         talkBack("Listening")
+
+    def pressQue1(self, instance):
+        for i in range(7):
+            self.que[i].text = self.que[i+1].text
+            self.commandArray[i] = self.commandArray[i+1]
+        self.que[7].text = ""
+        self.commandArray[7] = 0
+        for i in range(8):
+            if (self.que[i].text == ""):
+                self.index = i
+                break
+
+    def pressQue2(self, instance):
+        for i in range(6):
+            self.que[i+1].text = self.que[i+2].text
+            self.commandArray[i+1] = self.commandArray[i+2]
+        self.que[7].text = ""
+        self.commandArray[7] = 0
+        for i in range(8):
+            if (self.que[i].text == ""):
+                self.index = i
+                break
+
+    def pressQue3(self, instance):
+        for i in range(5):
+            self.que[i+2].text = self.que[i+3].text
+            self.commandArray[i+2] = self.commandArray[i+3]
+        self.que[7].text = ""
+        self.commandArray[7] = 0
+        for i in range(8):
+            if (self.que[i].text == ""):
+                self.index = i
+                break
+
+    def pressQue4(self, instance):
+        for i in range(4):
+            self.que[i+3].text = self.que[i+4].text
+            self.commandArray[i+3] = self.commandArray[i+4]
+        self.que[7].text = ""
+        self.commandArray[7] = 0
+        for i in range(8):
+            if (self.que[i].text == ""):
+                self.index = i
+                break
+
+    def pressQue5(self, instance):
+        for i in range(3):
+            self.que[i+4].text = self.que[i+5].text
+            self.commandArray[i+4] = self.commandArray[i+5]
+        self.que[7].text = ""
+        self.commandArray[7] = 0
+        for i in range(8):
+            if (self.que[i].text == ""):
+                self.index = i
+                break
+
+    def pressQue6(self, instance):
+        for i in range(2):
+            self.que[i+5].text = self.que[i+6].text
+            self.commandArray[i+5] = self.commandArray[i+6]
+        self.que[7].text = ""
+        self.commandArray[7] = 0
+        for i in range(8):
+            if (self.que[i].text == ""):
+                self.index = i
+                break
+
+    def pressQue7(self, instance):
+        self.que[6].text = self.que[7].text
+        self.commandArray[6] = self.commandArray[7]
+        self.que[7].text = ""
+        self.commandArray[7] = 0
+        for i in range(8):
+            if (self.que[i].text == ""):
+                self.index = i
+                break
+    
+    def pressQue8(self, instance):
+        self.que[7].text = ""
+        self.commandArray[7] = 0
+        for i in range(8):
+            if (self.que[i].text == ""):
+                self.index = i
+                break
 
     #####Actual moving stuff#######
 
