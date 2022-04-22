@@ -305,6 +305,10 @@ class MyGridLayout(GridLayout):
             elif i == 10: #head pan left
                 self.headPan()
                 print("head pan left")
+            elif i == 11: #listening 
+                self.pressListen()
+                print("listening")
+
 
 ########################################################################################################################
         
