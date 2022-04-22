@@ -419,8 +419,29 @@ class MyGridLayout(GridLayout):
     def waistTurn(self):
         pass
 
-    def speechInput(self):
-        pass
+    def speechInput():
+        talkBack("Say something please")
+        flag = True
+        r = sr.Recognizer()
+        speech = sr.Microphone()
+        with speech as source:
+            print("initialize")
+            audio = r.adjust_for_ambient_noise(source)
+            audio = r.listen(source, phrase_time_limit = 3)
+            while(flag):
+                try:
+                    print("hit the try")
+                    recog = r.recognize_google(audio, language = 'en-US')
+                    if recog:
+                        talkBack("Okay I heard you but I really dont care")
+                        flag = False
+                    else:
+                        print("hit the else")
+                        talkBack("Yeah you didnt say anything, whatever")
+                        flag = False
+                except sr.UnknownValueError:
+                   talkBack("bbebrbbbrbbrbe, dead")
+                   flag = False
         
 
 class MyApp(App):
