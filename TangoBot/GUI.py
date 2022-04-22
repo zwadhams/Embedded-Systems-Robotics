@@ -9,24 +9,33 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.core.window import Window
 from TextToSpeech import *
-import speech_recognition as sr
+
 
 
 class MyGridLayout(GridLayout):
     # Initialize infinite keywords
+
+    #commandArray = [0, 0, 0, 0, 0, 0, 0, 0]
     
     def __init__(self, **kwargs):
         #Call grid layout constructor
         super(MyGridLayout, self).__init__(**kwargs)
         self.commandArray = [0, 0, 0, 0, 0, 0, 0, 0]
+        self.words = ["","","","","","","",""]
+        self.que = [None, None, None, None, None, None, None, None]
         self.index = 0
         #Set colums
         self.rows = 1
-        self.cols = 2
+        self.cols = 9
 
         self.left_grid = GridLayout()
         self.left_grid.rows = 7
         self.left_grid.cols = 2
+
+        self.right_grid = GridLayout()
+        self.right_grid.rows = 2
+        self.right_grid.cols = 4
+        
 
         #add widgets
         self.lookLeft = Button(color =(1, 0, .65, 1),
@@ -169,16 +178,99 @@ class MyGridLayout(GridLayout):
                     size_hint_x = None,
                     width=100,
                    )
-        self.mic.bind(on_pressk=self.pressReset)
+        self.mic.bind(on_press=self.pressListen)
         self.left_grid.add_widget(self.mic)
         ####################################################
         self.add_widget(self.left_grid)
-        self.reset = Button(color =(1, 0, .65, 1),
-                    background_normal = 'Buttons/normal/reset.png',
-                    background_down ='Buttons/down/reset.png',
+
+
+
+########################################################################################################################
+        #erase stuf and QUE
+        self.que[0] = Button(color =(1, 0, .65, 1),
+                            text= self.words[0],
+                    size_hint_y = None,
+                    height=100,
+                    size_hint_x = None,
+                    width=100,
                    )
-        self.reset.bind(on_press=self.pressReset)
-        self.add_widget(self.reset)
+        self.que[0].bind(on_press=(self.pressReset))
+        self.right_grid.add_widget(self.que[0])
+        ####################################################
+        self.que[1] = Button(color =(1, 0, .65, 1),
+                            text= self.words[1],
+                    size_hint_y = None,
+                    height=100,
+                    size_hint_x = None,
+                    width=100,
+                   )
+        self.que[1].bind(on_press=self.pressReset)
+        self.right_grid.add_widget(self.que[1])
+        ####################################################
+        self.que[2] = Button(color =(1, 0, .65, 1),
+                            text= self.words[2],
+                    size_hint_y = None,
+                    height=100,
+                    size_hint_x = None,
+                    width=100,
+                   )
+        self.que[2].bind(on_press=self.pressReset)
+        self.right_grid.add_widget(self.que[2])
+        ####################################################
+        self.que[3] = Button(color =(1, 0, .65, 1),
+                            text= self.words[3],
+                    size_hint_y = None,
+                    height=100,
+                    size_hint_x = None,
+                    width=100,
+                   )
+        self.que[3].bind(on_press=self.pressReset)
+        self.right_grid.add_widget(self.que[3])
+        ####################################################
+        self.que[4] = Button(color =(1, 0, .65, 1),
+                            text= self.words[4],
+                    size_hint_y = None,
+                    height=100,
+                    size_hint_x = None,
+                    width=100,
+                   )
+        self.que[4].bind(on_press=self.pressReset)
+        self.right_grid.add_widget(self.que[4])
+        ####################################################
+        self.que[5] = Button(color =(1, 0, .65, 1),
+                            text= self.words[5],
+                    size_hint_y = None,
+                    height=100,
+                    size_hint_x = None,
+                    width=100,
+                   )
+        self.que[5].bind(on_press=self.pressReset)
+        self.right_grid.add_widget(self.que[5])
+        ####################################################
+        self.que[6] = Button(color =(1, 0, .65, 1),
+                            text= self.words[6],
+                    size_hint_y = None,
+                    height=100,
+                    size_hint_x = None,
+                    width=100,
+                   )
+        self.que[6].bind(on_press=self.pressReset)
+        self.right_grid.add_widget(self.que[6])
+        ####################################################
+        self.que[7] = Button(color =(1, 0, .65, 1),
+                            text= self.words[7],
+                    size_hint_y = None,
+                    height=100,
+                    size_hint_x = None,
+                    width=100,
+                   )
+        self.que[7].bind(on_press=self.pressReset)
+        self.right_grid.add_widget(self.que[7])
+        ####################################################
+        self.add_widget(self.right_grid)
+
+
+########################################################################################################################
 
     def pressRUN(self,instance):
         talkBack("RUN")
@@ -213,9 +305,22 @@ class MyGridLayout(GridLayout):
             elif i == 10: #head pan left
                 self.headPan()
                 print("head pan left")
+            elif i == 11: #listening 
+                self.pressListen()
+                print("listening")
+
+########################################################################################################################
         
     def pressReset(self,instance):
         self.commandArray = [0, 0, 0, 0, 0, 0, 0, 0]
+        self.que[0].text = " "
+        self.que[1].text = " "
+        self.que[2].text = " "
+        self.que[3].text = " "
+        self.que[4].text = " "
+        self.que[5].text = " "
+        self.que[6].text = " "
+        self.que[7].text = " "
         print(self.commandArray)
         self.index = 0
         talkBack("reset")
@@ -223,6 +328,7 @@ class MyGridLayout(GridLayout):
     def pressBackwards(self,instance):
         command = 1
         self.commandArray[self.index] = command
+        self.que[self.index].text = "Backwards"
         self.index = (self.index+1)%8
         talkBack("Backwards")
         print(self.commandArray)
@@ -230,6 +336,7 @@ class MyGridLayout(GridLayout):
     def pressForewards(self,instance):
         command = 2
         self.commandArray[self.index] = command
+        self.que[self.index].text = "Forward"
         self.index = (self.index+1)%8
         talkBack("Forewards")
         print(self.commandArray)
@@ -237,6 +344,7 @@ class MyGridLayout(GridLayout):
     def pressTurnRight(self,instance):
         command = 3
         self.commandArray[self.index] = command
+        self.que[self.index].text = "Right"
         self.index = (self.index+1)%8
         talkBack("Turn Right")
         print(self.commandArray)
@@ -244,6 +352,7 @@ class MyGridLayout(GridLayout):
     def pressTurnLeft(self,instance):
         command = 4
         self.commandArray[self.index] = command
+        self.que[self.index].text = "Left"
         self.index = (self.index+1)%8
         talkBack("Turn Left")
         print(self.commandArray)
@@ -251,6 +360,7 @@ class MyGridLayout(GridLayout):
     def pressTwistRight(self,instance):
         command = 5
         self.commandArray[self.index] = command
+        self.que[self.index].text = "TwistLeft"
         self.index = (self.index+1)%8
         talkBack("Twist Right")
         print(self.commandArray)
@@ -258,6 +368,7 @@ class MyGridLayout(GridLayout):
     def pressTwistLeft(self,instance):
         command = 6
         self.commandArray[self.index] = command
+        self.que[self.index].text = "TwistRight"
         self.index = (self.index+1)%8
         talkBack("Twist Left")
         print(self.commandArray)
@@ -265,6 +376,7 @@ class MyGridLayout(GridLayout):
     def pressLookUp(self,instance):
         command = 7
         self.commandArray[self.index] = command
+        self.que[self.index].text = "LookUp"
         self.index = (self.index+1)%8
         talkBack("Look Up")
         print(self.commandArray)
@@ -272,6 +384,7 @@ class MyGridLayout(GridLayout):
     def pressLookDown(self,instance):
         command = 8
         self.commandArray[self.index] = command
+        self.que[self.index].text = "LookDown"
         self.index = (self.index+1)%8
         talkBack("Look Down")
         print(self.commandArray)
@@ -279,6 +392,7 @@ class MyGridLayout(GridLayout):
     def pressLookRight(self,instance):
         command = 9
         self.commandArray[self.index] = command
+        self.que[self.index].text = "LookRight"
         self.index = (self.index+1)%8
         talkBack("Look Right")
         print(self.commandArray)
@@ -286,9 +400,17 @@ class MyGridLayout(GridLayout):
     def pressLookLeft(self,instance):
         command = 10
         self.commandArray[self.index] = command
+        self.que[self.index].text = "LookLeft"
         self.index = (self.index+1)%8
         talkBack("Look Left")
         print(self.commandArray)
+        
+    def pressListen(self, instance):
+        command = 11
+        self.commandArray[self.index] = command
+        self.que[self.index].text = "Listening"
+        self.index = (self.index+1)%8
+        talkBack("Listening")
 
     #####Actual moving stuff#######
 
@@ -334,9 +456,12 @@ class MyGridLayout(GridLayout):
 
 class MyApp(App):
     
+
     def build(self):
+        #Window.fullscreen = True
+        Window.clearcolor = (1,0,0,1)
         return MyGridLayout()
-        return self.window
+        
 
     def callback(self, instance):
         print(instance)
