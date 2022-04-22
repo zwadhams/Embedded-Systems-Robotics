@@ -184,6 +184,17 @@ class MyGridLayout(GridLayout):
         self.mic.bind(on_press=self.pressListen)
         self.left_grid.add_widget(self.mic)
         ####################################################
+        self.delay = Button(color =(1, 0, .65, 1),
+                    background_normal = 'Buttons/normal/delay.png',
+                    background_down ='Buttons/down/delay.png',
+                    size_hint_y = None,
+                    height=50,
+                    size_hint_x = None,
+                    width=50,
+                   )
+        self.delay.bind(on_press=self.pressListen)
+        self.left_grid.add_widget(self.delay)
+        ####################################################
         self.add_widget(self.left_grid)
 
 
