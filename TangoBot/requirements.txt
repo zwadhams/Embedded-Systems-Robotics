@@ -1,2 +1,7 @@
-python -m pip install tk pyaudio==0.2.11 SpeechRecognition==3.8.1 pyttsx3 pyserial regex gTTS pyttsx3 kivy playsound==1.2.2
-sudo apt-get install gstreamer-1.0
+sudo apt-get install build-essential python-dev python-setuptools python-pip python-smbus -y
+sudo apt-get install libncursesw5-dev libgdbm-dev libc6-dev -y
+sudo apt-get install zlib1g-dev libsqlite3-dev tk-dev -y
+sudo apt-get install libssl-dev openssl -y
+sudo apt-get install libffi-dev gstreamer-1.0 -y
+sudo apt-get install libportaudio0 libportaudio2 libportaudiocpp0 portaudio19-dev -y
+python -m pip install tk setuptools pyaudio==0.2.11 SpeechRecognition==3.8.1 pyttsx3 pyserial gTTS pyttsx3 kivy playsound==1.2.2
