@@ -77,6 +77,7 @@ class Tango_Controller:
         self.serialString[0] = 0x9F
         self.serialString[1] = self.NUMBER_OF_CHANNELS
         self.serialString[2] = self.CHANNEL_START
+        self.wheel_state = None
         self.init_servos()
         self.exit_safe_start()
         self.init_motors()

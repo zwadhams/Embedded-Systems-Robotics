@@ -8,3 +8,5 @@ def main():
     tangoController = Tango_Controller(usb)
 
     return
+
+main()
