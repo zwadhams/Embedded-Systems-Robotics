@@ -14,7 +14,7 @@ class Tango_Controller:
     CHANNEL_START = 0
     SERVO_STEP_MAX = MID_POSITION + RESOLUTION
     SERVO_STEP_MIN = MID_POSITION - RESOLUTION
-    DEFAULT_VALUES = {"Waist": MID_POSITION, "Neck_Pan": MID_POSITION, "Neck_Tilt": MID_POSITION, "Right_Wheel": 1, "Left_Wheel": 1}
+    DEFAULT_VALUES = {"Waist": MID_POSITION, "Neck_Pan": MID_POSITION, "Neck_Tilt": MID_POSITION, "Right_Wheel": 1, "Left_Wheel": 1, "Shoulder": 1}
     # | 0x9F                 | 5                  | 0                 | 0x##     | 0x##   | 0x##     | 0x##   | 0x##     | 0x##   |....
     # | simultaneous command | Number of Channels | Channel Number    | Ch0LSB   | CH0MSB | Ch1LSB   | CH1MSB | Ch2LSB   | CH2MSB |....
     serialString = [0x9F, NUMBER_OF_CHANNELS, CHANNEL_START] # This contains all servo and motor values. DO NOT CLEAR. Only change the value
