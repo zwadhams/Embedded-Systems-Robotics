@@ -81,6 +81,10 @@ class Tango_Controller:
         self.exit_safe_start()
         self.init_motors()
         self.send_command()
+        self.adjust_backward_forward(2)
+        self.stop()
+        self.adjust_backward_forward(-2)
+        self.stop()
         self.wheel_state = "S" # S for stop, FB for forward/backwards, LR for turning
         return
     
