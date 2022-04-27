@@ -71,7 +71,7 @@ class Tango_Controller:
     def __init__(self, serialController:serial.Serial):
         self.serial = serialController
         self.motors = {"Right_Wheel": self.Servo_Motor("Right_Wheel", "Motor", 1, self.MOTOR_STEP), "Left_Wheel": self.Servo_Motor("Left_Wheel", "Motor", 2, self.MOTOR_STEP)}
-        self.servos = {"Waist": self.Servo_Motor("Waist", "Servo", 0, self.WAIST_SERVO_STEP), "Neck_Pan": self.Servo_Motor("Neck_Pan", "Servo", 3, self.HEAD_SERVO_STEP), "Neck_Tilt": self.Servo_Motor("Neck_Tilt", "Servo", 4, self.HEAD_SERVO_STEP)}
+        self.servos = {"Waist": self.Servo_Motor("Waist", "Servo", 0, self.WAIST_SERVO_STEP), "Neck_Pan": self.Servo_Motor("Neck_Pan", "Servo", 3, self.HEAD_SERVO_STEP), "Neck_Tilt": self.Servo_Motor("Neck_Tilt", "Servo", 4, self.HEAD_SERVO_STEP), "Shoulder": self.Servo_Motor("Shoulder", "Servo", 5, self.HEAD_SERVO_STEP)}
         self.NUMBER_OF_CHANNELS = len(self.motors.keys()) + len(self.servos.keys())
         self.serialString = [0] * (3+((self.NUMBER_OF_CHANNELS*2)))
         self.serialString[0] = 0x9F
