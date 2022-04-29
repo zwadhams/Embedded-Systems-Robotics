@@ -7,9 +7,10 @@ class Node:
         self.connected_to = {}
         self.visited = False
         self.previous = None
+        self.foo = "Nothing Here"
 
     def __str__(self):
-            return str(self.id) + ' adjacent: ' + str([(self.connected_to[x.id][0], self.connected_to[x.id][1]) for x in self.connected_to])  
+            return str(self.id) + ' adjacent: ' + str([(x.id, x.foo) for x in self.connected_to])
 
     def get_id(self): #return the number of the node
         return self.id
@@ -41,12 +42,14 @@ n13 = Node(13)
 #creates node connections
 n1.connected_to = {n2}
 n2.connected_to = {n1, n3, n7}
-n3.connectged_to = {n2, n8}
+n3.connected_to = {n2, n8}
 n6.connected_to = {n11, n7}
 n7.connected_to = {n2, n6, n12}
 n8.connected_to = {n3}
 n11.connected_to = {n6}
 n12.connected_to = {n7, n13}
 n13.connected_to = {n12}
+
+print(n1)
 
 
