@@ -1,3 +1,5 @@
+import math
+import pathlib, os, sys
 
 class Node:
     def __init__(self, key):
@@ -6,19 +8,24 @@ class Node:
         self.visited = False
         self.previous = None
 
+    def __str__(self):
+            return str(self.id) + ' adjacent: ' + str([(x.id, self.connected_to[x.id][0], self.connected_to[x.id][1]) for x in self.connected_to])  
 
-    def get_id(self):
+
+    def get_id(self): #return the number of the node
         return self.id
 
     def get_connections(self):
         return self.connected_to.keys()
 
-    def set_visited(self):
+    def set_visited(self): #maks this node as visited
         self.visited = True
 
-    def set_previous(self):
+    def set_previous(self): #marks the previous node 
         self.previous = prev
 
+class Map:
+    pass
 
 #creates nodes
 n1 = Node(1)
@@ -42,4 +49,4 @@ n11.connected_to = {n6}
 n12.connected_to = {n7, n13}
 n13.connected_to = {n12}
 
-
+print(n1.get_connections)
