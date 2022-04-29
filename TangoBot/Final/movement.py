@@ -9,8 +9,7 @@ class Node:
         self.previous = None
 
     def __str__(self):
-            return str(self.id) + ' adjacent: ' + str([(x.id, self.connected_to[x.id][0], self.connected_to[x.id][1]) for x in self.connected_to])  
-
+            return str(self.id) + ' adjacent: ' + str([(self.connected_to[x.id][0], self.connected_to[x.id][1]) for x in self.connected_to])  
 
     def get_id(self): #return the number of the node
         return self.id
@@ -24,6 +23,7 @@ class Node:
     def set_previous(self): #marks the previous node 
         self.previous = prev
 
+    
 class Map:
     pass
 
@@ -49,4 +49,4 @@ n11.connected_to = {n6}
 n12.connected_to = {n7, n13}
 n13.connected_to = {n12}
 
-print(n1.get_connections)
+
