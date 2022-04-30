@@ -65,10 +65,12 @@ def listen():
     speak("Well?")
     flag = True
     r = sr.Recognizer()
+    r.energy_threshold = 1568
+    r.dynamic_energy_threshold = True
     speech = sr.Microphone()
 
     with speech as source:
-        audio = r.adjust_for_ambient_noise(source)
+        # audio = r.adjust_for_ambient_noise(source)
         while(flag):
             try:
                 audio = r.listen(source, phrase_time_limit = 4)
@@ -78,7 +80,50 @@ def listen():
                 speak("What?")
     return inputSpeech
 
+def changeDirection(current_direction:str, chooses):
+    choosesStr = ""
+    for choose in chooses:
+        choosesStr += choose.lower() + " "
+    cur_dir = current_direction.lower()
+    invalid = True
+    while (invalid):
+        speak("Currently looking "+cur_dir)
+        speak("I can go "+choosesStr)
+        speak("Which direction should I go?")
+        dir_input = listen().lower()
+        # dir_input = "west"
+        cardinal = ["north", "east", "south", "west"]
+        if (dir_input in cardinal) and (dir_input in chooses):
+            if (dir_input != cur_dir):
+                to_dir_index = cardinal.index(dir_input)
+                from_dir_index = cardinal.index(cur_dir)
+                dif = to_dir_index - from_dir_index
+                if (abs(dif) == 2):
+                    turn180()
+                    time.sleep(0.2)
+                    forward()
+                elif ((dif == -1) or (dif == 3)):
+                    turnRight()
+                    time.sleep(0.2)
+                    forward()
+                elif ((dif == 1) or (dif == -3)):
+                    turnLeft()
+                    time.sleep(0.2)
+                    forward()
+                cur_dir = dir_input
+            else:
+                forward()
+            invalid = False
+        else:
+            speak("Cannot go that way, Try Again")
+    return cur_dir
+
 def main():
+    current_direction = "north"
+    testChooses = ["north", "south", "east"]
+    current_direction = changeDirection(current_direction, testChooses)
+    speak(current_direction)
+
 
 
     # turnRight()
@@ -90,14 +135,12 @@ def main():
     # backward()
     # forward()
     # speak("Hello World")
-    print(listen())
+    # print(listen())
     return
 
 
 usb = serial.Serial('/dev/ttyACM0')
-
 tangoController = Tango_Controller(usb)
-
 voice = pyttsx3.init()
 
 main()
