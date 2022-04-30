@@ -218,7 +218,7 @@ class Tango_Controller:
             self.update_serial_string(RMotor)
             self.update_serial_string(LMotor)
             self.send_command()
-            time.sleep(0.5)
+            time.sleep(0.2)
         self.wheel_state = "S"
         return
     
