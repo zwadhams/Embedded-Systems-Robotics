@@ -7,6 +7,7 @@ from kivy.uix.image import Image
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
 import random
+from TextToSpeech import *
 
 
 
@@ -86,8 +87,10 @@ class MyLayout(GridLayout):
         enemyID = random.randint(1,2)
         if enemyID == 1:
             self.img.source = 'images/enemy/slime.gif'
+            talkBack("Splash")
         elif enemyID == 2:
             self.img.source = 'images/enemy/boss.gif'
+            talkBack("Screeeeeeetch")
 
 
 class MyApp(App):
