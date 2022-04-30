@@ -5,6 +5,7 @@ import os
 from playsound import playsound
 import speech_recognition as sr
 import pyttsx3
+import random
 
 
 def turnLeft():
@@ -83,7 +84,7 @@ def listen():
 def changeDirection(current_direction:str, chooses):
     choosesStr = ""
     for choose in chooses:
-        choosesStr += choose.lower() + " "
+        choosesStr += choose.lower() + ","
     cur_dir = current_direction.lower()
     invalid = True
     while (invalid):
@@ -119,12 +120,22 @@ def changeDirection(current_direction:str, chooses):
     return cur_dir
 
 def main():
-    current_direction = "north"
-    testChooses = ["north", "south", "east"]
-    current_direction = changeDirection(current_direction, testChooses)
-    speak(current_direction)
+    monster = True
+    if (monster):
+        speak("Fight Time")
+        fight = random.choice([True, False, False, False])
+        if fight:
+            speak("En garde")
+            attack()
+        else:
+            speak("I dont wanna fight")
+    
 
 
+    # current_direction = "north"
+    # testChooses = ["north", "south", "east"]
+    # current_direction = changeDirection(current_direction, testChooses)
+    # speak(current_direction)
 
     # turnRight()
     # time.sleep(0.2)
