@@ -8,6 +8,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
 import random
 from TextToSpeech import *
+import time
 
 
 
@@ -52,45 +53,50 @@ class MyLayout(GridLayout):
         
 
         
-        self.health.bind(on_press=self.enemy)
+        self.health.bind(on_press=self.healing)
         self.bottom.add_widget(self.health)
         
 
     def location(self, instance):
-        map = random.randint(1,10)
         self.key.background_normal = 'images/items/key.png'
         self.health.text = "Health 50/60"
 
 
-        if map == 1:
+        if self.map == 1:
             self.img.source = 'images/maps/One.png'
-        elif map == 2:
+        elif self.map == 2:
             self.img.source = 'images/maps/two.png'
-        elif map == 3:
+        elif self.map == 3:
             self.img.source = 'images/maps/three.png'
-        elif map == 4:
+        elif self.map == 4:
             self.img.source = 'images/maps/six.png'
-        elif map == 5:
+        elif self.map == 5:
             self.img.source = 'images/maps/seven.png'
-        elif map == 6:
+        elif self.map == 6:
             self.img.source = 'images/maps/eight.png'
-        elif map == 7:
+        elif self.map == 7:
             self.img.source = 'images/maps/eleven.png'
-        elif map == 8:
+        elif self.map == 8:
             self.img.source = 'images/maps/twelve.png'
-        elif map == 9:
+        elif self.map == 9:
             self.img.source = 'images/maps/thirteen.png'
-        elif map == 10:
-            self.img.source = 'images/enemy/monster.gif'
+
 
     def enemy(self, instance):
-        enemyID = random.randint(1,2)
         if enemyID == 1:
             self.img.source = 'images/enemy/slime.gif'
             talkBack("Splash")
         elif enemyID == 2:
             self.img.source = 'images/enemy/boss.gif'
             talkBack("Screeeeeeetch")
+
+    def healing(self, instance):
+        self.img.source = 'images/items/healing.gif'
+        talkBack("Relax you are being healed")
+        time.sleep(5)
+        self.health.text = "Health 60/60"
+        self.location
+        
 
 
 class MyApp(App):
