@@ -58,6 +58,7 @@ class MyLayout(GridLayout):
         
 
     def location(self, instance):
+        self.map = random.randint(1,9)
         self.key.background_normal = 'images/items/key.png'
         self.health.text = "Health 50/60"
 
@@ -93,9 +94,7 @@ class MyLayout(GridLayout):
     def healing(self, instance):
         self.img.source = 'images/items/healing.gif'
         talkBack("Relax you are being healed")
-        time.sleep(5)
         self.health.text = "Health 60/60"
-        self.location
         
 
 
