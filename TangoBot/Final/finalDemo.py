@@ -12,9 +12,6 @@ import time
 from FinalProject import *
 
 
-
-#Builder.load_file('images.kv')
-
 class MyLayout(GridLayout):
     img = Image(source='images/maps/One.png')
     key = Button(color =(1, 0, .65, 1),
@@ -122,5 +119,78 @@ class MyApp(App):
         return MyLayout()
 
 if __name__ == '__main__':
+
+        
+    ################################
+    #creates nodes
+    n1 = Node(1)
+    n2 = Node(2)
+    n3 = Node(3)
+    n6 = Node(6)
+    n7 = Node(7)
+    n8 = Node(8)
+    n11 = Node(11)
+    n12 = Node(12)
+    n13 = Node(13)
+
+    #creates node connections
+    n1.connected_to = {n2:"East"}
+    n2.connected_to = {n1:"West", n3:"East", n7:"South"}
+    n3.connected_to = {n2:"West", n8:"South"}
+    n6.connected_to = {n11:"South", n7:"East"}
+    n7.connected_to = {n2:"North", n6:"West", n12:"South"}
+    n8.connected_to = {n3:"North"}
+    n11.connected_to = {n6:"North"}
+    n12.connected_to = {n7:"North", n13:"East"}
+    n13.connected_to = {n12:"West"}
+    #################################
+    
+    monster = True
+    cornerList = [1, 3, 11, 13]
+    playerLocation = random.choice(cornerList) #gets starting location
+    cornerList.remove(playerLocation) #removes the starting location
+    endLocation = random.choice(cornerList) #this is the ending location
+    cornerList.remove(endLocation) 
+    healLocation = random.choice(cornerList) #location of heal station
+    cornerList.remove(healLocation)
+    keyEnemyLocation = random.choice(cornerList) #location of emeny with key
+    cornerList.remove(keyEnemyLocation)
+
+    centerList = [2, 3, 6, 7, 12]
+
+    hardEnemy2 = random.choice(centerList)
+    centerList.remove(hardEnemy2)
+    print(centerList)
+    #all others should be easy enemies
+
+    if (monster):
+        speak("Fight Time")
+        fight = random.choice([True, False, False, False])
+        if fight:
+            speak("En garde")
+            attack()
+        else:
+            speak("I dont wanna fight")
+ 
+    
+    
+    
+    # current_direction = "north"
+    # testChooses = ["north", "south", "east"]
+    # current_direction = changeDirection(current_direction, testChooses)
+    # speak(current_direction)
+
+    # turnRight()
+    # time.sleep(0.2)
+    # turnLeft()
+    # time.sleep(0.2)
+    # turn180()
+    # attack()
+    # backward()
+    # forward()
+    # speak("Hello World")
+    # print(listen())
+
     voice = pyttsx3.init()
     MyApp().run()
+
