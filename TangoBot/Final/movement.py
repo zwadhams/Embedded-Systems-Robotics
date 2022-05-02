@@ -32,7 +32,7 @@ class Node:
     def set_previous(self): #marks the previous node 
         self.previous = prev
 
-    def addEnemyType(self, enemyType) #0 is none, 1 is easy, 2 is hard
+    def addEnemyType(self, enemyType): #0 is none, 1 is easy, 2 is hard
         if enemyType == 0:
             self.enemyType = "None"
         elif enemyTpe == 1:
