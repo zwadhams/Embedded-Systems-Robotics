@@ -151,6 +151,12 @@ def main():
     playerLocation = random.choice(cornerList) #gets starting location
     cornerList.remove(playerLocation) #removes the starting location
     endLocation = random.choice(cornerList) #this is the ending location
+    cornerList.remove(endLocation) 
+    healLocation = random.choice(cornerList) #location of heal station
+    cornerList.remove(healLocation)
+    keyEnemyLocation = random.choice(cornerList) #location of emeny with key
+    cornerList.remove(keyEnemyLocation)
+
 
 
     if (monster):
