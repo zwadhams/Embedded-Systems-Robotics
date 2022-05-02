@@ -16,14 +16,17 @@ class Node:
         self.connected_to = {}
         self.visited = False
         self.previous = None
-        self.foo = "Nothing Here"
+        self.cardinal = ""
+        self.holdsKey = False
+        self.enemyType = ""
 
     def __str__(self):
-            tempList = self.connected_to.keys()
-            tempStr = ""
-            for key in tempList:
-                tempStr += "Node " + str(key.id) + " " + self.connected_to[key] +", "
-            return str(self.id) + ' is connected to: ' + tempStr
+        tempList = self.connected_to.keys()
+        tempStr = ""
+        for key in tempList:
+            tempStr += "Node " + str(key.id) + " " + self.connected_to[key] +", "
+        return str(self.id) + ' is connected to: ' + tempStr
+
 
     def get_id(self): #return the number of the node
         return self.id
@@ -37,6 +40,14 @@ class Node:
     def set_previous(self): #marks the previous node 
         self.previous = prev
 
+    def addEnemyType(self, enemyType) #0 is none, 1 is easy, 2 is hard
+        if enemyType == 0:
+            self.enemyType = "None"
+        elif enemyTpe == 1:
+            self.enemyType = "Easy"
+        elif enemyType == 2:
+            self.enemyType = "Hard"
+    
 
 def turnLeft():
     tangoController.adjust_left_right(3)
@@ -161,7 +172,12 @@ def main():
     keyEnemyLocation = random.choice(cornerList) #location of emeny with key
     cornerList.remove(keyEnemyLocation)
 
+    centerList = [2, 3, 6, 7, 12]
 
+    hardEnemy2 = random.choice(centerList)
+    centerList.remove(hardEnemy2)
+    print(centerList)
+    #all others should be easy enemies
 
     if (monster):
         speak("Fight Time")
