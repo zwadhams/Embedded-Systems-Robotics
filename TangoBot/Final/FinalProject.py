@@ -19,7 +19,11 @@ class Node:
         self.foo = "Nothing Here"
 
     def __str__(self):
-            return str(self.id) + ' adjacent: ' + str([(x.id, x.foo) for x in self.connected_to])
+            tempList = self.connected_to.keys()
+            tempStr = ""
+            for key in tempList:
+                tempStr += "Node " + str(key.id) + " " + self.connected_to[key] +", "
+            return str(self.id) + ' is connected to: ' + tempStr
 
     def get_id(self): #return the number of the node
         return self.id
