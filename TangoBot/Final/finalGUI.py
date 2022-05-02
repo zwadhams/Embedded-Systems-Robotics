@@ -7,7 +7,7 @@ from kivy.uix.image import Image
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
 import random
-from TextToSpeech import *
+import pyttsx3
 import time
 
 
@@ -59,9 +59,7 @@ class MyLayout(GridLayout):
 
     def location(self, instance):
         self.map = random.randint(1,9)
-        self.key.background_normal = 'images/items/key.png'
-        self.health.text = "Health 50/60"
-
+        
 
         if self.map == 1:
             self.img.source = 'images/maps/One.png'
@@ -86,17 +84,32 @@ class MyLayout(GridLayout):
     def enemy(self, instance):
         if enemyID == 1:
             self.img.source = 'images/enemy/slime.gif'
-            talkBack("Splash")
+            voice.say("Splash")
+            voice.runAndWait()
         elif enemyID == 2:
             self.img.source = 'images/enemy/boss.gif'
-            talkBack("Screeeeeeetch")
+            voice.say("Screeeeeeetch")
+            voice.runAndWait()
+            
 
     def healing(self, instance):
         self.img.source = 'images/items/healing.gif'
-        talkBack("Relax you are being healed")
+        voice.say("Relax you are being healed")
+        voice.runAndWait()
         self.health.text = "Health 60/60"
+
+    def keyFound(self, instance):
+        self.key.background_normal = 'images/items/key.png'
+        voice.runAndWait()
+        self.health.text = "Key Found"
+        
         
 
+    def damage(self, instance):
+        self.health.text = "Health 50/60"
+        voice.say("Relax you are being healed")
+        voice.runAndWait()
+        
 
 class MyApp(App):
     def build(self):
@@ -107,4 +120,5 @@ class MyApp(App):
         return MyLayout()
 
 if __name__ == '__main__':
+    voice = pyttsx3.init()
     MyApp().run()
