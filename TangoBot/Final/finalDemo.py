@@ -13,7 +13,10 @@ from FinalProject import *
 
 
 class MyLayout(GridLayout):
-    img = Image(source='images/maps/One.png')
+    img = Image(source='images/maps/One.png',
+                keep_ratio= False,
+                allow_stretch = True
+                )
     key = Button(color =(1, 0, .65, 1),
                  background_normal = 'images/items/nokey.png',
                  size_hint_y = None,
@@ -38,8 +41,6 @@ class MyLayout(GridLayout):
                     height=50)
         self.bottom.cols = 2
         
-        self.img.keep_ratio= False
-        self.img.allow_stretch = True 
         self.add_widget(self.img)
         self.location
         self.enemy
