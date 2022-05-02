@@ -11,6 +11,9 @@ class Node:
         self.cardinal = ""
         self.holdsKey = False
         self.enemyType = ""
+        self.exitLocation = False
+        self.healStation = False
+        self.startingNode = False
 
     def __str__(self):
         tempList = self.connected_to.keys()
@@ -35,10 +38,22 @@ class Node:
     def addEnemyType(self, enemyType): #0 is none, 1 is easy, 2 is hard
         if enemyType == 0:
             self.enemyType = "None"
-        elif enemyTpe == 1:
+        elif enemyType == 1:
             self.enemyType = "Easy"
         elif enemyType == 2:
             self.enemyType = "Hard"
+
+    def set_exitLocation(self):
+        self.exitLocation = True
+
+    def set_holdsKey(self):
+        self.holdsKey = True
+
+    def set_healStation(self):
+        self.healStation = True
+
+    def set_startingNode(self):
+        self.startingNode = True
     
     
 class Map:
@@ -75,27 +90,42 @@ print(n8)
 print(n11)
 print(n12)
 print(n13)
-
+print("------------")
 cornerList = [1, 8, 11, 13]
-playerLocation = random.choice(cornerList) #gets starting location
-cornerList.remove(playerLocation) #removes the starting location
+playerStartLocation = random.choice(cornerList) #gets starting location
+cornerList.remove(playerStartLocation) #removes the starting location
 endLocation = random.choice(cornerList) #this is the ending location
-cornerList.remove(endLocation) 
+cornerList.remove(endLocation)
 healLocation = random.choice(cornerList) #location of heal station
 cornerList.remove(healLocation)
 keyEnemyLocation = random.choice(cornerList) #location of emeny with key
 cornerList.remove(keyEnemyLocation)
-print(cornerList)
 
 centerList = [2, 3, 6, 7, 12]
 
 hardEnemy2 = random.choice(centerList)
 centerList.remove(hardEnemy2)
-print(centerList)
 #all others should be easy enemies
 
-
-
-
-
-
+nodeList = [n1, n2, n3, n6, n7, n8, n11, n12, n13]
+for node in nodeList:
+    if node.get_id() == playerStartLocation:
+        print(node.get_id(), " start")
+        node.set_startingNode()
+    if node.get_id() == endLocation:
+        print(node.get_id(), " exit")
+        node.set_exitLocation() == True
+    if node.get_id() == keyEnemyLocation: #working
+        print(node.get_id(), " key enemy")
+        node.set_holdsKey == True
+        node.addEnemyType(2)
+    if node.get_id() == hardEnemy2: #working
+        print(node.get_id(), " hard enemy")
+        node.addEnemyType(2)
+    if node.get_id() in centerList: #working
+        print(node.get_id(), "easy enemy")
+        node.addEnemyType(1)
+    if node.get_id() == healLocation: #working
+        print(node.get_id(), "heal station")
+        node.set_healStation()
+    
