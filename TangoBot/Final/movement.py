@@ -54,10 +54,6 @@ class Node:
 
     def set_startingNode(self):
         self.startingNode = True
-    
-    
-class Map:
-    pass
 
 #creates nodes
 n1 = Node(1)
