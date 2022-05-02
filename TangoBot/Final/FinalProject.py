@@ -182,15 +182,15 @@ def main():
     n13 = Node(13)
 
     #creates node connections
-    n1.connected_to = {n2}
-    n2.connected_to = {n1, n3, n7}
-    n3.connected_to = {n2, n8}
-    n6.connected_to = {n11, n7}
-    n7.connected_to = {n2, n6, n12}
-    n8.connected_to = {n3}
-    n11.connected_to = {n6}
-    n12.connected_to = {n7, n13}
-    n13.connected_to = {n12}
+    n1.connected_to = {n2:"East"}
+    n2.connected_to = {n1:"West", n3:"East", n7:"South"}
+    n3.connected_to = {n2:"West", n8:"South"}
+    n6.connected_to = {n11:"South", n7:"East"}
+    n7.connected_to = {n2:"North", n6:"West", n12:"South"}
+    n8.connected_to = {n3:"North"}
+    n11.connected_to = {n6:"North"}
+    n12.connected_to = {n7:"North", n13:"East"}
+    n13.connected_to = {n12:"West"}
     #################################
     
     # current_direction = "north"
