@@ -1,6 +1,7 @@
 import math
 import pathlib, os, sys
 import random
+import 
 
 class Node:
     def __init__(self, key):
@@ -174,7 +175,7 @@ for move in range(2): #number of turns before the player loses, was thinking 15 
     print("The player is currently on node", playerNode.get_id())
     
     #-----------------------------------------------------------------------------#
-    #enemy fighting logic
+    #enemy fighting logic - COMPLETE
     if playerNode.get_enemyType() == "Easy" or playerNode.get_enemyType() == "Hard":
         print("Enemy encountered, would you like to fight or run")
         breakout = False
@@ -221,7 +222,7 @@ for move in range(2): #number of turns before the player loses, was thinking 15 
                     print("You died, game over :(")
                     exit()
     #-----------------------------------------------------------------------------#
-    #heal station logic             
+    #heal station logic - COMPLETE        
 
     if playerNode.get_healStation() == True:
         print("Youve encountered a heal station! Healing you now.")
@@ -229,7 +230,7 @@ for move in range(2): #number of turns before the player loses, was thinking 15 
         print("Current health:", playerHealth)
 
     #-----------------------------------------------------------------------------#
-    #endgame logic
+    #endgame logic - COMPLETE
         
     if playerNode.get_exitLocation() == True:
         if hasKey == True:
@@ -239,7 +240,7 @@ for move in range(2): #number of turns before the player loses, was thinking 15 
             print("Youve found the exit but don't have the key! Go find it!")
         
     #-----------------------------------------------------------------------------#
-    #movement logic- NEEDS WORK
+    #movement logic - NEEDS WORK
     validDirections = list(playerNode.get_cardinals())
     print("I see a path to the: ")
     for i in range(len(validDirections)):
