@@ -20,7 +20,7 @@ class Node:
         tempList = self.connected_to.keys()
         tempStr = ""
         for key in tempList:
-            tempStr += "Node " + str(key.id) + " " + self.connected_to[key] +", "
+            tempStr += "Node " + str(key.id) + " " + self.connected_to[key] +", " + str(self.currentNode)
         return str(self.id) + ' is connected to: ' + tempStr
 
 
@@ -29,6 +29,9 @@ class Node:
 
     def get_connections(self):
         return self.connected_to.keys()
+
+    def get_cardinals(self):
+        return self.connected_to.values()
 
     def set_visited(self): #maks this node as visited
         self.visited = True
@@ -55,15 +58,18 @@ class Node:
 
     def set_startingNode(self):
         self.startingNode = True
-        
-    ###################################
+
+###################################
     #Use these two to set or unset the current node
     def set_currentNode(self):
         self.currentNode = True
 
     def remove_currentNode(self):
         self.currentNode = False
-    
+
+    def get_currentNode(self):
+        return self.currentNode
+
 
 #creates nodes
 n1 = Node(1)
@@ -116,7 +122,7 @@ centerList.remove(hardEnemy2)
 nodeList = [n1, n2, n3, n6, n7, n8, n11, n12, n13]
 for node in nodeList:
     if node.get_id() == playerStartLocation:
-        print(node.get_id(), "start and current node")
+        print(node.get_id(), "start anad current node")
         node.set_startingNode()
         node.set_currentNode()
     if node.get_id() == endLocation:
@@ -135,6 +141,27 @@ for node in nodeList:
     if node.get_id() == healLocation: #working
         print(node.get_id(), "heal station")
         node.set_healStation()
-        
+
 print("------------")
 print("Beginning Game Sequence")
+#initializing player health
+playerHealth = 60
+
+for move in range(2): #number of turns before the player loses
+    playerNode = 0
+    for node in nodeList: #finds which node the player is currently on
+        if node.get_currentNode() == True:
+            playerNode = node
+
+    print("The player is currently on node", playerNode)
+    validDirections = playerNode.get_cardinals()
+    print(validDirections[0])
+    print("I see a path to the", validDirections.get())
+    print("Which direction would you like to go in?")
+    #gets user input via voice
+    
+
+
+#robot should say something before it closes the program
+print("player has lost.... took too many moves")
+#exit()
