@@ -31,6 +31,7 @@ class MyLayout(GridLayout):
 
     map = 1
     enemyID = 2
+    healthy = 60
     
     def __init__(self, **kwargs):
         super(MyLayout, self).__init__(**kwargs)
@@ -90,30 +91,52 @@ class MyLayout(GridLayout):
             voice.runAndWait()
             voice.say("Run or Fight Skeleton Mutant")
             voice.runAndWait()
+            self.damage()
             
 
     def healing(self, instance):
         self.img.source = 'images/items/healing.gif'
         voice.say("Relax you are being healed")
         voice.runAndWait()
-        self.health.text = "Health 60/60"
+        self.healthy = 60
+        self.health.text = "Health " + str(self.healthy) + "/60"
 
     def keyFound(self, instance):
         self.key.background_normal = 'images/items/key.png'
+        voice.say("Key Found")
         voice.runAndWait()
-        self.health.text = "Key Found"
+        
         
         
 
-    def damage(self, instance):
-        self.health.text = "Health 50/60"
-        voice.say("Relax you are being healed")
+    def damage(self):
+        if self.enemyID == 1:
+            self.healthy = self.healthy - 5
+            if self.healthy > 1:
+                self.health.text = "Health " + str(self.healthy) + "/60"
+                voice.say("Ouch")
+            elif self.healthy < 1:
+                self.dead
+        elif self.enemyID == 2:
+            if self.healthy > 20:
+                self.healthy = self.healthy - 20
+                self.health.text = "Health " + str(self.healthy) + "/60"
+                voice.say("Ouch, that hurt a lot")
+                voice.runAndWait()
+            elif self.healthy <= 20:
+                self.dead()
+            
+
+    def dead(self):
+        voice.say("You died")
         voice.runAndWait()
+        self.health.text = "Dead"
+        self.img.source = 'images/youdied.gif'
         
 
 class MyApp(App):
     def build(self):
-        Window.fullscreen = True
+        #Window.fullscreen = True
         Window.clearcolor = (1,1,1,1)
         Window.size = (800,480)
         Window.top = 10
