@@ -20,7 +20,7 @@ class Node:
         tempList = self.connected_to.keys()
         tempStr = ""
         for key in tempList:
-            tempStr += "Node " + str(key.id) + " " + self.connected_to[key] +", " + str(self.currentNode)
+            tempStr += "Node " + str(key.id) + " " + self.connected_to[key] +", "
         return str(self.id) + ' is connected to: ' + tempStr
 
 
@@ -137,9 +137,11 @@ for node in nodeList:
         print(node.get_id(), "start and current node")
         node.set_startingNode()
         node.set_currentNode()
+        node.set_enemyType(0)
     if node.get_id() == endLocation:
         print(node.get_id(), "exit")
         node.set_exitLocation() == True
+        node.set_enemyType(0)
     if node.get_id() == keyEnemyLocation: #working
         print(node.get_id(), "key enemy")
         node.set_holdsKey == True
@@ -153,40 +155,44 @@ for node in nodeList:
     if node.get_id() == healLocation: #working
         print(node.get_id(), "heal station")
         node.set_healStation()
+        node.set_enemyType(0)
 
 print("------------")
 print("Beginning Game Sequence")
-#initializing player health
+#initializing player health and that they dont have the key
 playerHealth = 60
 hasKey = False
 
-for move in range(2): #number of turns before the player loses
+for move in range(2): #number of turns before the player loses, was thinking 15 for 
     playerNode = 0
     
     for node in nodeList: #finds which node the player is currently on
         if node.get_currentNode() == True:
-            #playerNode = node
-            playerNode = n3
+            playerNode = node
+            #playerNode = n3
 
     print("The player is currently on node", playerNode.get_id())
-    print(playerNode.get_enemyType())
     
     #-----------------------------------------------------------------------------#
     #enemy fighting logic
-    if playerNode.get_enemyType() != "None" or playerNode.get_enemyType() != "":
+    if playerNode.get_enemyType() == "Easy" or playerNode.get_enemyType() == "Hard":
         print("Enemy encountered, would you like to fight or run")
-        userInput = "run" #will be voice based
+        breakout = False
+        userInput = "" #will be voice based
         #user enters their choice
-        if userInput == "run":
+        if userInput == "run": 
             num = random.randint(1, 4)
             if num == 1:
                 print("You didnt escape successfully, you must fight")
                 userInput = "fight"
-            else:
+            else: #teleporting case
                 print("Escaped successfully")
                 teleportTo = random.choice(nodeList)
-                print(teleportTo)
-                #STILL NEED TO TELEPORT TO RANDOM NODE
+                print("Teleported to node", teleportTo.get_id())
+                teleportTo.set_currentNode()
+                playerNode = teleportTo
+                
+
         if userInput == "fight":
             if playerNode.get_enemyType() == "Easy": #easy enemy case
                 print("This should be a breeze (easy enemy)")
@@ -197,6 +203,7 @@ for move in range(2): #number of turns before the player loses
                     hasKey = True
                 if playerHealth > 0:
                     print("You survived with", playerHealth, "health!")
+                    playerNode.set_enemyType(0)
                 else:
                     print("You died, game over :(")
                     exit()
@@ -209,6 +216,7 @@ for move in range(2): #number of turns before the player loses
                     hasKey = True
                 if playerHealth > 0:
                     print("You survived with", playerHealth, "health!")
+                    playerNode.set_enemyType(0)
                 else:
                     print("You died, game over :(")
                     exit()
@@ -216,7 +224,7 @@ for move in range(2): #number of turns before the player loses
     #heal station logic             
 
     if playerNode.get_healStation() == True:
-        print("Youve encountered a heal station! Healing you now")
+        print("Youve encountered a heal station! Healing you now.")
         playerHealth = 60
         print("Current health:", playerHealth)
 
@@ -228,20 +236,20 @@ for move in range(2): #number of turns before the player loses
             print("Youve escaped! You win!")
             exit()
         else:
-            print("Youve found the exit but dont have the key! Go find it!")
+            print("Youve found the exit but don't have the key! Go find it!")
         
     #-----------------------------------------------------------------------------#
-
-    #movement logic    
+    #movement logic- NEEDS WORK
     validDirections = list(playerNode.get_cardinals())
     print("I see a path to the: ")
     for i in range(len(validDirections)):
         print(validDirections[i])
     print("Which direction would you like to go in?")
     #gets user input via voice
-    #moves accordingly to node index
-
+    #we need to move the node to in the direction the user says
+    #this should be the last thing needed for the logic
+    #we also need to add voice output to it as well
 
 #robot should say something before it closes the program
-print("player has lost.... took too many moves")
+print("player has lost....took too many moves")
 #exit()
