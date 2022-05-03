@@ -39,6 +39,12 @@ class Node:
     def get_holdsKey(self):
         return self.holdsKey
 
+    def get_healStation(self):
+        return self.healStation
+
+    def get_exitLocation(self):
+        return self.exitLocation
+
     def set_visited(self): #maks this node as visited
         self.visited = True
 
@@ -169,15 +175,17 @@ for move in range(2): #number of turns before the player loses
     #enemy fighting logic
     if playerNode.get_enemyType() != "None" or playerNode.get_enemyType() != "":
         print("Enemy encountered, would you like to fight or run")
-        userInput = "fight"
+        userInput = "run" #will be voice based
         #user enters their choice
         if userInput == "run":
             num = random.randint(1, 4)
             if num == 1:
                 print("You didnt escape successfully, you must fight")
-                
+                userInput = "fight"
             else:
                 print("Escaped successfully")
+                teleportTo = random.choice(nodeList)
+                print(teleportTo)
                 #STILL NEED TO TELEPORT TO RANDOM NODE
         if userInput == "fight":
             if playerNode.get_enemyType() == "Easy": #easy enemy case
@@ -189,7 +197,6 @@ for move in range(2): #number of turns before the player loses
                     hasKey = True
                 if playerHealth > 0:
                     print("You survived with", playerHealth, "health!")
-                    #should update player health
                 else:
                     print("You died, game over :(")
                     exit()
@@ -202,16 +209,30 @@ for move in range(2): #number of turns before the player loses
                     hasKey = True
                 if playerHealth > 0:
                     print("You survived with", playerHealth, "health!")
-                    #should update player health
                 else:
                     print("You died, game over :(")
                     exit()
     #-----------------------------------------------------------------------------#
-    #heal station logic goes here              
+    #heal station logic             
 
+    if playerNode.get_healStation() == True:
+        print("Youve encountered a heal station! Healing you now")
+        playerHealth = 60
+        print("Current health:", playerHealth)
 
     #-----------------------------------------------------------------------------#
-                    
+    #endgame logic
+        
+    if playerNode.get_exitLocation() == True:
+        if hasKey == True:
+            print("Youve escaped! You win!")
+            exit()
+        else:
+            print("Youve found the exit but dont have the key! Go find it!")
+        
+    #-----------------------------------------------------------------------------#
+
+    #movement logic    
     validDirections = list(playerNode.get_cardinals())
     print("I see a path to the: ")
     for i in range(len(validDirections)):
