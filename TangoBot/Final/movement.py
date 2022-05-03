@@ -14,6 +14,7 @@ class Node:
         self.exitLocation = False
         self.healStation = False
         self.startingNode = False
+        self.currentNode = False
 
     def __str__(self):
         tempList = self.connected_to.keys()
@@ -54,6 +55,15 @@ class Node:
 
     def set_startingNode(self):
         self.startingNode = True
+        
+    ###################################
+    #Use these two to set or unset the current node
+    def set_currentNode(self):
+        self.currentNode = True
+
+    def remove_currentNode(self):
+        self.currentNode = False
+    
 
 #creates nodes
 n1 = Node(1)
@@ -106,17 +116,18 @@ centerList.remove(hardEnemy2)
 nodeList = [n1, n2, n3, n6, n7, n8, n11, n12, n13]
 for node in nodeList:
     if node.get_id() == playerStartLocation:
-        print(node.get_id(), " start")
+        print(node.get_id(), "start and current node")
         node.set_startingNode()
+        node.set_currentNode()
     if node.get_id() == endLocation:
-        print(node.get_id(), " exit")
+        print(node.get_id(), "exit")
         node.set_exitLocation() == True
     if node.get_id() == keyEnemyLocation: #working
-        print(node.get_id(), " key enemy")
+        print(node.get_id(), "key enemy")
         node.set_holdsKey == True
         node.addEnemyType(2)
     if node.get_id() == hardEnemy2: #working
-        print(node.get_id(), " hard enemy")
+        print(node.get_id(), "hard enemy")
         node.addEnemyType(2)
     if node.get_id() in centerList: #working
         print(node.get_id(), "easy enemy")
@@ -124,4 +135,6 @@ for node in nodeList:
     if node.get_id() == healLocation: #working
         print(node.get_id(), "heal station")
         node.set_healStation()
-    
+        
+print("------------")
+print("Beginning Game Sequence")
