@@ -137,9 +137,11 @@ for node in nodeList:
         print(node.get_id(), "start and current node")
         node.set_startingNode()
         node.set_currentNode()
+        node.set_enemyType(0)
     if node.get_id() == endLocation:
         print(node.get_id(), "exit")
         node.set_exitLocation() == True
+        node.set_enemyType(0)
     if node.get_id() == keyEnemyLocation: #working
         print(node.get_id(), "key enemy")
         node.set_holdsKey == True
@@ -153,6 +155,7 @@ for node in nodeList:
     if node.get_id() == healLocation: #working
         print(node.get_id(), "heal station")
         node.set_healStation()
+        node.set_enemyType(0)
 
 print("------------")
 print("Beginning Game Sequence")
@@ -160,23 +163,22 @@ print("Beginning Game Sequence")
 playerHealth = 60
 hasKey = False
 
-for move in range(2): #number of turns before the player loses
+for move in range(2): #number of turns before the player loses, was thinking 15 for 
     playerNode = 0
     
     for node in nodeList: #finds which node the player is currently on
         if node.get_currentNode() == True:
-            #playerNode = node
-            playerNode = n3
+            playerNode = node
+            #playerNode = n3
 
     print("The player is currently on node", playerNode.get_id())
-    print(playerNode.get_enemyType())
     
     #-----------------------------------------------------------------------------#
     #enemy fighting logic
-    if playerNode.get_enemyType() != "None" or playerNode.get_enemyType() != "":
+    if playerNode.get_enemyType() == "Easy" or playerNode.get_enemyType() == "Hard":
         print("Enemy encountered, would you like to fight or run")
         breakout = False
-        userInput = "run" #will be voice based
+        userInput = "" #will be voice based
         #user enters their choice
         if userInput == "run": 
             num = random.randint(1, 4)
@@ -237,17 +239,17 @@ for move in range(2): #number of turns before the player loses
             print("Youve found the exit but don't have the key! Go find it!")
         
     #-----------------------------------------------------------------------------#
-
-    #movement logic    
+    #movement logic- NEEDS WORK
     validDirections = list(playerNode.get_cardinals())
     print("I see a path to the: ")
     for i in range(len(validDirections)):
         print(validDirections[i])
     print("Which direction would you like to go in?")
     #gets user input via voice
-    #moves accordingly to node index
-
+    #we need to move the node to in the direction the user says
+    #this should be the last thing needed for the logic
+    #we also need to add voice output to it as well
 
 #robot should say something before it closes the program
-print("player has lost.... took too many moves")
+print("player has lost....took too many moves")
 #exit()
