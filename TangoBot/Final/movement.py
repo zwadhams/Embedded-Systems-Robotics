@@ -33,13 +33,19 @@ class Node:
     def get_cardinals(self):
         return self.connected_to.values()
 
+    def get_enemyType(self):
+        return self.enemyType
+
+    def get_holdsKey(self):
+        return self.holdsKey
+
     def set_visited(self): #maks this node as visited
         self.visited = True
 
     def set_previous(self): #marks the previous node 
         self.previous = prev
 
-    def addEnemyType(self, enemyType): #0 is none, 1 is easy, 2 is hard
+    def set_enemyType(self, enemyType): #0 is none, 1 is easy, 2 is hard
         if enemyType == 0:
             self.enemyType = "None"
         elif enemyType == 1:
@@ -122,7 +128,7 @@ centerList.remove(hardEnemy2)
 nodeList = [n1, n2, n3, n6, n7, n8, n11, n12, n13]
 for node in nodeList:
     if node.get_id() == playerStartLocation:
-        print(node.get_id(), "start anad current node")
+        print(node.get_id(), "start and current node")
         node.set_startingNode()
         node.set_currentNode()
     if node.get_id() == endLocation:
@@ -131,13 +137,13 @@ for node in nodeList:
     if node.get_id() == keyEnemyLocation: #working
         print(node.get_id(), "key enemy")
         node.set_holdsKey == True
-        node.addEnemyType(2)
+        node.set_enemyType(2)
     if node.get_id() == hardEnemy2: #working
         print(node.get_id(), "hard enemy")
-        node.addEnemyType(2)
+        node.set_enemyType(2)
     if node.get_id() in centerList: #working
         print(node.get_id(), "easy enemy")
-        node.addEnemyType(1)
+        node.set_enemyType(1)
     if node.get_id() == healLocation: #working
         print(node.get_id(), "heal station")
         node.set_healStation()
@@ -146,20 +152,73 @@ print("------------")
 print("Beginning Game Sequence")
 #initializing player health
 playerHealth = 60
+hasKey = False
 
 for move in range(2): #number of turns before the player loses
     playerNode = 0
+    
     for node in nodeList: #finds which node the player is currently on
         if node.get_currentNode() == True:
-            playerNode = node
+            #playerNode = node
+            playerNode = n3
 
-    print("The player is currently on node", playerNode)
-    validDirections = playerNode.get_cardinals()
-    print(validDirections[0])
-    print("I see a path to the", validDirections.get())
+    print("The player is currently on node", playerNode.get_id())
+    print(playerNode.get_enemyType())
+    
+    #-----------------------------------------------------------------------------#
+    #enemy fighting logic
+    if playerNode.get_enemyType() != "None" or playerNode.get_enemyType() != "":
+        print("Enemy encountered, would you like to fight or run")
+        userInput = "fight"
+        #user enters their choice
+        if userInput == "run":
+            num = random.randint(1, 4)
+            if num == 1:
+                print("You didnt escape successfully, you must fight")
+                
+            else:
+                print("Escaped successfully")
+                #STILL NEED TO TELEPORT TO RANDOM NODE
+        if userInput == "fight":
+            if playerNode.get_enemyType() == "Easy": #easy enemy case
+                print("This should be a breeze (easy enemy)")
+                hurt = random.randint(5, 15)
+                playerHealth -= hurt
+                if playerNode.get_holdsKey() == True:
+                    print("you got a key!")
+                    hasKey = True
+                if playerHealth > 0:
+                    print("You survived with", playerHealth, "health!")
+                    #should update player health
+                else:
+                    print("You died, game over :(")
+                    exit()
+            if playerNode.get_enemyType() == "Hard": #hard enemy case
+                print("Uh oh, he looks scary (hard enemy)")
+                hurt = random.randint(10, 30)
+                playerHealth -= hurt
+                if playerNode.get_holdsKey() == True:
+                    print("you got a key!")
+                    hasKey = True
+                if playerHealth > 0:
+                    print("You survived with", playerHealth, "health!")
+                    #should update player health
+                else:
+                    print("You died, game over :(")
+                    exit()
+    #-----------------------------------------------------------------------------#
+    #heal station logic goes here              
+
+
+    #-----------------------------------------------------------------------------#
+                    
+    validDirections = list(playerNode.get_cardinals())
+    print("I see a path to the: ")
+    for i in range(len(validDirections)):
+        print(validDirections[i])
     print("Which direction would you like to go in?")
     #gets user input via voice
-    
+    #moves accordingly to node index
 
 
 #robot should say something before it closes the program
