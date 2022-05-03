@@ -113,6 +113,7 @@ class MyLayout(GridLayout):
 
 class MyApp(App):
     def build(self):
+        Window.fullscreen = True
         Window.clearcolor = (1,1,1,1)
         Window.size = (800,480)
         Window.top = 10
