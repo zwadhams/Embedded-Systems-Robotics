@@ -418,6 +418,11 @@ class GameGUI(MyLayout):
         MyLayout.map = playerNode.get_id()
 
         move = 0
+
+        def __init__(self, **kwargs):
+            super(MyLayout, self).__init__(**kwargs)
+            GameGUI.GameLogic.mainGame()
+
         def mainGame():
             if GameGUI.GameLogic.move < 15: #number of turns before the player loses, was thinking 15 for 
                 
@@ -566,13 +571,14 @@ class GameGUI(MyLayout):
                 #this should be the last thing needed for the logic
                 #we also need to add voice output to it as well
                 GameGUI.GameLogic.move += 1
-                # GameGUI.GameLogic.mainGame()
+                GameGUI.GameLogic.mainGame()
             else:
                 #robot should say something before it closes the program
                 print("player has lost....took too many moves")
                 GameGUI.GameMove.speak("player has lost....took too many moves")
                 #exit()
-    # GameGUI.GameLogic.mainGame()
+    
+    
 
 class MyApp(App):
 
