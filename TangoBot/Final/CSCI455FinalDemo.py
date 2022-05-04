@@ -365,6 +365,7 @@ class MyLayout(GridLayout):
             print("The player is currently on node", self.playerNode.get_id())
             self.map = self.playerNode.get_id()
             self.location()
+            self.enemy()
             GameMove.speak("The player is currently on node" + str(self.playerNode.get_id()))
             
             #-----------------------------------------------------------------------------#
