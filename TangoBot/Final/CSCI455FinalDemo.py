@@ -419,9 +419,6 @@ class GameGUI(MyLayout):
 
         move = 0
 
-        def __init__(self, **kwargs):
-            super(MyLayout, self).__init__(**kwargs)
-            GameGUI.GameLogic.mainGame()
 
         def mainGame():
             if GameGUI.GameLogic.move < 15: #number of turns before the player loses, was thinking 15 for 
@@ -583,14 +580,16 @@ class GameGUI(MyLayout):
 class MyApp(App):
 
 
-
+    gamegui = GameGUI()
     def build(self):
         #Window.fullscreen = True
         Window.clearcolor = (1,1,1,1)
         Window.size = (800,480)
         Window.top = 10
         Window.left = 50
-        return GameGUI()
+        return MyApp.gamegui
 
 if __name__ == '__main__':
-    MyApp().run()
+    gameapp = MyApp()
+    gameapp.gamegui.GameLogic.mainGame()
+    gameapp.run()
