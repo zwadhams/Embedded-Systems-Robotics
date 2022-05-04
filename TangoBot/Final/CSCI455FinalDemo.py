@@ -180,7 +180,7 @@ class GameMove:
             choosesStr += choose.lower() + ","
         cur_dir = current_direction.lower()
         invalid = True
-        while (invalid):
+        while (invalid and App.get_running_app()):
             GameMove.speak("Currently looking "+cur_dir)
             GameMove.speak("I can go "+choosesStr)
             print("I can go "+choosesStr)
@@ -353,7 +353,7 @@ class MyLayout(GridLayout):
         self.location()
 
 
-        while self.move < 15: #number of turns before the player loses, was thinking 15 for 
+        while ((self.move < 15) and App.get_running_app()): #number of turns before the player loses, was thinking 15 for 
             
             for node in self.nodeList: #finds which node the player is currently on
                 if node.get_currentNode() == True:
@@ -375,7 +375,7 @@ class MyLayout(GridLayout):
                 userInput = GameMove.listen() #will be voice based
                 #user enters their choice
                 invalidInput = True
-                while (invalidInput): 
+                while ((invalidInput) and App.get_running_app()): 
                     if userInput == "run": 
                         invalidInput = False
                         num = random.randint(1, 4)
