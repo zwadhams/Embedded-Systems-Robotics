@@ -102,16 +102,6 @@ def attack():
     tangoController.stop()
 
 def speak(text:str):
-    # tts = gtts.gTTS(text)
-    # tts.save("responseMessage.mp3")
-    # playsound("responseMessage.mp3")
-    # print(text)
-
-    # #has to delet or it will error out
-    # if os.path.exists("responseMessage.mp3"):
-    #   os.remove("responseMessage.mp3")
-    # else:
-    #   print("The file does not exist")
     voice.say(text)
     voice.runAndWait()
 
