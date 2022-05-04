@@ -327,7 +327,7 @@ class MyLayout(GridLayout):
 
 
         
-    
+    @kivy.mainthread
     def __init__(self, **kwargs):
         super(MyLayout, self).__init__(**kwargs)
         self.rows = 2
@@ -352,8 +352,9 @@ class MyLayout(GridLayout):
         self.bottom.add_widget(self.health)
         self.location()
 
-
-        while ((self.move < 15) and App.get_running_app()): #number of turns before the player loses, was thinking 15 for 
+    @kivy.mainthread
+    def mainGame(self):
+        if ((self.move < 15) and App.get_running_app()): #number of turns before the player loses, was thinking 15 for 
             
             for node in self.nodeList: #finds which node the player is currently on
                 if node.get_currentNode() == True:
@@ -508,6 +509,7 @@ class MyLayout(GridLayout):
 
         
 
+    @kivy.mainthread
     def location(self):        
         if self.map == 1:
             self.img.source = 'images/maps/One.png'
@@ -529,23 +531,26 @@ class MyLayout(GridLayout):
             self.img.source = 'images/maps/thirteen.png'
 
 
-    def enemy(self, instance):
+    @kivy.mainthread
+    def enemy(self):
         if self.enemyID == "Easy":
             self.img.source = 'images/enemy/slime.gif'
         elif self.enemyID == "Hard":
             self.img.source = 'images/enemy/boss.gif'
             
 
-    def healing(self, instance):
+    @kivy.mainthread
+    def healing(self):
         self.img.source = 'images/items/healing.gif'
         self.healthy = 60
         self.health.text = "Health " + str(self.healthy) + "/60"
 
+    @kivy.mainthread
     def keyFound(self):
         self.key.background_normal = 'images/items/key.png'
         
         
-
+    @kivy.mainthread
     def damage(self):
         if self.enemyID == 1:
             self.healthy = self.healthy - 5
@@ -567,15 +572,17 @@ class MyLayout(GridLayout):
         
 
 class MyApp(App):
+    gameLayout = MyLayout()
     def build(self):
         #Window.fullscreen = True
         Window.clearcolor = (1,1,1,1)
         Window.size = (800,480)
         Window.top = 10
         Window.left = 50
-        return MyLayout()
+        return self.gameLayout
 
 if __name__ == '__main__':
 
-    
+    gameGui = MyApp()
+    gameGui.gameLayout.mainGame()
     MyApp().run()
