@@ -263,8 +263,16 @@ class GameLogic:
             
             print("Which direction would you like to go in?")
             GameLogic.playerNode.remove_currentNode()
-            userInput = validDirections[0] # Test the first choice
-            print(userInput) # print
+
+            flag = True
+            while flag:
+                userInput = input("Enter Direction: ")
+                print(userInput) # print
+                if userInput in validDirections:
+                    flag = False
+                else:
+                    print("This is not a valid direction, please choose again")
+            
             print("Going to " + str(validNodes[validDirections.index(userInput)].get_id())) # use validNodes[validDirections.index(userInput)].get_id() to get the node id/node key
             GameLogic.playerNode = validNodes[validDirections.index(userInput)]
             GameLogic.playerNode.set_currentNode()
@@ -279,3 +287,5 @@ class GameLogic:
             #robot should say something before it closes the program
             print("player has lost....took too many moves")
             #exit()
+            
+GameLogic.mainGame()
