@@ -141,11 +141,11 @@ class GameLogic:
             node.set_enemyType(0)
         if node.get_id() == endLocation:
             print(node.get_id(), "exit")
-            node.set_exitLocation() == True
+            node.set_exitLocation()
             node.set_enemyType(0)
         if node.get_id() == keyEnemyLocation: #working
             print(node.get_id(), "key enemy")
-            node.set_holdsKey = True
+            node.set_holdsKey()
             node.set_enemyType(2)
         if node.get_id() == hardEnemy2: #working
             print(node.get_id(), "hard enemy")

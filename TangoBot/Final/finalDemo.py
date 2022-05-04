@@ -35,8 +35,7 @@ class MyLayout(GridLayout):
                     height=50,
                     )
 
-    while GameLogic.move < 15:
-        GameLogic.mainGame()
+
         
     
     def __init__(self, **kwargs):
@@ -230,4 +229,5 @@ if __name__ == '__main__':
 
     voice = pyttsx3.init()
     MyApp().run()
+    print("Nope")
 
