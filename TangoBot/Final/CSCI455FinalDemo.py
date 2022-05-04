@@ -1,6 +1,7 @@
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty
+from kivy.base import runTouchApp
 from kivy.lang import Builder
 from kivy.core.window import Window
 from kivy.uix.image import Image
@@ -327,7 +328,7 @@ class MyLayout(GridLayout):
 
 
         
-    @kivy.clock.mainthread
+#    @kivy.clock.mainthread
     def __init__(self, **kwargs):
         super(MyLayout, self).__init__(**kwargs)
         self.rows = 2
@@ -354,7 +355,7 @@ class MyLayout(GridLayout):
 
     @kivy.clock.mainthread
     def mainGame(self):
-        if ((self.move < 15) and App.get_running_app()): #number of turns before the player loses, was thinking 15 for 
+        if ((self.move < 15)): #number of turns before the player loses, was thinking 15 for 
             
             for node in self.nodeList: #finds which node the player is currently on
                 if node.get_currentNode() == True:
@@ -371,12 +372,12 @@ class MyLayout(GridLayout):
             if self.playerNode.get_enemyType() == "Easy" or self.playerNode.get_enemyType() == "Hard":
                 print("Enemy encountered, would you like to fight or run")
                 self.enemyID = self.playerNode.get_enemyType()
-                self.enemy()
+                #self.enemy()
                 GameMove.speak("Enemy encountered, would you like to fight or run")
                 userInput = GameMove.listen() #will be voice based
                 #user enters their choice
                 invalidInput = True
-                while ((invalidInput) and App.get_running_app()): 
+                while ((invalidInput)): 
                     if userInput == "run": 
                         invalidInput = False
                         num = random.randint(1, 4)
@@ -578,6 +579,7 @@ class MyApp(App):
     def __init__(self, **kwargs):
         super(MyApp, self).__init__(**kwargs)
         self.gameLayout = MyLayout()
+        #self.gameLayout.mainGame()
 
     def build(self):
         #Window.fullscreen = True
@@ -585,10 +587,16 @@ class MyApp(App):
         Window.size = (800,480)
         Window.top = 10
         Window.left = 50
+        #self.gameLayout.mainGame()
         return self.gameLayout
 
 if __name__ == '__main__':
-
-    gameGui = MyApp()
-    gameGui.gameLayout.mainGame()
-    gameGui.run()
+    #gameGui = MyApp()
+    #gameGui.gameLayout.mainGame()
+    #gameGui.run()
+    gameApp = MyApp()
+    gameGui = gameApp.build()
+    gameApp._run_prepare()
+    gameGui.mainGame()
+    runTouchApp()
+    gameApp.stop()
