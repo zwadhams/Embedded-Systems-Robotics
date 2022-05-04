@@ -15,6 +15,7 @@ class Node:
         self.healStation = False
         self.startingNode = False
         self.currentNode = False
+        self.curLookCard = "North"
 
     def __str__(self):
         tempList = self.connected_to.keys()
@@ -251,6 +252,8 @@ for move in range(1): #number of turns before the player loses, was thinking 15 
     print(userInput) # print
     print("Going to " + str(validNodes[validDirections.index(userInput)].get_id())) # use validNodes[validDirections.index(userInput)].get_id() to get the node id/node key
     playerNode = validNodes[validDirections.index(userInput)]
+    playerNode.curLookCard = userInput.capitalize()
+    print("Looking " + playerNode.curLookCard)
     #gets user input via voice
     #we need to move the node to in the direction the user says
     #this should be the last thing needed for the logic
