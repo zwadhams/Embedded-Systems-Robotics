@@ -661,5 +661,6 @@ if __name__ == '__main__':
 ##    # print(listen())
 
     # while (GameLogic.move < 15):
-    MyApp().run()
+    GameApp = MyApp()
+    GameApp.run()
         # GameLogic.mainGame()
