@@ -287,7 +287,7 @@ class GameLogic:
                 #playerNode = n3
 
         print("The player is currently on node", playerNode.get_id())
-        GameMove.speak("The player is currently on node", playerNode.get_id())
+        GameMove.speak("The player is currently on node" + str(playerNode.get_id()))
         
         #-----------------------------------------------------------------------------#
         #enemy fighting logic - COMPLETE
@@ -308,7 +308,7 @@ class GameLogic:
                     GameMove.speak("Escaped successfully")
                     teleportTo = random.choice(nodeList)
                     print("Teleported to node", teleportTo.get_id())
-                    GameMove.speak("Teleported to node", teleportTo.get_id())
+                    GameMove.speak("Teleported to node " + str(teleportTo.get_id()))
                     teleportTo.set_currentNode()
                     playerNode = teleportTo
                     
@@ -325,7 +325,7 @@ class GameLogic:
                         hasKey = True
                     if playerHealth > 0:
                         print("You survived with", playerHealth, "health!")
-                        GameMove.speak("You survived with", playerHealth, "health!")
+                        GameMove.speak("You survived with " + str(playerHealth) + " health!")
                         playerNode.set_enemyType(0)
                     else:
                         print("You died, game over :(")
@@ -342,7 +342,7 @@ class GameLogic:
                         hasKey = True
                     if playerHealth > 0:
                         print("You survived with", playerHealth, "health!")
-                        GameMove.speak("You survived with", playerHealth, "health!")
+                        GameMove.speak("You survived with " + playerHealth + " health!")
                         playerNode.set_enemyType(0)
                     else:
                         print("You died, game over :(")
@@ -356,7 +356,7 @@ class GameLogic:
             GameMove.speak("Youve encountered a heal station! Healing you now.")
             playerHealth = 60
             print("Current health:", playerHealth)
-            GameMove.speak("Current health:", playerHealth)
+            GameMove.speak("Current health: " + str(playerHealth))
 
         #-----------------------------------------------------------------------------#
         #endgame logic - COMPLETE
