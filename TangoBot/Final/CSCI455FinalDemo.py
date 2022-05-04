@@ -588,9 +588,9 @@ class MyApp(App):
         Window.size = (800,480)
         Window.top = 10
         Window.left = 50
+        MyApp.gamegui.GameLogic.mainGame()
         return MyApp.gamegui
 
 if __name__ == '__main__':
     gameapp = MyApp()
-    gameapp.gamegui.GameLogic.mainGame()
     gameapp.run()
