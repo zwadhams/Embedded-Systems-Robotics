@@ -415,7 +415,8 @@ class GameGUI(MyLayout):
             if node.get_currentNode() == True:
                 playerNode = node
                 #playerNode = n3
-        MyLayout.map = playerNode.get_id()
+        gameLayout = MyLayout()
+        gameLayout.map = playerNode.get_id()
 
         move = 0
 
@@ -428,7 +429,7 @@ class GameGUI(MyLayout):
                         GameGUI.GameLogic.playerNode = node
                         #playerNode = n3
 
-                MyLayout.map = GameGUI.GameLogic.playerNode.get_id()
+                GameGUI.gameLayout.map = GameGUI.GameLogic.playerNode.get_id()
                 print("The player is currently on node", GameGUI.GameLogic.playerNode.get_id())
                 GameGUI.GameMove.speak("The player is currently on node" + str(GameGUI.GameLogic.playerNode.get_id()))
                 
@@ -461,8 +462,8 @@ class GameGUI(MyLayout):
                                 
 
                         elif userInput == "fight":
-                            MyLayout.enemyID = GameGUI.GameLogic.playerNode.get_enemyType()
-                            MyLayout.enemy()
+                            GameGUI.gameLayout.enemyID = GameGUI.GameLogic.playerNode.get_enemyType()
+                            GameGUI.gameLayout.enemy()
                             if GameGUI.GameLogic.playerNode.get_enemyType() == "Easy": #easy enemy case
                                 invalidInput = False
                                 print("This should be a breeze (easy enemy)")
@@ -470,12 +471,12 @@ class GameGUI(MyLayout):
                                 GameGUI.GameMove.attack()
                                 hurt = random.randint(5, 15)
                                 GameGUI.GameLogic.playerHealth -= hurt
-                                MyLayout.healthy = GameGUI.GameLogic.playerHealth
-                                MyLayout.damage()
+                                GameGUI.gameLayout.healthy = GameGUI.GameLogic.playerHealth
+                                GameGUI.gameLayout.damage()
                                 if GameGUI.GameLogic.playerNode.get_holdsKey() == True:
                                     print("you got a key!")
-                                    MyLayout.key = True
-                                    MyLayout.keyFound()
+                                    GameGUI.gameLayout.key = True
+                                    GameGUI.gameLayout.keyFound()
                                     GameGUI.GameMove.speak("you got a key!")
                                     GameGUI.GameLogic.hasKey = True
                                 if GameGUI.GameLogic.playerHealth > 0:
@@ -484,7 +485,7 @@ class GameGUI(MyLayout):
                                     GameGUI.GameLogic.playerNode.set_enemyType(0)
                                 else:
                                     print("You died, game over :(")
-                                    MyLayout.dead()
+                                    GameGUI.gameLayout.dead()
                                     GameGUI.GameMove.speak("You died, game over :(")
                                     exit()
                             if GameGUI.GameLogic.playerNode.get_enemyType() == "Hard": #hard enemy case
@@ -494,12 +495,12 @@ class GameGUI(MyLayout):
                                 GameGUI.GameMove.attack()
                                 hurt = random.randint(10, 30)
                                 GameGUI.GameLogic.playerHealth -= hurt
-                                MyLayout.healthy = GameGUI.GameLogic.playerHealth
-                                MyLayout.damage()
+                                GameGUI.gameLayout.healthy = GameGUI.GameLogic.playerHealth
+                                GameGUI.gameLayout.damage()
                                 if GameGUI.GameLogic.playerNode.get_holdsKey() == True:
                                     print("you got a key!")
-                                    MyLayout.key = True
-                                    MyLayout.keyFound()
+                                    GameGUI.gameLayout.key = True
+                                    GameGUI.gameLayout.keyFound()
                                     GameGUI.GameMove.speak("you got a key!")
                                     GameGUI.GameLogic.hasKey = True
                                 if GameGUI.GameLogic.playerHealth > 0:
@@ -508,7 +509,7 @@ class GameGUI(MyLayout):
                                     GameGUI.GameLogic.playerNode.set_enemyType(0)
                                 else:
                                     print("You died, game over :(")
-                                    MyLayout.dead()
+                                    GameGUI.gameLayout.dead()
                                     GameGUI.GameMove.speak("You died, game over :(")
                                     exit()
                     
@@ -521,7 +522,7 @@ class GameGUI(MyLayout):
 
                 if GameGUI.GameLogic.playerNode.get_healStation() == True:
                     print("Youve encountered a heal station! Healing you now.")
-                    MyLayout.healing()
+                    GameGUI.gameLayout.healing()
                     GameGUI.GameMove.speak("Youve encountered a heal station! Healing you now.")
                     GameGUI.GameLogic.playerHealth = 60
                     print("Current health:", GameGUI.GameLogic.playerHealth)
@@ -547,8 +548,8 @@ class GameGUI(MyLayout):
                 # for i in range(len(validDirections)):
                 #     print(validDirections[i] + str(validNodes[i].get_id()))
                 # print("Which direction would you like to go in?")
-                MyLayout.map = GameGUI.GameLogic.playerNode.get_id()
-                MyLayout.location()
+                GameGUI.gameLayout.map = GameGUI.GameLogic.playerNode.get_id()
+                GameGUI.gameLayout.location()
                 GameGUI.GameLogic.playerNode.remove_currentNode()
 
                 userInput = GameGUI.GameMove.changeDirection(GameGUI.GameLogic.playerNode.curLookCard, validDirections).capitalize()
@@ -558,8 +559,8 @@ class GameGUI(MyLayout):
                 print(userInput) # print
                 # print("Going to " + str(validNodes[validDirections.index(userInput)].get_id())) # use validNodes[validDirections.index(userInput)].get_id() to get the node id/node key
                 GameGUI.GameLogic.playerNode = validNodes[validDirections.index(userInput)]
-                MyLayout.map = GameGUI.GameLogic.playerNode.get_id()
-                MyLayout.location()
+                GameGUI.gameLayout.map = GameGUI.GameLogic.playerNode.get_id()
+                GameGUI.gameLayout.location()
                 GameGUI.GameLogic.playerNode.set_currentNode()
                 GameGUI.GameLogic.playerNode.curLookCard = userInput
                 # print("Looking " + playerNode.curLookCard)
