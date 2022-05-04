@@ -263,7 +263,7 @@ class GameLogic:
             node.set_enemyType(0)
         if node.get_id() == keyEnemyLocation: #working
             print(node.get_id(), "key enemy")
-            node.set_holdsKey == True
+            node.set_holdsKey = True
             node.set_enemyType(2)
         if node.get_id() == hardEnemy2: #working
             print(node.get_id(), "hard enemy")
@@ -310,11 +310,13 @@ class GameLogic:
                 invalidInput = True
                 while (invalidInput): 
                     if userInput == "run": 
+                        invalidInput = False
                         num = random.randint(1, 4)
                         if num == 1:
                             print("You didnt escape successfully, you must fight")
                             GameMove.speak("You didnt escape successfully, you must fight")
                             userInput = "fight"
+                            invalidInput = True
                         else: #teleporting case
                             print("Escaped successfully")
                             GameMove.speak("Escaped successfully")
@@ -323,11 +325,11 @@ class GameLogic:
                             GameMove.speak("Teleported to node " + str(teleportTo.get_id()))
                             teleportTo.set_currentNode()
                             GameLogic.playerNode = teleportTo
-                            invalidInput = False
                             
 
                     elif userInput == "fight":
                         if GameLogic.playerNode.get_enemyType() == "Easy": #easy enemy case
+                            invalidInput = False
                             print("This should be a breeze (easy enemy)")
                             GameMove.speak("This should be a breeze (easy enemy)")
                             GameMove.attack()
@@ -345,8 +347,8 @@ class GameLogic:
                                 print("You died, game over :(")
                                 GameMove.speak("You died, game over :(")
                                 exit()
-                            invalidInput = False
                         if GameLogic.playerNode.get_enemyType() == "Hard": #hard enemy case
+                            invalidInput = False
                             print("Uh oh, he looks scary (hard enemy)")
                             GameMove.speak("Uh oh, he looks scary (hard enemy)")
                             GameMove.attack()
@@ -364,11 +366,11 @@ class GameLogic:
                                 print("You died, game over :(")
                                 GameMove.speak("You died, game over :(")
                                 exit()
-                            invalidInput = False
+                
                     else:
+                        invalidInput = True
                         print("Enemy encountered, would you like to fight or run")
                         userInput = GameMove.listen() #will be voice based
-                        invalidInput = True
             #-----------------------------------------------------------------------------#
             #heal station logic - COMPLETE        
 
@@ -414,8 +416,10 @@ class GameLogic:
             #this should be the last thing needed for the logic
             #we also need to add voice output to it as well
             GameLogic.move += 1
+            GameLogic.mainGame()
         else:
             #robot should say something before it closes the program
             print("player has lost....took too many moves")
             GameMove.speak("player has lost....took too many moves")
             #exit()
+GameLogic.mainGame()
