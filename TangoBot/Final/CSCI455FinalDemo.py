@@ -574,13 +574,17 @@ class MyLayout(GridLayout):
         
 
 class MyApp(App):
+
+    def __init__(self, **kwargs):
+        super(MyApp, self).__init__(**kwargs)
+        self.gameLayout = MyLayout()
+
     def build(self):
         #Window.fullscreen = True
         Window.clearcolor = (1,1,1,1)
         Window.size = (800,480)
         Window.top = 10
         Window.left = 50
-        self.gameLayout = MyLayout()
         return self.gameLayout
 
 if __name__ == '__main__':
