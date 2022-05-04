@@ -13,9 +13,9 @@ from movement import *
 
 
 class MyLayout(GridLayout):
-    map = playerNode.get_id()
+    map = GameLogic.playerNode.get_id()
     enemyID = "Easy"
-    healthy = playerHealth
+    healthy = GameLogic.playerHealth
 
     
     img = Image(source='images/maps/One.png',
@@ -63,7 +63,7 @@ class MyLayout(GridLayout):
 
         self.location()
 
-        if hasKey == True:
+        if GameLogic.hasKey == True:
             self.keyFound()
         
 
@@ -101,7 +101,7 @@ class MyLayout(GridLayout):
             voice.runAndWait()
             voice.say("Run or Fight Skeleton Mutant")
             voice.runAndWait()
-        hasKey = True
+        GameLogic.hasKey = True
             
 
     def healing(self, instance):
@@ -228,4 +228,5 @@ if __name__ == '__main__':
 
     voice = pyttsx3.init()
     MyApp().run()
+    print("I can run After")
 
