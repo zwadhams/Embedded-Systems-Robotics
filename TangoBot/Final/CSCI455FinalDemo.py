@@ -6,6 +6,7 @@ from kivy.core.window import Window
 from kivy.uix.image import Image
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
+import kivy.clock
 import random
 import pyttsx3
 # from movement import *
@@ -159,7 +160,7 @@ class GameMove:
 
         with speech as source:
             # audio = r.adjust_for_ambient_noise(source)
-            while(flag):
+            while(flag and App.get_running_app()):
                 try:
                     audio = r.listen(source, phrase_time_limit = 4)
                     inputSpeech = r.recognize_google(audio, language = 'en-US')
@@ -177,7 +178,7 @@ class GameMove:
             choosesStr += choose.lower() + ","
         cur_dir = current_direction.lower()
         invalid = True
-        while (invalid):
+        while (invalid and App.get_running_app()):
             GameMove.speak("Currently looking "+cur_dir)
             GameMove.speak("I can go "+choosesStr)
             print("I can go "+choosesStr)
@@ -305,7 +306,7 @@ class GameLogic:
                 if node.get_currentNode() == True:
                     GameLogic.playerNode = node
                     #playerNode = n3
-
+            MyLayout.location()
             print("The player is currently on node", GameLogic.playerNode.get_id())
             GameMove.speak("The player is currently on node" + str(GameLogic.playerNode.get_id()))
             
@@ -313,12 +314,14 @@ class GameLogic:
             #enemy fighting logic - COMPLETE
             if GameLogic.playerNode.get_enemyType() == "Easy" or GameLogic.playerNode.get_enemyType() == "Hard":
                 print("Enemy encountered, would you like to fight or run")
-                GameMove.speak("Enemy encountered, would you like to fight or run")
+                MyLayout.enemyID = GameLogic.playerNode.get_enemyType()
+                MyLayout.enemy()
+                # GameMove.speak("Enemy encountered, would you like to fight or run")
                 breakout = False
                 userInput = GameMove.listen() #will be voice based
                 #user enters their choice
                 invalidInput = True
-                while (invalidInput): 
+                while (invalidInput and App.get_running_app()): 
                     if userInput == "run": 
                         invalidInput = False
                         num = random.randint(1, 4)
@@ -341,41 +344,50 @@ class GameLogic:
                         if GameLogic.playerNode.get_enemyType() == "Easy": #easy enemy case
                             invalidInput = False
                             print("This should be a breeze (easy enemy)")
-                            GameMove.speak("This should be a breeze (easy enemy)")
+                            
+                            GameMove.speak("This should be a breeze")
                             GameMove.attack()
                             hurt = random.randint(5, 15)
                             GameLogic.playerHealth -= hurt
-                            if GameLogic.playerNode.get_holdsKey() == True:
-                                print("you got a key!")
-                                GameMove.speak("you got a key!")
-                                GameLogic.hasKey = True
+                            MyLayout.healthy = GameLogic.playerHealth
+                            MyLayout.damage()
                             if GameLogic.playerHealth > 0:
                                 print("You survived with", GameLogic.playerHealth, "health!")
                                 GameMove.speak("You survived with " + str(GameLogic.playerHealth) + " health!")
                                 GameLogic.playerNode.set_enemyType(0)
                             else:
                                 print("You died, game over :(")
+                                MyLayout.dead()
                                 GameMove.speak("You died, game over :(")
                                 exit()
+                            if GameLogic.playerNode.get_holdsKey() == True:
+                                print("you got a key!")
+                                # GameMove.speak("you got a key!")
+                                MyLayout.keyFound()
+                                GameLogic.hasKey = True
                         if GameLogic.playerNode.get_enemyType() == "Hard": #hard enemy case
                             invalidInput = False
                             print("Uh oh, he looks scary (hard enemy)")
-                            GameMove.speak("Uh oh, he looks scary (hard enemy)")
+                            GameMove.speak("Uh oh, he looks scary")
                             GameMove.attack()
                             hurt = random.randint(10, 30)
                             GameLogic.playerHealth -= hurt
-                            if GameLogic.playerNode.get_holdsKey() == True:
-                                print("you got a key!")
-                                GameMove.speak("you got a key!")
-                                GameLogic.hasKey = True
+                            MyLayout.healthy = GameLogic.playerHealth
+                            MyLayout.damage()
                             if GameLogic.playerHealth > 0:
                                 print("You survived with", GameLogic.playerHealth, "health!")
                                 GameMove.speak("You survived with " + str(GameLogic.playerHealth) + " health!")
                                 GameLogic.playerNode.set_enemyType(0)
                             else:
                                 print("You died, game over :(")
+                                MyLayout.dead()
                                 GameMove.speak("You died, game over :(")
                                 exit()
+                            if GameLogic.playerNode.get_holdsKey() == True:
+                                print("you got a key!")
+                                # GameMove.speak("you got a key!")
+                                MyLayout.keyFound()
+                                GameLogic.hasKey = True
                 
                     else:
                         invalidInput = True
@@ -388,6 +400,7 @@ class GameLogic:
                 print("Youve encountered a heal station! Healing you now.")
                 GameMove.speak("Youve encountered a heal station! Healing you now.")
                 GameLogic.playerHealth = 60
+                MyLayout.healing()
                 print("Current health:", GameLogic.playerHealth)
                 GameMove.speak("Current health: " + str(GameLogic.playerHealth))
 
@@ -494,6 +507,8 @@ class MyLayout(GridLayout):
     def runGame(self):
         while ((GameLogic.move < 15) and App.get_running_app()):
             GameLogic.mainGame()
+
+    @kivy.clock.mainthread
     def location(self):        
         if self.map == 1:
             self.img.source = 'images/maps/One.png'
@@ -514,59 +529,51 @@ class MyLayout(GridLayout):
         elif self.map == 13:
             self.img.source = 'images/maps/thirteen.png'
 
-
+    @kivy.clock.mainthread
     def enemy(self, instance):
         if self.enemyID == "Easy":
             self.img.source = 'images/enemy/slime.gif'
-            voice.say("Splash")
-            voice.runAndWait()
-            voice.say("Run or Fight Slime")
-            voice.runAndWait()
+            GameMove.speak("Splash")
+            GameMove.speak("Run or Fight Slime")
         elif self.enemyID == "Hard":
             self.img.source = 'images/enemy/boss.gif'
-            voice.say("Screeeeeeetch")
-            voice.runAndWait()
-            voice.say("Run or Fight Skeleton Mutant")
-            voice.runAndWait()
+            GameMove.speak("Screeeeeeetch")
+            GameMove.speak("Run or Fight Skeleton Mutant")
         GameLogic.hasKey = True
             
-
+    @kivy.clock.mainthread
     def healing(self, instance):
         self.img.source = 'images/items/healing.gif'
-        voice.say("Relax you are being healed")
-        voice.runAndWait()
+        # GameMove.speak("Relax you are being healed")
         self.healthy = 60
         self.health.text = "Health " + str(self.healthy) + "/60"
 
+    @kivy.clock.mainthread
     def keyFound(self):
         self.key.background_normal = 'images/items/key.png'
-        voice.say("Key Found")
-        voice.runAndWait()
+        GameMove.speak("Key Found")
         
         
         
-
+    @kivy.clock.mainthread
     def damage(self):
-        if self.enemyID == 1:
-            self.healthy = self.healthy - 5
-            if self.healthy > 1:
+        if self.enemyID == "Easy":
+            # self.healthy = self.healthy - 5
+            if self.healthy > 0:
                 self.health.text = "Health " + str(self.healthy) + "/60"
-                voice.say("Ouch")
-            elif self.healthy < 1:
-                self.dead
-        elif self.enemyID == 2:
-            if self.healthy > 20:
-                self.healthy = self.healthy - 20
+            else:
+                self.dead()
+        elif self.enemyID == "Hard":
+            if self.healthy > 0:
+                # self.healthy = self.healthy - 20
                 self.health.text = "Health " + str(self.healthy) + "/60"
-                voice.say("Ouch, that hurt a lot")
-                voice.runAndWait()
-            elif self.healthy <= 20:
+            else:
                 self.dead()
             
-
+    @kivy.clock.mainthread
     def dead(self):
-        voice.say("You died")
-        voice.runAndWait()
+        # voice.say("You died")
+        # voice.runAndWait()
         self.health.text = "Dead"
         self.img.source = 'images/youdied.gif'
         
@@ -652,8 +659,6 @@ if __name__ == '__main__':
 ##    # forward()
 ##    # speak("Hello World")
 ##    # print(listen())
-
-    voice = pyttsx3.init()
 
     # while (GameLogic.move < 15):
     MyApp().run()
