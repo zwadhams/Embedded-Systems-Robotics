@@ -163,7 +163,7 @@ class GameLogic:
     #initializing player health and that they dont have the key
     playerHealth = 60
     hasKey = False
-    playerNode = Node(None)
+    playerNode = Node(9999)
     def mainGame():
         for move in range(1): #number of turns before the player loses, was thinking 15 for 
 
