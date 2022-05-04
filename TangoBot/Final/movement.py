@@ -96,15 +96,15 @@ class GameLogic:
     n13 = Node(13)
 
     #creates node connections
-    n1.connected_to = {n2:"East"}
-    n2.connected_to = {n1:"West", n3:"East", n7:"South"}
-    n3.connected_to = {n2:"West", n8:"South"}
-    n6.connected_to = {n11:"South", n7:"East"}
-    n7.connected_to = {n2:"North", n6:"West", n12:"South"}
-    n8.connected_to = {n3:"North"}
-    n11.connected_to = {n6:"North"}
-    n12.connected_to = {n7:"North", n13:"East"}
-    n13.connected_to = {n12:"West"}
+    n1.connected_to = {n2:"east"}
+    n2.connected_to = {n1:"west", n3:"east", n7:"south"}
+    n3.connected_to = {n2:"west", n8:"south"}
+    n6.connected_to = {n11:"south", n7:"east"}
+    n7.connected_to = {n2:"north", n6:"west", n12:"south"}
+    n8.connected_to = {n3:"north"}
+    n11.connected_to = {n6:"north"}
+    n12.connected_to = {n7:"north", n13:"east"}
+    n13.connected_to = {n12:"west"}
 
     print(n1)
     print(n2)
@@ -167,7 +167,7 @@ class GameLogic:
     for node in nodeList: #finds which node the player is currently on
         if node.get_currentNode() == True:
             playerNode = node
-            #playerNode = n3
+            
     move = 0
     def mainGame():
         if GameLogic.move < 15: #number of turns before the player loses, was thinking 15 for 
@@ -263,7 +263,7 @@ class GameLogic:
             
             print("Which direction would you like to go in?")
             GameLogic.playerNode.remove_currentNode()
-
+            #userInput = validDirections[0] # Test the first choice
             flag = True
             while flag:
                 userInput = input("Enter Direction: ")
@@ -272,7 +272,7 @@ class GameLogic:
                     flag = False
                 else:
                     print("This is not a valid direction, please choose again")
-            
+                    
             print("Going to " + str(validNodes[validDirections.index(userInput)].get_id())) # use validNodes[validDirections.index(userInput)].get_id() to get the node id/node key
             GameLogic.playerNode = validNodes[validDirections.index(userInput)]
             GameLogic.playerNode.set_currentNode()
@@ -287,5 +287,5 @@ class GameLogic:
             #robot should say something before it closes the program
             print("player has lost....took too many moves")
             #exit()
-            
+
 GameLogic.mainGame()
