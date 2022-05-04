@@ -144,8 +144,8 @@ class GameMove:
         GameMove.speak("Well?")
         flag = True
         r = sr.Recognizer()
-        r.energy_threshold = 1568
-        r.dynamic_energy_threshold = True
+        # r.energy_threshold = 1568
+        # r.dynamic_energy_threshold = True
         speech = sr.Microphone()
 
         with speech as source:
@@ -353,7 +353,7 @@ class GameLogic:
                             hasKey = True
                         if playerHealth > 0:
                             print("You survived with", playerHealth, "health!")
-                            GameMove.speak("You survived with " + playerHealth + " health!")
+                            GameMove.speak("You survived with " + str(playerHealth) + " health!")
                             playerNode.set_enemyType(0)
                         else:
                             print("You died, game over :(")
