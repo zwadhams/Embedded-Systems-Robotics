@@ -383,12 +383,14 @@ class GameLogic:
         # for i in range(len(validDirections)):
         #     print(validDirections[i] + str(validNodes[i].get_id()))
         # print("Which direction would you like to go in?")
+        playerNode.remove_currentNode()
         userInput = GameMove.changeDirection(playerNode.curLookCard, validDirections).capitalize()
         # userInput = validDirections[0] # Test the first choice
 
         print(userInput) # print
         # print("Going to " + str(validNodes[validDirections.index(userInput)].get_id())) # use validNodes[validDirections.index(userInput)].get_id() to get the node id/node key
         playerNode = validNodes[validDirections.index(userInput)]
+        playerNode.set_currentNode()
         playerNode.curLookCard = userInput
         # print("Looking " + playerNode.curLookCard)
         #gets user input via voice

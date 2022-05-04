@@ -163,9 +163,9 @@ class GameLogic:
     #initializing player health and that they dont have the key
     playerHealth = 60
     hasKey = False
-
+    playerNode = 0
     for move in range(1): #number of turns before the player loses, was thinking 15 for 
-        playerNode = 0
+
         
         for node in nodeList: #finds which node the player is currently on
             if node.get_currentNode() == True:
@@ -248,10 +248,12 @@ class GameLogic:
             print(validDirections[i] + str(validNodes[i].get_id()))
         
         print("Which direction would you like to go in?")
+        playerNode.remove_currentNode()
         userInput = validDirections[0] # Test the first choice
         print(userInput) # print
         print("Going to " + str(validNodes[validDirections.index(userInput)].get_id())) # use validNodes[validDirections.index(userInput)].get_id() to get the node id/node key
         playerNode = validNodes[validDirections.index(userInput)]
+        playerNode.set_currentNode()
         playerNode.curLookCard = userInput.capitalize()
         print("Looking " + playerNode.curLookCard)
         #gets user input via voice
