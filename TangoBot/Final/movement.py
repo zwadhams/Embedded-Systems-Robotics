@@ -1,7 +1,6 @@
 import math
 import pathlib, os, sys
 import random
-import 
 
 class Node:
     def __init__(self, key):
