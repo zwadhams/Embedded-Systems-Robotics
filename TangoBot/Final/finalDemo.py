@@ -13,9 +13,9 @@ from movement import *
 
 
 class MyLayout(GridLayout):
-    map = playerNode.get_id()
-    enemyID = "Easy"
-    healthy = playerHealth
+    map = GameLogic.playerNode.id
+    enemyID = Node.get_enemyType
+    healthy = GameLogic.playerHealth
 
     
     img = Image(source='images/maps/One.png',
@@ -63,8 +63,6 @@ class MyLayout(GridLayout):
 
         self.location()
 
-        if hasKey == True:
-            self.keyFound()
         
 
     def location(self):        
@@ -101,7 +99,7 @@ class MyLayout(GridLayout):
             voice.runAndWait()
             voice.say("Run or Fight Skeleton Mutant")
             voice.runAndWait()
-        hasKey = True
+            
             
 
     def healing(self, instance):
