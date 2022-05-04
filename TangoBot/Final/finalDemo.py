@@ -9,7 +9,7 @@ from kivy.uix.button import Button
 import random
 import pyttsx3
 import time
-#from FinalProject import *
+from movement import *
 
 
 class MyLayout(GridLayout):
@@ -48,12 +48,12 @@ class MyLayout(GridLayout):
         self.add_widget(self.bottom)
 
 
-        self.key.bind(on_press=self.enemy)
+        #self.key.bind(on_press=self.enemy)
         self.bottom.add_widget(self.key)
         
 
         
-        self.health.bind(on_press=self.healing)
+        #self.health.bind(on_press=self.healing)
         self.bottom.add_widget(self.health)
         
 
