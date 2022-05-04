@@ -581,7 +581,8 @@ class MyApp(App):
         super(MyApp, self).__init__(**kwargs)
         self.gameLayout = MyLayout()
         #self.gameLayout.mainGame()
-
+        kivy.clock.schedule_once(self.gameLayout.mainGame)
+    
     def build(self):
         #Window.fullscreen = True
         Window.clearcolor = (1,1,1,1)
@@ -598,6 +599,5 @@ if __name__ == '__main__':
     gameApp = MyApp()
     gameGui = gameApp.build()
     gameApp._run_prepare()
-    gameGui.mainGame()
     runTouchApp()
     gameApp.stop()
