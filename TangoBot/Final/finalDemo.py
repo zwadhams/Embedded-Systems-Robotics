@@ -13,8 +13,8 @@ from movement import *
 
 
 class MyLayout(GridLayout):
-    map = GameLogic.playerNode.get_id()
-    enemyID = "Easy"
+    map = GameLogic.playerNode.id()
+    enemyID = Node.get_enemyType
     healthy = GameLogic.playerHealth
 
     
@@ -228,5 +228,4 @@ if __name__ == '__main__':
 
     voice = pyttsx3.init()
     MyApp().run()
-    print("I can run After")
 
