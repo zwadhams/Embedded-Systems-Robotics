@@ -181,46 +181,54 @@ class GameLogic:
             breakout = False
             userInput = "" #will be voice based
             #user enters their choice
-            if userInput == "run": 
-                num = random.randint(1, 4)
-                if num == 1:
-                    print("You didnt escape successfully, you must fight")
-                    userInput = "fight"
-                else: #teleporting case
-                    print("Escaped successfully")
-                    teleportTo = random.choice(nodeList)
-                    print("Teleported to node", teleportTo.get_id())
-                    teleportTo.set_currentNode()
-                    playerNode = teleportTo
-                    
+            invalidInput = True
+            while (invalidInput):
+                if userInput == "run": 
+                    num = random.randint(1, 4)
+                    if num == 1:
+                        print("You didnt escape successfully, you must fight")
+                        userInput = "fight"
+                    else: #teleporting case
+                        print("Escaped successfully")
+                        teleportTo = random.choice(nodeList)
+                        print("Teleported to node", teleportTo.get_id())
+                        teleportTo.set_currentNode()
+                        playerNode = teleportTo
+                        invalidInput = False
+                        
 
-            if userInput == "fight":
-                if playerNode.get_enemyType() == "Easy": #easy enemy case
-                    print("This should be a breeze (easy enemy)")
-                    hurt = random.randint(5, 15)
-                    playerHealth -= hurt
-                    if playerNode.get_holdsKey() == True:
-                        print("you got a key!")
-                        hasKey = True
-                    if playerHealth > 0:
-                        print("You survived with", playerHealth, "health!")
-                        playerNode.set_enemyType(0)
-                    else:
-                        print("You died, game over :(")
-                        exit()
-                if playerNode.get_enemyType() == "Hard": #hard enemy case
-                    print("Uh oh, he looks scary (hard enemy)")
-                    hurt = random.randint(10, 30)
-                    playerHealth -= hurt
-                    if playerNode.get_holdsKey() == True:
-                        print("you got a key!")
-                        hasKey = True
-                    if playerHealth > 0:
-                        print("You survived with", playerHealth, "health!")
-                        playerNode.set_enemyType(0)
-                    else:
-                        print("You died, game over :(")
-                        exit()
+                elif userInput == "fight":
+                    if playerNode.get_enemyType() == "Easy": #easy enemy case
+                        print("This should be a breeze (easy enemy)")
+                        hurt = random.randint(5, 15)
+                        playerHealth -= hurt
+                        if playerNode.get_holdsKey() == True:
+                            print("you got a key!")
+                            hasKey = True
+                        if playerHealth > 0:
+                            print("You survived with", playerHealth, "health!")
+                            playerNode.set_enemyType(0)
+                        else:
+                            print("You died, game over :(")
+                            exit()
+                    if playerNode.get_enemyType() == "Hard": #hard enemy case
+                        print("Uh oh, he looks scary (hard enemy)")
+                        hurt = random.randint(10, 30)
+                        playerHealth -= hurt
+                        if playerNode.get_holdsKey() == True:
+                            print("you got a key!")
+                            hasKey = True
+                        if playerHealth > 0:
+                            print("You survived with", playerHealth, "health!")
+                            playerNode.set_enemyType(0)
+                        else:
+                            print("You died, game over :(")
+                            exit()
+                    invalidInput = False
+                else:
+                    print("Enemy encountered, would you like to fight or run")
+                    userInput = "fight" #will be voice based
+                    invalidInput = True
         #-----------------------------------------------------------------------------#
         #heal station logic - COMPLETE        
 
