@@ -2,7 +2,6 @@ import math
 import pathlib, os, sys
 import random
 import time, serial
-from tkinter import *
 from TangoController import *
 import os
 from playsound import playsound
@@ -415,7 +414,6 @@ class GameLogic:
             #this should be the last thing needed for the logic
             #we also need to add voice output to it as well
             GameLogic.move += 1
-            GameLogic.mainGame()
         else:
             #robot should say something before it closes the program
             print("player has lost....took too many moves")

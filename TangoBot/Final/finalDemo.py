@@ -14,7 +14,7 @@ from movement import *
 
 class MyLayout(GridLayout):
 
-    map = GameLogic.playerNode.get_id
+    map = GameLogic.playerNode.id
     enemyID = GameLogic.playerNode.get_enemyType
     healthy = GameLogic.playerHealth
 
@@ -35,7 +35,8 @@ class MyLayout(GridLayout):
                     height=50,
                     )
 
-    
+    while GameLogic.move < 15:
+        GameLogic.mainGame()
         
     
     def __init__(self, **kwargs):
@@ -228,6 +229,5 @@ if __name__ == '__main__':
 ##    # print(listen())
 
     voice = pyttsx3.init()
-    GameLogic.mainGame()
     MyApp().run()
 

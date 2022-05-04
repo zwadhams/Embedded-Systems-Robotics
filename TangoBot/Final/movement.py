@@ -275,7 +275,6 @@ class GameLogic:
             #this should be the last thing needed for the logic
             #we also need to add voice output to it as well
             GameLogic.move += 1
-            GameLogic.mainGame()
         else:
             #robot should say something before it closes the program
             print("player has lost....took too many moves")
