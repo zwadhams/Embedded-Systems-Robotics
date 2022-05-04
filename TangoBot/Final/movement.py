@@ -188,6 +188,7 @@ class GameLogic:
             #enemy fighting logic - COMPLETE
             if GameLogic.playerNode.get_enemyType() == "Easy" or GameLogic.playerNode.get_enemyType() == "Hard":
                 engine.say("Enemy encountered, would you like to fight or run?")
+                engine.runAndWait()
                 print("Enemy encountered, would you like to fight or run")
                 breakout = False
                 userInput = "" #will be voice based
@@ -198,10 +199,12 @@ class GameLogic:
                         num = random.randint(1, 4)
                         if num == 1:
                             engine.say("You didnt escape successfully, you must fight")
+                            engine.runAndWait()
                             print("You didnt escape successfully, you must fight")
                             userInput = "fight"
                         else: #teleporting case
                             engine.say("Escaped successfully")
+                            engine.runAndWait()
                             print("Escaped successfully")
                             teleportTo = random.choice(GameLogic.nodeList)
                             print("Teleported to node", teleportTo.get_id())
@@ -213,41 +216,50 @@ class GameLogic:
                     elif userInput == "fight":
                         if GameLogic.playerNode.get_enemyType() == "Easy": #easy enemy case
                             engine.say("This should be a breeze (easy enemy)")
+                            engine.runAndWait()
                             print("This should be a breeze (easy enemy)")
                             hurt = random.randint(5, 15)
                             GameLogic.playerHealth -= hurt
                             if GameLogic.playerNode.get_holdsKey() == True:
                                 engine.say("You got a key!")
+                                engine.runAndWait()
                                 print("you got a key!")
                                 GameLogic.hasKey = True
                             if GameLogic.playerHealth > 0:
                                 engine.say("You survived with", GameLogic.playerHealth, "health!")
+                                engine.runAndWait()
                                 print("You survived with", GameLogic.playerHealth, "health!")
                                 GameLogic.playerNode.set_enemyType(0)
                             else:
                                 engine.say("You died, game over :(")
+                                engine.runAndWait()
                                 print("You died, game over :(")
                                 exit()
                         if GameLogic.playerNode.get_enemyType() == "Hard": #hard enemy case
                             engine.say("Uh oh, he looks scary (hard enemy)")
+                            engine.runAndWait()
                             print("Uh oh, he looks scary (hard enemy)")
                             hurt = random.randint(10, 30)
                             GameLogic.playerHealth -= hurt
                             if GameLogic.playerNode.get_holdsKey() == True:
                                 engine.say("you got a key!")
+                                engine.runAndWait()
                                 print("you got a key!")
                                 hasKey = True
                             if GameLogic.playerHealth > 0:
                                 engine.say("You survived with", GameLogic.playerHealth, "health!")
+                                engine.runAndWait()
                                 print("You survived with", GameLogic.playerHealth, "health!")
                                 GameLogic.playerNode.set_enemyType(0)
                             else:
                                 engine.say("You died, game over :(")
+                                engine.runAndWait()
                                 print("You died, game over :(")
                                 exit()
                         invalidInput = False
                     else:
                         engine.say("Enemy encountered, would you like to fight or run")
+                        engine.runAndWait()
                         print("Enemy encountered, would you like to fight or run")
                         userInput = "fight" #will be voice based
                         invalidInput = True
@@ -256,9 +268,11 @@ class GameLogic:
 
             if GameLogic.playerNode.get_healStation() == True:
                 engine.say("Youve encountered a heal station! Healing you now.")
+                engine.runAndWait()
                 print("Youve encountered a heal station! Healing you now.")
                 GameLogic.playerHealth = 60
                 engine.say("Current health:", GameLogic.playerHealth)
+                engine.runAndWait()
                 print("Current health:", GameLogic.playerHealth)
 
             #-----------------------------------------------------------------------------#
@@ -267,10 +281,12 @@ class GameLogic:
             if GameLogic.playerNode.get_exitLocation() == True:
                 if GameLogic.hasKey == True:
                     engine.say("Youve escaped! You win!")
+                    engine.runAndWait()
                     print("Youve escaped! You win!")
                     exit()
                 else:
                     engine.say("Youve found the exit but don't have the key! Go find it!")
+                    engine.runAndWait()
                     print("Youve found the exit but don't have the key! Go find it!")
                 
             #-----------------------------------------------------------------------------#
@@ -278,23 +294,25 @@ class GameLogic:
             validDirections = list(GameLogic.playerNode.get_cardinals())
             validNodes = list(GameLogic.playerNode.get_connections())
             engine.say("I see a path to the: ")
+            engine.runAndWait()
             print("I see a path to the: ")
             for i in range(len(validDirections)):
                 print(validDirections[i])
                 engine.say(validDirections[i])
             print("Which direction would you like to go in?")
             engine.say("Which direction would you like to go in?")
+            engine.runAndWait()
             GameLogic.playerNode.remove_currentNode()
             #userInput = validDirections[0] # Test the first choice
             flag = True
             while flag:
-                engine.say("What direction do you want to go?")
                 userInput = input("Enter Direction: ")
                 print(userInput) # print
                 if userInput in validDirections:
                     flag = False
                 else:
                     engine.say("This is not a valid direction, please choose again")
+                    engine.runAndWait()
                     print("This is not a valid direction, please choose again")
                     
             print("Going to " + str(validNodes[validDirections.index(userInput)].get_id())) # use validNodes[validDirections.index(userInput)].get_id() to get the node id/node key
@@ -302,10 +320,12 @@ class GameLogic:
             GameLogic.playerNode.set_currentNode()
             GameLogic.playerNode.curLookCard = userInput.capitalize()
             engine.say("Looking " + GameLogic.playerNode.curLookCard)
+            engine.runAndWait()
             print("Looking " + GameLogic.playerNode.curLookCard)
             GameLogic.move += 1
         else:
             engine.say("Uh oh, you ran out of moves, you lose!!! loser, loser, loser hahahaha")
+            engine.runAndWait()
             print("player has lost....took too many moves")
             exit()
 
