@@ -161,6 +161,9 @@ class GameMove:
 
     def changeDirection(current_direction:str, chooses):
         choosesStr = ""
+        lowerChooses = []
+        for choose in chooses:
+            lowerChooses.append(choose.lower())
         for choose in chooses:
             choosesStr += choose.lower() + ","
         cur_dir = current_direction.lower()
@@ -168,11 +171,13 @@ class GameMove:
         while (invalid):
             GameMove.speak("Currently looking "+cur_dir)
             GameMove.speak("I can go "+choosesStr)
+            print("I can go "+choosesStr)
             GameMove.speak("Which direction should I go?")
             dir_input = GameMove.listen().lower()
             # dir_input = "west"
+            print(dir_input)
             cardinal = ["north", "east", "south", "west"]
-            if (dir_input in cardinal) and (dir_input in chooses):
+            if (dir_input in cardinal) and (dir_input in lowerChooses):
                 if (dir_input != cur_dir):
                     to_dir_index = cardinal.index(dir_input)
                     from_dir_index = cardinal.index(cur_dir)
@@ -277,9 +282,9 @@ class GameLogic:
     #initializing player health and that they dont have the key
     playerHealth = 60
     hasKey = False
-
-    for move in range(1): #number of turns before the player loses, was thinking 15 for 
-        playerNode = 0
+    playerNode = 0
+    for move in range(15): #number of turns before the player loses, was thinking 15 for 
+        
         
         for node in nodeList: #finds which node the player is currently on
             if node.get_currentNode() == True:
@@ -377,15 +382,14 @@ class GameLogic:
         # print("I see a path to the: ")
         # for i in range(len(validDirections)):
         #     print(validDirections[i] + str(validNodes[i].get_id()))
-        
         # print("Which direction would you like to go in?")
-        userInput = GameMove.changeDirection(playerNode.curLookCard, validDirections)
+        userInput = GameMove.changeDirection(playerNode.curLookCard, validDirections).capitalize()
         # userInput = validDirections[0] # Test the first choice
 
         print(userInput) # print
         # print("Going to " + str(validNodes[validDirections.index(userInput)].get_id())) # use validNodes[validDirections.index(userInput)].get_id() to get the node id/node key
         playerNode = validNodes[validDirections.index(userInput)]
-        playerNode.curLookCard = userInput.capitalize()
+        playerNode.curLookCard = userInput
         # print("Looking " + playerNode.curLookCard)
         #gets user input via voice
         #we need to move the node to in the direction the user says
