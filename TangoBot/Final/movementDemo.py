@@ -283,133 +283,137 @@ class GameLogic:
     playerHealth = 60
     hasKey = False
     playerNode = 0
-    for move in range(15): #number of turns before the player loses, was thinking 15 for 
-        
-        
-        for node in nodeList: #finds which node the player is currently on
-            if node.get_currentNode() == True:
-                playerNode = node
-                #playerNode = n3
+    move = 0
+    def mainGame():
+        if GameLogic.move < 15: #number of turns before the player loses, was thinking 15 for 
+            
+            
+            for node in GameLogic.nodeList: #finds which node the player is currently on
+                if node.get_currentNode() == True:
+                    GameLogic.playerNode = node
+                    #playerNode = n3
 
-        print("The player is currently on node", playerNode.get_id())
-        GameMove.speak("The player is currently on node" + str(playerNode.get_id()))
-        
-        #-----------------------------------------------------------------------------#
-        #enemy fighting logic - COMPLETE
-        if playerNode.get_enemyType() == "Easy" or playerNode.get_enemyType() == "Hard":
-            print("Enemy encountered, would you like to fight or run")
-            GameMove.speak("Enemy encountered, would you like to fight or run")
-            breakout = False
-            userInput = GameMove.listen() #will be voice based
-            #user enters their choice
-            invalidInput = True
-            while (invalidInput): 
-                if userInput == "run": 
-                    num = random.randint(1, 4)
-                    if num == 1:
-                        print("You didnt escape successfully, you must fight")
-                        GameMove.speak("You didnt escape successfully, you must fight")
-                        userInput = "fight"
-                    else: #teleporting case
-                        print("Escaped successfully")
-                        GameMove.speak("Escaped successfully")
-                        teleportTo = random.choice(nodeList)
-                        print("Teleported to node", teleportTo.get_id())
-                        GameMove.speak("Teleported to node " + str(teleportTo.get_id()))
-                        teleportTo.set_currentNode()
-                        playerNode = teleportTo
-                        invalidInput = False
-                        
+            print("The player is currently on node", GameLogic.playerNode.get_id())
+            GameMove.speak("The player is currently on node" + str(GameLogic.playerNode.get_id()))
+            
+            #-----------------------------------------------------------------------------#
+            #enemy fighting logic - COMPLETE
+            if GameLogic.playerNode.get_enemyType() == "Easy" or GameLogic.playerNode.get_enemyType() == "Hard":
+                print("Enemy encountered, would you like to fight or run")
+                GameMove.speak("Enemy encountered, would you like to fight or run")
+                breakout = False
+                userInput = GameMove.listen() #will be voice based
+                #user enters their choice
+                invalidInput = True
+                while (invalidInput): 
+                    if userInput == "run": 
+                        num = random.randint(1, 4)
+                        if num == 1:
+                            print("You didnt escape successfully, you must fight")
+                            GameMove.speak("You didnt escape successfully, you must fight")
+                            userInput = "fight"
+                        else: #teleporting case
+                            print("Escaped successfully")
+                            GameMove.speak("Escaped successfully")
+                            teleportTo = random.choice(GameLogic.nodeList)
+                            print("Teleported to node", teleportTo.get_id())
+                            GameMove.speak("Teleported to node " + str(teleportTo.get_id()))
+                            teleportTo.set_currentNode()
+                            GameLogic.playerNode = teleportTo
+                            invalidInput = False
+                            
 
-                elif userInput == "fight":
-                    if playerNode.get_enemyType() == "Easy": #easy enemy case
-                        print("This should be a breeze (easy enemy)")
-                        GameMove.speak("This should be a breeze (easy enemy)")
-                        GameMove.attack()
-                        hurt = random.randint(5, 15)
-                        playerHealth -= hurt
-                        if playerNode.get_holdsKey() == True:
-                            print("you got a key!")
-                            GameMove.speak("you got a key!")
-                            hasKey = True
-                        if playerHealth > 0:
-                            print("You survived with", playerHealth, "health!")
-                            GameMove.speak("You survived with " + str(playerHealth) + " health!")
-                            playerNode.set_enemyType(0)
-                        else:
-                            print("You died, game over :(")
-                            GameMove.speak("You died, game over :(")
-                            exit()
-                        invalidInput = False
-                    if playerNode.get_enemyType() == "Hard": #hard enemy case
-                        print("Uh oh, he looks scary (hard enemy)")
-                        GameMove.speak("Uh oh, he looks scary (hard enemy)")
-                        GameMove.attack()
-                        hurt = random.randint(10, 30)
-                        playerHealth -= hurt
-                        if playerNode.get_holdsKey() == True:
-                            print("you got a key!")
-                            GameMove.speak("you got a key!")
-                            hasKey = True
-                        if playerHealth > 0:
-                            print("You survived with", playerHealth, "health!")
-                            GameMove.speak("You survived with " + str(playerHealth) + " health!")
-                            playerNode.set_enemyType(0)
-                        else:
-                            print("You died, game over :(")
-                            GameMove.speak("You died, game over :(")
-                            exit()
-                        invalidInput = False
+                    elif userInput == "fight":
+                        if GameLogic.playerNode.get_enemyType() == "Easy": #easy enemy case
+                            print("This should be a breeze (easy enemy)")
+                            GameMove.speak("This should be a breeze (easy enemy)")
+                            GameMove.attack()
+                            hurt = random.randint(5, 15)
+                            GameLogic.playerHealth -= hurt
+                            if GameLogic.playerNode.get_holdsKey() == True:
+                                print("you got a key!")
+                                GameMove.speak("you got a key!")
+                                GameLogic.hasKey = True
+                            if GameLogic.playerHealth > 0:
+                                print("You survived with", GameLogic.playerHealth, "health!")
+                                GameMove.speak("You survived with " + str(GameLogic.playerHealth) + " health!")
+                                GameLogic.playerNode.set_enemyType(0)
+                            else:
+                                print("You died, game over :(")
+                                GameMove.speak("You died, game over :(")
+                                exit()
+                            invalidInput = False
+                        if GameLogic.playerNode.get_enemyType() == "Hard": #hard enemy case
+                            print("Uh oh, he looks scary (hard enemy)")
+                            GameMove.speak("Uh oh, he looks scary (hard enemy)")
+                            GameMove.attack()
+                            hurt = random.randint(10, 30)
+                            GameLogic.playerHealth -= hurt
+                            if GameLogic.playerNode.get_holdsKey() == True:
+                                print("you got a key!")
+                                GameMove.speak("you got a key!")
+                                GameLogic.hasKey = True
+                            if GameLogic.playerHealth > 0:
+                                print("You survived with", GameLogic.playerHealth, "health!")
+                                GameMove.speak("You survived with " + str(GameLogic.playerHealth) + " health!")
+                                GameLogic.playerNode.set_enemyType(0)
+                            else:
+                                print("You died, game over :(")
+                                GameMove.speak("You died, game over :(")
+                                exit()
+                            invalidInput = False
+                    else:
+                        print("Enemy encountered, would you like to fight or run")
+                        userInput = GameMove.listen() #will be voice based
+                        invalidInput = True
+            #-----------------------------------------------------------------------------#
+            #heal station logic - COMPLETE        
+
+            if GameLogic.playerNode.get_healStation() == True:
+                print("Youve encountered a heal station! Healing you now.")
+                GameMove.speak("Youve encountered a heal station! Healing you now.")
+                GameLogic.playerHealth = 60
+                print("Current health:", GameLogic.playerHealth)
+                GameMove.speak("Current health: " + str(GameLogic.playerHealth))
+
+            #-----------------------------------------------------------------------------#
+            #endgame logic - COMPLETE
+                
+            if GameLogic.playerNode.get_exitLocation() == True:
+                if GameLogic.hasKey == True:
+                    print("Youve escaped! You win!")
+                    GameMove.speak("Youve escaped! You win!")
+                    exit()
                 else:
-                    print("Enemy encountered, would you like to fight or run")
-                    userInput = GameMove.listen() #will be voice based
-                    invalidInput = True
-        #-----------------------------------------------------------------------------#
-        #heal station logic - COMPLETE        
+                    print("Youve found the exit but don't have the key! Go find it!")
+                    GameMove.speak("Youve found the exit but don't have the key! Go find it!")
+                
+            #-----------------------------------------------------------------------------#
+            #movement logic - NEEDS WORK
+            validDirections = list(GameLogic.playerNode.get_cardinals())
+            validNodes = list(GameLogic.playerNode.get_connections())
+            # print("I see a path to the: ")
+            # for i in range(len(validDirections)):
+            #     print(validDirections[i] + str(validNodes[i].get_id()))
+            # print("Which direction would you like to go in?")
+            GameLogic.playerNode.remove_currentNode()
+            userInput = GameMove.changeDirection(GameLogic.playerNode.curLookCard, validDirections).capitalize()
+            # userInput = validDirections[0] # Test the first choice
 
-        if playerNode.get_healStation() == True:
-            print("Youve encountered a heal station! Healing you now.")
-            GameMove.speak("Youve encountered a heal station! Healing you now.")
-            playerHealth = 60
-            print("Current health:", playerHealth)
-            GameMove.speak("Current health: " + str(playerHealth))
-
-        #-----------------------------------------------------------------------------#
-        #endgame logic - COMPLETE
-            
-        if playerNode.get_exitLocation() == True:
-            if hasKey == True:
-                print("Youve escaped! You win!")
-                GameMove.speak("Youve escaped! You win!")
-                exit()
-            else:
-                print("Youve found the exit but don't have the key! Go find it!")
-                GameMove.speak("Youve found the exit but don't have the key! Go find it!")
-            
-        #-----------------------------------------------------------------------------#
-        #movement logic - NEEDS WORK
-        validDirections = list(playerNode.get_cardinals())
-        validNodes = list(playerNode.get_connections())
-        # print("I see a path to the: ")
-        # for i in range(len(validDirections)):
-        #     print(validDirections[i] + str(validNodes[i].get_id()))
-        # print("Which direction would you like to go in?")
-        playerNode.remove_currentNode()
-        userInput = GameMove.changeDirection(playerNode.curLookCard, validDirections).capitalize()
-        # userInput = validDirections[0] # Test the first choice
-
-        print(userInput) # print
-        # print("Going to " + str(validNodes[validDirections.index(userInput)].get_id())) # use validNodes[validDirections.index(userInput)].get_id() to get the node id/node key
-        playerNode = validNodes[validDirections.index(userInput)]
-        playerNode.set_currentNode()
-        playerNode.curLookCard = userInput
-        # print("Looking " + playerNode.curLookCard)
-        #gets user input via voice
-        #we need to move the node to in the direction the user says
-        #this should be the last thing needed for the logic
-        #we also need to add voice output to it as well
-
-    #robot should say something before it closes the program
-    print("player has lost....took too many moves")
-    GameMove.speak("player has lost....took too many moves")
-    #exit()
+            print(userInput) # print
+            # print("Going to " + str(validNodes[validDirections.index(userInput)].get_id())) # use validNodes[validDirections.index(userInput)].get_id() to get the node id/node key
+            GameLogic.playerNode = validNodes[validDirections.index(userInput)]
+            GameLogic.playerNode.set_currentNode()
+            GameLogic.playerNode.curLookCard = userInput
+            # print("Looking " + playerNode.curLookCard)
+            #gets user input via voice
+            #we need to move the node to in the direction the user says
+            #this should be the last thing needed for the logic
+            #we also need to add voice output to it as well
+            GameLogic.move += 1
+            GameLogic.mainGame()
+        else:
+            #robot should say something before it closes the program
+            print("player has lost....took too many moves")
+            GameMove.speak("player has lost....took too many moves")
+            #exit()
