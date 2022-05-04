@@ -166,7 +166,7 @@ class GameLogic:
     print("Beginning Game Sequence")
 
     #initializing player health and that they dont have the key
-    playerHealth = 60
+    playerHealth = 80
     hasKey = False
     playerNode = Node(None)
     for node in nodeList: #finds which node the player is currently on
@@ -175,7 +175,7 @@ class GameLogic:
             
     move = 0
     def mainGame():
-        if GameLogic.move < 15: #number of turns before the player loses, was thinking 15 for 
+        if GameLogic.move < 25: #number of turns before the player loses, was thinking 15 for 
 
             
             for node in GameLogic.nodeList: #finds which node the player is currently on
@@ -191,7 +191,7 @@ class GameLogic:
                 engine.runAndWait()
                 print("Enemy encountered, would you like to fight or run")
                 breakout = False
-                userInput = "" #will be voice based
+                userInput = input("Fight or Run?") #will be voice based
                 #user enters their choice
                 invalidInput = True
                 while (invalidInput):
@@ -226,9 +226,9 @@ class GameLogic:
                                 print("you got a key!")
                                 GameLogic.hasKey = True
                             if GameLogic.playerHealth > 0:
-                                engine.say("You survived with", GameLogic.playerHealth, "health!")
+                                engine.say("You survived with" + str(GameLogic.playerHealth) + "health!")
                                 engine.runAndWait()
-                                print("You survived with", GameLogic.playerHealth, "health!")
+                                print("You survived with", str(GameLogic.playerHealth), "health!")
                                 GameLogic.playerNode.set_enemyType(0)
                             else:
                                 engine.say("You died, game over :(")
@@ -247,9 +247,9 @@ class GameLogic:
                                 print("you got a key!")
                                 hasKey = True
                             if GameLogic.playerHealth > 0:
-                                engine.say("You survived with", GameLogic.playerHealth, "health!")
+                                engine.say("You survived with" + str(GameLogic.playerHealth) + "health!")
                                 engine.runAndWait()
-                                print("You survived with", GameLogic.playerHealth, "health!")
+                                print("You survived with", str(GameLogic.playerHealth), "health!")
                                 GameLogic.playerNode.set_enemyType(0)
                             else:
                                 engine.say("You died, game over :(")
@@ -271,7 +271,7 @@ class GameLogic:
                 engine.runAndWait()
                 print("Youve encountered a heal station! Healing you now.")
                 GameLogic.playerHealth = 60
-                engine.say("Current health:", GameLogic.playerHealth)
+                engine.say("Current health:" + str(GameLogic.playerHealth))
                 engine.runAndWait()
                 print("Current health:", GameLogic.playerHealth)
 
@@ -323,6 +323,8 @@ class GameLogic:
             engine.runAndWait()
             print("Looking " + GameLogic.playerNode.curLookCard)
             GameLogic.move += 1
+            print("moves taken: ", GameLogic.move)
+            GameLogic.mainGame()
         else:
             engine.say("Uh oh, you ran out of moves, you lose!!! loser, loser, loser hahahaha")
             engine.runAndWait()
