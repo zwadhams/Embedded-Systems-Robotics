@@ -229,5 +229,3 @@ if __name__ == '__main__':
 
     voice = pyttsx3.init()
     MyApp().run()
-    print("Nope")
-
