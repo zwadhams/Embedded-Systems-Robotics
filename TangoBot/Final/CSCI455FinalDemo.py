@@ -17,6 +17,7 @@ from TangoController import *
 from playsound import playsound
 import speech_recognition as sr
 
+import threading
 
 class Node:
     def __init__(self, key):
@@ -487,8 +488,12 @@ class MyLayout(GridLayout):
 
         if GameLogic.hasKey == True:
             self.keyFound()
-        
+        threading.Thread(target=self.runGame).start()
 
+
+    def runGame(self):
+        while ((GameLogic.move < 15) and App.get_running_app()):
+            GameLogic.mainGame()
     def location(self):        
         if self.map == 1:
             self.img.source = 'images/maps/One.png'
@@ -649,8 +654,7 @@ if __name__ == '__main__':
 ##    # print(listen())
 
     voice = pyttsx3.init()
-    print("Nope")
 
+    # while (GameLogic.move < 15):
     MyApp().run()
-    while (GameLogic.move < 15):
-        GameLogic.mainGame()
+        # GameLogic.mainGame()
