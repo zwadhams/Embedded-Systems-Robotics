@@ -13,6 +13,11 @@ from movement import *
 
 
 class MyLayout(GridLayout):
+    map = playerNode.get_id()
+    enemyID = "Easy"
+    healthy = playerHealth
+
+    
     img = Image(source='images/maps/One.png',
                 keep_ratio= False,
                 allow_stretch = True
@@ -24,14 +29,13 @@ class MyLayout(GridLayout):
                    )
 
     health = Button(color =(1, 0, .65, 1),
-                    text= "Health 60/60",
+                    text= ("Health " + str(healthy) + "/60"),
                     size_hint_y = None,
                     height=50,
                     )
 
-    map = playerNode.get_id()
-    enemyID = 2
-    healthy = 60
+    
+        
     
     def __init__(self, **kwargs):
         super(MyLayout, self).__init__(**kwargs)
@@ -48,7 +52,7 @@ class MyLayout(GridLayout):
         self.add_widget(self.bottom)
 
 
-        #self.key.bind(on_press=self.location)
+        self.key.bind(on_press=self.enemy)
         self.bottom.add_widget(self.key)
         
 
@@ -58,6 +62,9 @@ class MyLayout(GridLayout):
 
 
         self.location()
+
+        if hasKey == True:
+            self.keyFound()
         
 
     def location(self):        
@@ -82,19 +89,19 @@ class MyLayout(GridLayout):
 
 
     def enemy(self, instance):
-        if self.enemyID == 1:
+        if self.enemyID == "Easy":
             self.img.source = 'images/enemy/slime.gif'
             voice.say("Splash")
             voice.runAndWait()
             voice.say("Run or Fight Slime")
             voice.runAndWait()
-        elif self.enemyID == 2:
+        elif self.enemyID == "Hard":
             self.img.source = 'images/enemy/boss.gif'
             voice.say("Screeeeeeetch")
             voice.runAndWait()
             voice.say("Run or Fight Skeleton Mutant")
             voice.runAndWait()
-            self.damage()
+        hasKey = True
             
 
     def healing(self, instance):
@@ -104,7 +111,7 @@ class MyLayout(GridLayout):
         self.healthy = 60
         self.health.text = "Health " + str(self.healthy) + "/60"
 
-    def keyFound(self, instance):
+    def keyFound(self):
         self.key.background_normal = 'images/items/key.png'
         voice.say("Key Found")
         voice.runAndWait()
