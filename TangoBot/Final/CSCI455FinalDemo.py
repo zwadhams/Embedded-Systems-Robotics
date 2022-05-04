@@ -306,7 +306,7 @@ class GameLogic:
                 if node.get_currentNode() == True:
                     GameLogic.playerNode = node
                     #playerNode = n3
-            MyLayout.location()
+            App.location()
             print("The player is currently on node", GameLogic.playerNode.get_id())
             GameMove.speak("The player is currently on node" + str(GameLogic.playerNode.get_id()))
             
@@ -314,8 +314,8 @@ class GameLogic:
             #enemy fighting logic - COMPLETE
             if GameLogic.playerNode.get_enemyType() == "Easy" or GameLogic.playerNode.get_enemyType() == "Hard":
                 print("Enemy encountered, would you like to fight or run")
-                MyLayout.enemyID = GameLogic.playerNode.get_enemyType()
-                MyLayout.enemy()
+                App.enemyID = GameLogic.playerNode.get_enemyType()
+                App.enemy()
                 # GameMove.speak("Enemy encountered, would you like to fight or run")
                 breakout = False
                 userInput = GameMove.listen() #will be voice based
@@ -349,21 +349,21 @@ class GameLogic:
                             GameMove.attack()
                             hurt = random.randint(5, 15)
                             GameLogic.playerHealth -= hurt
-                            MyLayout.healthy = GameLogic.playerHealth
-                            MyLayout.damage()
+                            App.healthy = GameLogic.playerHealth
+                            App.damage()
                             if GameLogic.playerHealth > 0:
                                 print("You survived with", GameLogic.playerHealth, "health!")
                                 GameMove.speak("You survived with " + str(GameLogic.playerHealth) + " health!")
                                 GameLogic.playerNode.set_enemyType(0)
                             else:
                                 print("You died, game over :(")
-                                MyLayout.dead()
+                                App.dead()
                                 GameMove.speak("You died, game over :(")
                                 exit()
                             if GameLogic.playerNode.get_holdsKey() == True:
                                 print("you got a key!")
                                 # GameMove.speak("you got a key!")
-                                MyLayout.keyFound()
+                                App.keyFound()
                                 GameLogic.hasKey = True
                         if GameLogic.playerNode.get_enemyType() == "Hard": #hard enemy case
                             invalidInput = False
@@ -372,21 +372,21 @@ class GameLogic:
                             GameMove.attack()
                             hurt = random.randint(10, 30)
                             GameLogic.playerHealth -= hurt
-                            MyLayout.healthy = GameLogic.playerHealth
-                            MyLayout.damage()
+                            App.healthy = GameLogic.playerHealth
+                            App.damage()
                             if GameLogic.playerHealth > 0:
                                 print("You survived with", GameLogic.playerHealth, "health!")
                                 GameMove.speak("You survived with " + str(GameLogic.playerHealth) + " health!")
                                 GameLogic.playerNode.set_enemyType(0)
                             else:
                                 print("You died, game over :(")
-                                MyLayout.dead()
+                                App.dead()
                                 GameMove.speak("You died, game over :(")
                                 exit()
                             if GameLogic.playerNode.get_holdsKey() == True:
                                 print("you got a key!")
                                 # GameMove.speak("you got a key!")
-                                MyLayout.keyFound()
+                                App.keyFound()
                                 GameLogic.hasKey = True
                 
                     else:
@@ -400,7 +400,7 @@ class GameLogic:
                 print("Youve encountered a heal station! Healing you now.")
                 GameMove.speak("Youve encountered a heal station! Healing you now.")
                 GameLogic.playerHealth = 60
-                MyLayout.healing()
+                App.healing()
                 print("Current health:", GameLogic.playerHealth)
                 GameMove.speak("Current health: " + str(GameLogic.playerHealth))
 
