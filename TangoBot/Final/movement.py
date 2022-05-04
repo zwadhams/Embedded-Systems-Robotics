@@ -164,6 +164,10 @@ class GameLogic:
     playerHealth = 60
     hasKey = False
     playerNode = Node(None)
+    for node in nodeList: #finds which node the player is currently on
+        if node.get_currentNode() == True:
+            playerNode = node
+            #playerNode = n3
     move = 0
     def mainGame():
         if GameLogic.move < 15: #number of turns before the player loses, was thinking 15 for 
