@@ -163,7 +163,7 @@ print("Beginning Game Sequence")
 playerHealth = 60
 hasKey = False
 
-for move in range(2): #number of turns before the player loses, was thinking 15 for 
+for move in range(1): #number of turns before the player loses, was thinking 15 for 
     playerNode = 0
     
     for node in nodeList: #finds which node the player is currently on
@@ -241,10 +241,16 @@ for move in range(2): #number of turns before the player loses, was thinking 15 
     #-----------------------------------------------------------------------------#
     #movement logic - NEEDS WORK
     validDirections = list(playerNode.get_cardinals())
+    validNodes = list(playerNode.get_connections())
     print("I see a path to the: ")
     for i in range(len(validDirections)):
-        print(validDirections[i])
+        print(validDirections[i] + str(validNodes[i].get_id()))
+    
     print("Which direction would you like to go in?")
+    userInput = validDirections[0] # Test the first choice
+    print(userInput) # print
+    print("Going to " + str(validNodes[validDirections.index(userInput)].get_id())) # use validNodes[validDirections.index(userInput)].get_id() to get the node id/node key
+    playerNode = validNodes[validDirections.index(userInput)]
     #gets user input via voice
     #we need to move the node to in the direction the user says
     #this should be the last thing needed for the logic
