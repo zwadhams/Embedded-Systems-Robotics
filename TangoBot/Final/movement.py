@@ -175,7 +175,7 @@ class GameLogic:
             
     move = 0
     def mainGame():
-        if GameLogic.move < 25: #number of turns before the player loses, was thinking 15 for 
+        if GameLogic.move < 20: #number of turns before the player loses, was thinking 15 for 
 
             
             for node in GameLogic.nodeList: #finds which node the player is currently on
@@ -245,7 +245,7 @@ class GameLogic:
                                 engine.say("you got a key!")
                                 engine.runAndWait()
                                 print("you got a key!")
-                                hasKey = True
+                                GameLogic.hasKey = True
                             if GameLogic.playerHealth > 0:
                                 engine.say("You survived with" + str(GameLogic.playerHealth) + "health!")
                                 engine.runAndWait()
