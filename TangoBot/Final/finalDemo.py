@@ -14,7 +14,7 @@ from movement import *
 
 class MyLayout(GridLayout):
 
-    map = GameLogic.playerNode.id
+    map = GameLogic.playerNode.get_id
     enemyID = GameLogic.playerNode.get_enemyType
     healthy = GameLogic.playerHealth
 
