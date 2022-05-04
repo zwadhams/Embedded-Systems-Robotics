@@ -9,7 +9,7 @@ from kivy.uix.button import Button
 import random
 import pyttsx3
 import time
-#from FinalProject import *
+from movement import *
 
 
 class MyLayout(GridLayout):
@@ -29,7 +29,7 @@ class MyLayout(GridLayout):
                     height=50,
                     )
 
-    map = 1
+    map = playerNode.get_id()
     enemyID = 2
     healthy = 60
     
@@ -48,33 +48,36 @@ class MyLayout(GridLayout):
         self.add_widget(self.bottom)
 
 
-        self.key.bind(on_press=self.enemy)
+        #self.key.bind(on_press=self.location)
         self.bottom.add_widget(self.key)
         
 
         
-        self.health.bind(on_press=self.healing)
+        #self.health.bind(on_press=self.healing)
         self.bottom.add_widget(self.health)
+
+
+        self.location()
         
 
-    def location(self, instance):        
+    def location(self):        
         if self.map == 1:
             self.img.source = 'images/maps/One.png'
         elif self.map == 2:
             self.img.source = 'images/maps/two.png'
         elif self.map == 3:
             self.img.source = 'images/maps/three.png'
-        elif self.map == 4:
-            self.img.source = 'images/maps/six.png'
-        elif self.map == 5:
-            self.img.source = 'images/maps/seven.png'
         elif self.map == 6:
-            self.img.source = 'images/maps/eight.png'
+            self.img.source = 'images/maps/six.png'
         elif self.map == 7:
-            self.img.source = 'images/maps/eleven.png'
+            self.img.source = 'images/maps/seven.png'
         elif self.map == 8:
+            self.img.source = 'images/maps/eight.png'
+        elif self.map == 11:
+            self.img.source = 'images/maps/eleven.png'
+        elif self.map == 12:
             self.img.source = 'images/maps/twelve.png'
-        elif self.map == 9:
+        elif self.map == 13:
             self.img.source = 'images/maps/thirteen.png'
 
 
